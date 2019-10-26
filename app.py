@@ -3,11 +3,13 @@
 # reports.wwdt.me is relased under the terms of the Apache License 2.0
 """Flask application startup file"""
 
+import json
 import os
 
 import mysql.connector
 from mysql.connector.errors import DatabaseError, ProgrammingError
-from flask import Flask, abort, make_response, request
+from flask import (Flask, abort, redirect, render_template,
+                   render_template_string, request, url_for)
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -42,6 +44,34 @@ def load_config():
         else:
             raise EnvironmentError("Missing 'local' section in config file")
 
+#endregion
+
+#region Error Routes
+@app.errorhandler(404)
+def error_404(error):
+    return redirect(url_for("index"))
+
+def error_500(error):
+    return render_template_string(error)
+
+#endregion
+
+#region Report Routes
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/panelist")
+def panelist():
+    return redirect(url_for("index"))
+
+@app.route("/panelist/appearances_by_year")
+def panelist_appearance_by_year():
+    return render_template("panelist/appearances_by_year.html")
+
+@app.route("/panelist/pvp")
+def panelist_vs_panelist():
+    return render_template("panelist/pvp.html")
 #endregion
 
 
