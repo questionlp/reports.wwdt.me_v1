@@ -15,7 +15,7 @@
     <!-- Google Analytics -->
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', '{{ render_data["ga_property_code"] }}', 'auto');
+    ga('create', '{{ ga_property_code }}', 'auto');
     ga('send', 'pageview');
     </script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
@@ -35,10 +35,38 @@
             <div id="toc">
                 <h2>Available Report Categories</h2>
                 <ul>
+                    <li><a href="#location">Location</a></li>
                     <li><a href="#panelist">Panelist</a></li>
                 </ul>
             </div>
             <!-- End Table of Contents -->
+
+            <!-- Start Location Reports -->
+            <h2 id="location">Location</h2>
+            <table class="pure-table pure-table-bordered">
+                <colgroup>
+                    <col class="report-name">
+                    <col class="report-description">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Report</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="{{ url_for('location_average_scores') }}">Average Scores by Location</a></td>
+                        <td>
+                            A report listing out the average panelist score and average total score
+                            for each location the show has had a show broadcasted from; excluding the
+                            25th Anniversary Special recorded in October 2018 due to the different scoring
+                            system used
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- End Location Reports -->
 
             <!-- Start Panelist Reports -->
             <h2 id="panelist">Panelist</h2>
@@ -60,6 +88,7 @@
                             Statistics and score spread based on an aggregate of all panelist scores
                         </td>
                     </tr>
+                    <tr>
                         <td><a href="{{ url_for('panelist_appearances_by_year') }}">Appearances by Year</a></td>
                         <td>
                             A pivot table containing a list of panelists and the number of appearances each panelist
@@ -79,7 +108,7 @@
 
         <!-- Start Footer -->
         <div id="footer">
-                <div id="timestamp">Page last generated on {{ render_data["rendered_at"] }}.</div>
+                <div id="timestamp">Page last generated on {{ rendered_at }}.</div>
                 <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
         </div>
         <!-- End Footer -->

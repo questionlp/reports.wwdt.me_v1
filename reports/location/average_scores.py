@@ -4,6 +4,7 @@
 """WWDTM Location Score Breakdown Report Functions"""
 
 from collections import OrderedDict
+from decimal import Decimal
 from typing import List, Dict
 import mysql.connector
 from mysql.connector import DatabaseError, ProgrammingError
@@ -20,8 +21,9 @@ def retrieve_average_scores_by_location(database_connection: mysql.connector.con
     # Excluding 25th Anniversary Show at Chicago Theatre from calculations
     # due to non-standard number of panelist scores and score totals
     query = ("SELECT l.locationid, l.venue, l.city, l.state, "
-             "SUM(pm.panelistscore) / (COUNT(s.showid) / 3) AS average, "
-             "COUNT(s.showid) / 3 AS shows "
+             "AVG(pm.panelistscore) AS average_score, "
+             "SUM(pm.panelistscore) / (COUNT(s.showid) / 3) AS average_total, "
+             "COUNT(s.showid) / 3 AS show_count "
              "FROM ww_showpnlmap pm "
              "JOIN ww_shows s ON s.showid = pm.showid "
              "join ww_showlocationmap lm ON lm.showid = pm.showid "
@@ -29,7 +31,7 @@ def retrieve_average_scores_by_location(database_connection: mysql.connector.con
              "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
              "AND s.showdate <> '2018-10-27' "
              "GROUP BY l.locationid "
-             "ORDER BY average DESC")
+             "ORDER BY average_score DESC")
     cursor.execute(query)
     result = cursor.fetchall()
 
@@ -42,8 +44,9 @@ def retrieve_average_scores_by_location(database_connection: mysql.connector.con
         location["venue"] = row["venue"]
         location["city"] = row["city"]
         location["state"] = row["state"]
-        location["average"] = row["average"]
-        location["show_count"] = row["shows"]
+        location["average_score"] = Decimal(row["average_score"]).normalize()
+        location["average_total"] = Decimal(row["average_total"]).normalize()
+        location["show_count"] = Decimal(row["show_count"]).normalize()
         average_scores.append(location)
 
     return average_scores

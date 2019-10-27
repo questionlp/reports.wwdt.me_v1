@@ -13,6 +13,7 @@ from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import (Flask, abort, redirect, render_template,
                    render_template_string, request, url_for)
 from reports.panelist import aggregate_scores, appearances_by_year, pvp
+from reports.location import average_scores
 
 #region Flask app initialization
 app = Flask(__name__)
@@ -51,14 +52,37 @@ def error_500(error):
 
 #endregion
 
-#region Report Routes
+#region Base Routes
 @app.route("/")
 def index():
-    render_data = {}
-    render_data["ga_property_code"] = config_dict["settings"]["ga_property_code"]
-    render_data["rendered_at"] = generate_date_time_stamp()
-    return render_template("index.html", render_data=render_data)
+    return render_template("index.html",
+                           ga_property_code= config_dict["settings"]["ga_property_code"],
+                           rendered_at=generate_date_time_stamp())
 
+@app.route("/favicon.ico")
+def favicon():
+    return redirect(url_for('static', filename='favicon.ico'))
+
+#endregion
+
+#region Location Reports
+@app.route("/location")
+def location():
+    return redirect(url_for("index"))
+
+@app.route("/location/average_scores")
+def location_average_scores():
+    locations = average_scores.retrieve_average_scores_by_location(database_connection)
+
+    return render_template("location/average_scores.html",
+                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           locations=locations,
+                           rendered_at=generate_date_time_stamp())
+
+#endregion
+
+
+#region Panelist Reports
 @app.route("/panelist")
 def panelist():
     return redirect(url_for("index"))
