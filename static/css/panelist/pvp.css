@@ -1,9 +1,9 @@
 @media all {
     body { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 1rem; margin-left: 0; }
-    div#header h1 { font-size: 2rem; text-align: center; }
-    div#header h2 { font-size: 1.25rem; font-weight: 200; font-style: italic; text-align: center; }
+    div#header h1 { font-size: 2rem; font-weight: 700; text-align: center; }
+    div#header h2 { font-size: 1.25rem; font-weight: 400; font-style: italic; text-align: center; }
     div#menu { border-bottom: 2px solid #8c8c8c; float: left; margin: 0; width: 19.5%; position: fixed; top: 1.5em; height: 90.5%; overflow: auto; }
-    div#menu .pure-menu-heading { color: initial; font-weight: bold; }
+    div#menu .pure-menu-heading { color: initial; font-weight: 700; }
     div#content { float: right; margin-top: 0; margin-right: 0.75em; width: 80%; }
     div#footer { font-size: 0.9rem; margin: 1em auto; width: 98%; }
     table.pure-table { margin: 1.5em auto; width: 98%; }
@@ -25,7 +25,7 @@
     body { margin: 0.5em; }
     div#header, div#content, div#footer { width: 100%; }
     div#header h1 { font-size: 1.75rem; }
-    div#header h2 { font-size: 1.25rem; font-weight: normal; }
+    div#header h2 { font-size: 1.25rem; font-weight: 400; }
     div#footer { font-size: 1rem; }
     div#menu { display: none; visibility: hidden; }
     table.pure-table tr { break-inside: avoid; margin: 0.25em auto; width: 95%;}

@@ -1,0 +1,18 @@
+@media all {
+    body { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI"; margin: 1.5rem; }
+    h1 { font-size: 1.5rem; font-weight: 700; }
+    h2 { font-size: 1.25rem; font-weight: 700; }
+    table.pure-table { margin-right: 0.25rem; }
+    table.pure-table th { background-color: gainsboro; font-weight: 700; }
+    col.score-stat, col.spread-score { width: 16rem; }
+    col.score-values, col.spread-count { width: 8rem; }
+    #footer { font-size: 0.9rem; margin-top: 1.5rem; }
+}
+
+@media only screen and (max-width: 480px) {
+    html, body { font-size: initial; margin: 0.75rem; }
+}
+
+@media print {
+    #results { border: initial; max-height: initial; overflow: initial; }
+}

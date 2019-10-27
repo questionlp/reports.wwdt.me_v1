@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wait Wait... Don't Tell Me! Panelist Aggregate Scores Report</title>
+    <!-- Import Pure CSS Base -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Import Custom CSS -->
+    <link rel="stylesheet" href="/static/css/panelist/aggregate_scores.css">
+
+    <!-- Google Analytics -->
+    <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', '{{ ga_property_code }}', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+</head>
+<body>
+    <div class="body">
+        <!-- Start Content -->
+        <div id="content">
+            <!-- Start Header -->
+            <div id="header">
+                <h1>Wait Wait... Don't Tell Me! Aggregate Scores Report</h1>
+            </div>
+            <!-- End Header -->
+            
+            <!-- Start Aggregate Score Statistics Section -->
+            <h2 id="panelist">Aggregate Score Statistics</h2>
+            <table class="pure-table pure-table-bordered">
+                <colgroup>
+                    <col class="score-stat">
+                    <col class="score-values">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">Statistic</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Count</td>
+                        <td>{{ stats["count"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum</td>
+                        <td>{{ stats["minimum"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Maximum</td>
+                        <td>{{ stats["maximum"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Mean</td>
+                        <td>{{ stats["mean"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Median</td>
+                        <td>{{ stats["median"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Standard Deviation</td>
+                        <td>{{ stats["standard_deviation"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Sum</td>
+                        <td>{{ stats["sum"] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- End Aggregate Score Statistics Section -->
+
+            <!-- Start Score Spread Section -->
+            <h2 id="panelist">Aggregate Score Spread</h2>
+            <table class="pure-table pure-table-bordered">
+                <colgroup>
+                    <col class="spread-score">
+                    <col class="spread-count">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">Score</th>
+                        <th scope="col">Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for score in score_spread %}
+                    <tr>
+                        <td>{{ score["score"] }}</td>
+                        <td>{{ score["count"] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- End Score Spread Section -->
+
+            <!-- Start Footer -->
+            <div id="footer">
+                    <div id="timestamp">Page last generated on {{ rendered_at() }}.</div>
+                    <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
+            </div>
+            <!-- End Footer -->
+        </div>
+        <!-- End Content -->
+    </div>
+</body>
+</html>

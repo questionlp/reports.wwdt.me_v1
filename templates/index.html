@@ -1,1 +1,89 @@
-Index Placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wait Wait... Don't Tell Me! Reports</title>
+    <!-- Import Pure CSS Base -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Import Custom CSS -->
+    <link rel="stylesheet" href="/static/css/index.css">
+
+    <!-- Google Analytics -->
+    <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', '{{ render_data["ga_property_code"] }}', 'auto');
+    ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+</head>
+<body>
+    <div class="body">
+        <!-- Start Content -->
+        <div id="content">
+            <!-- Start Header -->
+            <div id="header">
+                <h1>Wait Wait... Don't Tell Me! Reports</h1>
+            </div>
+            <!-- End Header -->
+
+            <!-- Start Table of Contents -->
+            <div id="toc">
+                <h2>Available Report Categories</h2>
+                <ul>
+                    <li><a href="#panelist">Panelist</a></li>
+                </ul>
+            </div>
+            <!-- End Table of Contents -->
+
+            <!-- Start Panelist Reports -->
+            <h2 id="panelist">Panelist</h2>
+            <table class="pure-table pure-table-bordered">
+                <colgroup>
+                    <col class="report-name">
+                    <col class="report-description">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Report</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="{{ url_for('panelist_aggregate_scores') }}">Aggregate Scores</a></td>
+                        <td>
+                            Statistics and score spread based on an aggregate of all panelist scores
+                        </td>
+                    </tr>
+                        <td><a href="{{ url_for('panelist_appearances_by_year') }}">Appearances by Year</a></td>
+                        <td>
+                            A pivot table containing a list of panelists and the number of appearances each panelist
+                            has made each year, excluding Best Of and Repeat shows
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="{{ url_for('panelist_vs_panelist') }}">Panelist vs Panelist</a></td>
+                        <td>
+                            A report detailing how many times a panelist has ranked versus other panelists
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Start Panelist Reports -->
+        </div>
+
+        <!-- Start Footer -->
+        <div id="footer">
+                <div id="timestamp">Page last generated on {{ render_data["rendered_at"] }}.</div>
+                <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
+        </div>
+        <!-- End Footer -->
+    </div>
+    <!-- End Content -->
+</body>
+</html>

@@ -1,5 +1,6 @@
 #!/bin/sh
 # Shell script used to start up Flask for local development and testing
-export FLASK_ENV=local
+export FLASK_APP=app
+export FLASK_ENV=development
 . venv/bin/activate
-venv/bin/python3 app.py 
+flask run
