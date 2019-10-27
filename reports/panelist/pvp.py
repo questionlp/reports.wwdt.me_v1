@@ -23,7 +23,7 @@ def retrieve_panelists(database_connection: mysql.connector.connect
                  "WHERE pm.panelistscore IS NOT NULL "
                  "AND p.panelist <> '<Multiple>' "
                  "ORDER BY p.panelist ASC;")
-        cursor.execute(query, )
+        cursor.execute(query)
         result = cursor.fetchall()
         cursor.close()
 
@@ -71,7 +71,8 @@ def retrieve_panelist_appearances(panelists: Dict,
     return panelist_appearances
 
 def retrieve_show_scores(database_connection: mysql.connector.connect) -> Dict:
-    """Retrieve scores for each show and panelist from the Stats Page Database"""
+    """Retrieve scores for each show and panelist from the Stats Page
+    Database"""
 
     shows = OrderedDict()
 
@@ -84,7 +85,7 @@ def retrieve_show_scores(database_connection: mysql.connector.connect) -> Dict:
                  "AND s.repeatshowid IS NULL "
                  "AND pm.panelistscore IS NOT NULL "
                  "ORDER BY s.showdate ASC, pm.panelistscore DESC;")
-        cursor.execute(query, )
+        cursor.execute(query)
         result = cursor.fetchall()
         cursor.close()
 

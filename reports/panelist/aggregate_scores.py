@@ -14,6 +14,7 @@ def retrieve_all_scores(database_connection: mysql.connector.connect
                        ) -> List[int]:
     """Retrieve a list of all panelist scores from non-Best Of and
     non-Repeat shows"""
+
     cursor = database_connection.cursor()
     query = ("SELECT pm.panelistscore FROM ww_showpnlmap pm "
              "JOIN ww_shows s ON s.showid = pm.showid "
@@ -36,6 +37,7 @@ def retrieve_score_spread(database_connection: mysql.connector.connect
                          ) -> List[Dict]:
     """Retrieve a list of grouped panelist scores from non-Best Of and
     non-Repeat shows"""
+
     cursor = database_connection.cursor()
     query = ("SELECT pm.panelistscore, COUNT(pm.panelistscore) "
              "FROM ww_showpnlmap pm "
@@ -64,6 +66,7 @@ def retrieve_score_spread(database_connection: mysql.connector.connect
 #region Results Generation Functions
 def calculate_stats(scores: List[int]) -> Dict:
     """Calculate stats for all of the panelist scores"""
+
     stats = OrderedDict()
     stats["count"] = len(scores)
     stats["minimum"] = int(numpy.amin(scores))

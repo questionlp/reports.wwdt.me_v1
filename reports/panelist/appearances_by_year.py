@@ -69,6 +69,7 @@ def retrieve_all_appearance_counts(database_connection: mysql.connector.connect
 
 def retrieve_all_years(database_connection: mysql.connector.connect) -> List[int]:
     """Retrieve a list of all available show years"""
+
     cursor = database_connection.cursor()
     query = ("SELECT DISTINCT YEAR(s.showdate) FROM ww_shows s "
              "ORDER BY YEAR(s.showdate) ASC")
