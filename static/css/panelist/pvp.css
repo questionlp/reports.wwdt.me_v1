@@ -2,12 +2,13 @@
     body { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 1rem; margin-left: 0; }
     div#header h1 { font-size: 2rem; font-weight: 700; text-align: center; }
     div#header h2 { font-size: 1.25rem; font-weight: 400; font-style: italic; text-align: center; }
-    div#menu { border-bottom: 2px solid #8c8c8c; float: left; margin: 0; width: 19.5%; position: fixed; top: 1.5em; height: 90.5%; overflow: auto; }
-    div#menu .pure-menu-heading { color: initial; font-weight: 700; }
+    div#menu { border-bottom: 2px solid #333; float: left; margin: 0; width: 19.5%; position: fixed; top: 1.5em; height: 90.5%; overflow: auto; }
+    div#menu .pure-menu-heading { color: black; font-weight: 700; }
+    div#menu .pure-menu-link { color: #444; }
     div#content { float: right; margin-top: 0; margin-right: 0.75em; width: 80%; }
     div#footer { font-size: 0.9rem; margin: 1em auto; width: 98%; }
     table.pure-table { margin: 1.5em auto; width: 98%; }
-    table.pure-table th { text-align: center; }
+    table.pure-table thead, table.pure-table tfoot { background-color: gainsboro; font-weight: 600; text-align: center; }
     table.pure-table th.pnlname { border-bottom: 1px solid #cbcbcb; }
     table.pure-table th.pnlname h3 { font-size: 1.25rem; margin: 0.25em; }
     col.tc1 { width: 55%; }
