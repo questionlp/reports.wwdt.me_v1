@@ -75,18 +75,14 @@
                     <tr>
                         <td>{{ show["count"] }}</td>
                         <td>{{ show["date"] }}</td>
-                        <td>{{ show["location"]["city"] }}, {{ show["location"]["state"] }}
-                            ({{ show["location"]["venue"] }})
-                            </td>
+                        <td>{{ show["location"]["city"] }}, {{ show["location"]["state"] }} ({{ show["location"]["venue"] }})</td>
                         <td>{{ show["host"] }}</td>
                         <td>{{ show["scorekeeper"] }}</td>
-
                         <td>
                             {% for panelist in show["panelists"] %}
                             <p class="panelist">{{ panelist["name"] }}</p>
                             {% endfor %}
                         </td>
-
                         {% if show["guest"] %}
                         <td>{{ show["guest"]["name"] }}</td>
                         {% else %}
