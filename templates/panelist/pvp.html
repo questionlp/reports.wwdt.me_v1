@@ -12,6 +12,7 @@
     <!-- Import Custom CSS -->
     <link rel="stylesheet" href="/static/css/panelist/pvp.css">
 
+    {% if ga_property_code %}
     <!-- Google Analytics -->
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -20,6 +21,7 @@
     </script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
+    {% endif %}
 </head>
 <body>
     <div class="body">

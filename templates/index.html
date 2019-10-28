@@ -12,6 +12,7 @@
     <!-- Import Custom CSS -->
     <link rel="stylesheet" href="/static/css/index.css">
 
+    {% if ga_property_code %}
     <!-- Google Analytics -->
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -20,6 +21,7 @@
     </script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
+    {% endif %}
 </head>
 <body>
     <div class="body">
@@ -37,6 +39,7 @@
                 <ul>
                     <li><a href="#location">Location</a></li>
                     <li><a href="#panelist">Panelist</a></li>
+                    <li><a href="#show">Show</a></li>
                 </ul>
             </div>
             <!-- End Table of Contents -->
@@ -104,6 +107,31 @@
                 </tbody>
             </table>
             <!-- Start Panelist Reports -->
+
+            <!-- Start Show Reports -->
+            <h2 id="show">Show</h2>
+            <table class="pure-table pure-table-bordered">
+                <colgroup>
+                    <col class="report-name">
+                    <col class="report-description">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Report</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="{{ url_for('show_original_shows') }}">Original Shows</a></td>
+                        <td>
+                            A report listing each original broadcast show (thus excluding Best Of, Repeat,
+                            pledge specials and other special shows that were not broadcast in their entirety)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- End Show Reports -->
         </div>
 
         <!-- Start Footer -->

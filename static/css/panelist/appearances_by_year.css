@@ -4,7 +4,7 @@
     h2 { font-size: 1.2rem; font-weight: 600; }
     #results { max-height: 80vh; overflow: scroll; }
     table.pure-table { margin-right: 0.25rem; }
-    table.pure-table th { background-color: skyblue; font-weight: 600; }
+    table.pure-table thead, table.pure-table tfoot { background-color: skyblue; font-weight: 600; text-align: center; }
     td.panelist-name { background-color: gainsboro; font-weight: 600; }
     td.panelist-data { font-family: "IBM Plex Mono", "Monaco", "Consolas", monospace; text-align: center; }
     td.no-data { background-color: lightslategray; }

@@ -12,6 +12,7 @@
     <!-- Import Custom CSS -->
     <link rel="stylesheet" href="/static/css/location/average_scores.css">
 
+    {% if ga_property_code %}
     <!-- Google Analytics -->
     <script>
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -20,6 +21,7 @@
     </script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
+    {% endif %}
 </head>
 <body>
     <div class="body">
@@ -27,12 +29,14 @@
         <div id="content">
             <!-- Start Header -->
             <div id="header">
-                <h1>Wait Wait... Don't Tell Me! Location Average Score by Location Report</h1>
+                <div id="homelink">
+                    &lt; <a href="{{ url_for('index') }}">Home</a>
+                </div>
+                <h1>Wait Wait... Don't Tell Me! Average Score by Location Report</h1>
             </div>
             <!-- End Header -->
             
             <!-- Start Location Breakdown -->
-            <h2>Locations Scoring Breakdown</h2>
             <table class="pure-table pure-table-bordered">
                 <colgroup>
                     <col class="location-venue">

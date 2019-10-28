@@ -7,6 +7,7 @@ from datetime import datetime
 import json
 import os
 import pytz
+from typing import Optional
 
 import mysql.connector
 from mysql.connector.errors import DatabaseError, ProgrammingError
@@ -14,6 +15,7 @@ from flask import (Flask, abort, redirect, render_template,
                    render_template_string, request, url_for)
 from reports.panelist import aggregate_scores, appearances_by_year, pvp
 from reports.location import average_scores
+from reports.show import original_shows
 
 #region Flask app initialization
 app = Flask(__name__)
@@ -43,22 +45,24 @@ def generate_date_time_stamp():
 #endregion
 
 #region Error Routes
-@app.errorhandler(404)
-def error_404(error):
-    return redirect(url_for("index"))
-
 def error_500(error):
     return render_template_string(error)
 
 #endregion
 
-#region Base Routes
+#region Default Routes
 @app.route("/")
+@app.route("/location")
+@app.route("/panelist")
+@app.route("/show")
 def index():
     return render_template("index.html",
                            ga_property_code= config_dict["settings"]["ga_property_code"],
                            rendered_at=generate_date_time_stamp())
 
+#endregion
+
+#region Static Content Redirect Routes
 @app.route("/favicon.ico")
 def favicon():
     return redirect(url_for('static', filename='favicon.ico'))
@@ -66,10 +70,6 @@ def favicon():
 #endregion
 
 #region Location Reports
-@app.route("/location")
-def location():
-    return redirect(url_for("index"))
-
 @app.route("/location/average_scores")
 def location_average_scores():
     locations = average_scores.retrieve_average_scores_by_location(database_connection)
@@ -81,12 +81,7 @@ def location_average_scores():
 
 #endregion
 
-
 #region Panelist Reports
-@app.route("/panelist")
-def panelist():
-    return redirect(url_for("index"))
-
 @app.route("/panelist/aggregate_scores")
 def panelist_aggregate_scores():
     database_connection.reconnect()
@@ -129,6 +124,30 @@ def panelist_vs_panelist():
                            panelists=panelists,
                            results=pvp_results,
                            rendered_at=generate_date_time_stamp())
+
+#endregion
+
+#region Show Reports
+@app.route("/show/original_shows")
+def show_original_shows(ascending: Optional[bool] = True):
+    database_connection.reconnect()
+    shows = original_shows.retrieve_all_original_shows(database_connection)
+    if not ascending:
+        shows.reverse()
+
+    return render_template("/show/original_shows.html",
+                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           shows=shows,
+                           ascending=ascending,
+                           rendered_at=generate_date_time_stamp())
+
+@app.route("/show/original_shows/asc")
+def show_original_shows_asc():
+    return show_original_shows(ascending=True)
+
+@app.route("/show/original_shows/desc")
+def show_original_shows_desc():
+    return show_original_shows(ascending=False)
 
 #endregion
 
