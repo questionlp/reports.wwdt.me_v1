@@ -58,7 +58,7 @@ def error_500(error):
 @app.route("/show")
 def index():
     return render_template("index.html",
-                           ga_property_code= config_dict["settings"]["ga_property_code"],
+                           ga_property_code=config_dict["settings"]["ga_property_code"],
                            rendered_at=generate_date_time_stamp())
 
 #endregion
