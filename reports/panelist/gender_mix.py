@@ -53,7 +53,7 @@ def retrieve_panel_gender_count_by_year(year: int,
                 "HAVING COUNT(p.panelistgender) = %s;")
         cursor.execute(query, (gender_tag, year, gender_count, ))
         cursor.fetchall()
-        counts[f"{gender_count}{gender_tag}"] = cursor.rowcount
+        counts["{}{}".format(gender_count, gender_tag)] = cursor.rowcount
 
     total = sum(counts.values())
     counts["total"] = total

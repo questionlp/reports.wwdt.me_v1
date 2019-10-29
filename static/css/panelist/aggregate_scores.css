@@ -3,7 +3,7 @@
     h1 { font-size: 1.5rem; font-weight: 700; }
     h2 { font-size: 1.25rem; font-weight: 700; }
     table.pure-table { margin-right: 0.25rem; }
-    table.pure-table th { background-color: gainsboro; font-weight: 700; }
+    table.pure-table th { background-color: gainsboro; font-weight: 700; text-align: center; }
     col.score-stat, col.spread-score { width: 16rem; }
     col.score-values, col.spread-count { width: 8rem; }
     #footer { font-size: 0.9rem; margin-top: 1.5rem; }
