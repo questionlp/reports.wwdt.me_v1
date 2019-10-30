@@ -19,6 +19,7 @@ def retrieve_show_years(database_connection: mysql.connector.connect
              "ORDER BY YEAR(s.showdate) ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -55,6 +56,7 @@ def retrieve_panel_gender_count_by_year(year: int,
         cursor.fetchall()
         counts["{}{}".format(gender_count, gender_tag)] = cursor.rowcount
 
+    cursor.close()
     total = sum(counts.values())
     counts["total"] = total
     return counts

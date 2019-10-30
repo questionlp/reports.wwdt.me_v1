@@ -23,6 +23,7 @@ def retrieve_all_scores(database_connection: mysql.connector.connect
              "ORDER BY pm.panelistscore ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -48,6 +49,7 @@ def retrieve_score_spread(database_connection: mysql.connector.connect
              "ORDER BY pm.panelistscore ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

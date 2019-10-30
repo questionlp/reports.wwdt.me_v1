@@ -73,6 +73,7 @@ def favicon():
 #region Location Reports
 @app.route("/location/average_scores")
 def location_average_scores():
+    database_connection.reconnect()
     locations = average_scores.retrieve_average_scores_by_location(database_connection)
 
     return render_template("location/average_scores.html",

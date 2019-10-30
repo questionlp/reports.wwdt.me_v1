@@ -20,6 +20,7 @@ def retrieve_panelists(database_connection: mysql.connector.connect
              "ORDER BY p.panelist ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -49,6 +50,7 @@ def retrieve_panelist_ranks(panelist_id: int,
              "ORDER BY s.showdate ASC;")
     cursor.execute(query, (panelist_id,))
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

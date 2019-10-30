@@ -21,6 +21,7 @@ def retrieve_show_guests(show_id: int,
              "WHERE gm.showid = %s;")
     cursor.execute(query, (show_id, ))
     result = cursor.fetchone()
+    cursor.close()
 
     if not result:
         return None
@@ -45,6 +46,7 @@ def retrieve_show_panelists(show_id: int,
              "ORDER BY pm.showpnlmapid ASC;")
     cursor.execute(query, (show_id, ))
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -79,6 +81,7 @@ def retrieve_all_original_shows(database_connection: mysql.connector.connect
              "ORDER BY s.showdate ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
