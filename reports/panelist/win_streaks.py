@@ -75,7 +75,6 @@ def calculate_panelist_win_streaks(panelists: List[Dict],
     win_streaks = []
 
     for panelist in panelists:
-        print("{}:".format(panelist["name"]))
         longest_win_streak = 0
         longest_win_streak_show_dates = []
         longest_win_streak_with_draws = 0
