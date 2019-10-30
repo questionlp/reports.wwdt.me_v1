@@ -14,7 +14,7 @@ from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import (Flask, abort, redirect, render_template,
                    render_template_string, request, url_for)
 from reports.panelist import (aggregate_scores, appearances_by_year,
-                              gender_mix, panelist_vs_panelist)
+                              gender_mix, panelist_vs_panelist, win_streaks)
 from reports.location import average_scores
 from reports.show import original_shows
 
@@ -140,6 +140,18 @@ def panelist_pvp_report():
                            ga_property_code=config_dict["settings"]["ga_property_code"],
                            panelists=panelists,
                            results=pvp_results,
+                           rendered_at=generate_date_time_stamp())
+
+@app.route("/panelist/win_streaks")
+def panelist_win_streaks():
+    database_connection.reconnect()
+    panelists = win_streaks.retrieve_panelists(database_connection)
+    streak_data = win_streaks.calculate_panelist_win_streaks(panelists=panelists,
+                                                             database_connection=database_connection)
+
+    return render_template("panelist/win_streaks.html",
+                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           win_streaks=streak_data,
                            rendered_at=generate_date_time_stamp())
 
 #endregion
