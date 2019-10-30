@@ -1,5 +1,6 @@
 @media all {
-    body { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI"; margin: 1.5rem; }
+    html, button, input, select, textarea, .pure-g [class *= "pure-u"] { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI"; }
+    body {  margin: 1.5rem; }
     h1 { font-size: 1.5rem; font-weight: 700; }
     h2 { font-size: 1.25rem; font-weight: 700; }
     table.pure-table { max-width: 72rem; }
