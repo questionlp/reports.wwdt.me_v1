@@ -67,7 +67,6 @@ def retrieve_all_original_shows(database_connection: mysql.connector.connect
     cursor = database_connection.cursor(dictionary=True)
     query = ("SELECT s.showid, s.showdate, l.venue, l.city, l.state, "
              "h.host, sk.scorekeeper "
-             #", g.guest "
              "FROM ww_shows s "
              "JOIN ww_showlocationmap lm ON lm.showid = s.showid "
              "JOIN ww_locations l on l.locationid = lm.locationid "
@@ -75,8 +74,6 @@ def retrieve_all_original_shows(database_connection: mysql.connector.connect
              "JOIN ww_hosts h on h.hostid = hm.hostid "
              "JOIN ww_showskmap skm ON skm.showid = s.showid "
              "JOIN ww_scorekeepers sk ON sk.scorekeeperid = skm.scorekeeperid "
-             #"LEFT JOIN ww_showguestmap gm ON gm.showid = s.showid "
-             #"LEFT JOIN ww_guests g ON g.guestid = gm.guestid "
              "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
              "AND s.showdate < NOW() "
              "ORDER BY s.showdate ASC;")
