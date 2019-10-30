@@ -1,120 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wait Wait... Don't Tell Me! Average Score by Location Report</title>
-    <!-- Import Pure CSS Base -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-    <!-- Import Custom CSS -->
-    <link rel="stylesheet" href="/static/css/show/original_shows.css">
-
-    {% if ga_property_code %}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_property_code }}"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', '{{ ga_property_code }}');
-    </script>
-    <!-- End Google Analytics -->
+{% extends "base.html" %}
+{% block css %}show/original_shows.css{% endblock %}
+{% block title %}Wait Wait... Don't Tell Me! Original Shows Report{% endblock %}
+{% block header_title %}Wait Wait... Don't Tell Me! Original Shows Report{% endblock %}
+{% block synopsis %}
+<p>This report lists out each of the original shows that have been broadcasted, excluding any
+Best Of, Repeats and pledge specials</p>
+{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Original Show Listing -->
+<p>
+    <strong>Sort Order </strong>
+    {% if ascending %}
+    [ Ascending | <a href="{{ url_for('show_original_shows_desc') }}">Descending</a> ]
+    {% else %}
+    [ <a href="{{ url_for('show_original_shows_asc') }}">Ascending</a> | Descending ]
     {% endif %}
-</head>
-<body>
-    <div class="body">
-        <!-- Start Content -->
-        <div id="content">
-            <!-- Start Header -->
-            <div id="header">
-                <div id="homelink">
-                    &lt; <a href="{{ url_for('index') }}">Home</a>
-                </div>
-                <h1>Wait Wait... Don't Tell Me! Original Shows Report</h1>
-                <p>
-                    This report lists out each of the original shows that have been broadcasted, excluding any
-                    Best Of, Repeats and pledge specials
-                </p>
-            </div>
-            <!-- End Header -->
-            
-            <!-- Start Original Show Listing -->
-            <p>
-                <strong>Sort Order </strong>
-                {% if ascending %}
-                [ Ascending | <a href="{{ url_for('show_original_shows_desc') }}">Descending</a> ]
-                {% else %}
-                [ <a href="{{ url_for('show_original_shows_asc') }}">Ascending</a> | Descending ]
-                {% endif %}
-            </p>
-            <table class="pure-table pure-table-bordered">
-                <colgroup>
-                    <col class="show-number">
-                    <col class="show-date">
-                    <col class="show-location">
-                    <col class="show-host">
-                    <col class="show-scorekeeper">
-                    <col class="show-panelists">
-                    <col class="show-guest">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Host</th>
-                        <th scope="col">Scorekeeper</th>
-                        <th scope="col">Panelists</th>
-                        <th scope="col">Guest</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for show in shows %}
-                    <tr>
-                        <td>{{ show["count"] }}</td>
-                        <td>{{ show["date"] }}</td>
-                        <td>{{ show["location"]["city"] }}, {{ show["location"]["state"] }} ({{ show["location"]["venue"] }})</td>
-                        <td>{{ show["host"] }}</td>
-                        <td>{{ show["scorekeeper"] }}</td>
-                        <td>
-                            {% for panelist in show["panelists"] %}
-                            <p class="panelist">{{ panelist["name"] }}</p>
-                            {% endfor %}
-                        </td>
-                        {% if show["guest"] %}
-                        <td>{{ show["guest"]["name"] }}</td>
-                        {% else %}
-                        <td class="no-data">&nbsp;</td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Host</th>
-                        <th scope="col">Scorekeeper</th>
-                        <th scope="col">Panelists</th>
-                        <th scope="col">Guest</th>
-                    </tr>
-                </tfoot>
-            </table>
-            <!-- End Original Show Listing -->
-
-            <!-- Start Footer -->
-            <div id="footer">
-                    <div id="timestamp">Page last generated on {{ rendered_at }}.</div>
-                    <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
-            </div>
-            <!-- End Footer -->
-        </div>
-        <!-- End Content -->
-    </div>
-</body>
-</html>
+</p>
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="show-number">
+        <col class="show-date">
+        <col class="show-location">
+        <col class="show-host">
+        <col class="show-scorekeeper">
+        <col class="show-panelists">
+        <col class="show-guest">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Location</th>
+            <th scope="col">Host</th>
+            <th scope="col">Scorekeeper</th>
+            <th scope="col">Panelists</th>
+            <th scope="col">Guest</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for show in shows %}
+        <tr>
+            <td>{{ show.count }}</td>
+            <td>{{ show.date }}</td>
+            <td>{{ show.location.venue}} ({{ show.location.city }}, {{ show.location.state }})</td>
+            <td>{{ show.host }}</td>
+            <td>{{ show.scorekeeper }}</td>
+            <td class="panelist-names">
+                <ul>
+                {% for panelist in show.panelists %}
+                <li>{{ panelist.name }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            {% if show.guest %}
+            <td>{{ show.guest.name }}</td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Location</th>
+            <th scope="col">Host</th>
+            <th scope="col">Scorekeeper</th>
+            <th scope="col">Panelists</th>
+            <th scope="col">Guest</th>
+        </tr>
+    </tfoot>
+</table>
+<!-- End Original Show Listing -->
+{% endblock %}

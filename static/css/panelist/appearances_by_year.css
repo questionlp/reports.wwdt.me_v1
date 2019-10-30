@@ -1,15 +1,10 @@
 @media all {
-    body { font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI"; margin: 1.5rem; }
-    h1 { font-size: 1.4rem; font-weight: 600; }
-    h2 { font-size: 1.2rem; font-weight: 600; }
     #results { max-height: 80vh; overflow: scroll; }
-    table.pure-table { margin-right: 0.25rem; }
+    table.pure-table { margin-right: 0.25rem; width: initial; }
     table.pure-table thead, table.pure-table tfoot { background-color: skyblue; font-weight: 600; text-align: center; }
     td.panelist-name { background-color: gainsboro; font-weight: 600; }
-    td.panelist-data { font-family: "IBM Plex Mono", "Monaco", "Consolas", monospace; text-align: center; }
-    td.no-data { background-color: lightslategray; }
+    td.panelist-data { text-align: center; vertical-align: middle !important; }
     td.total { background-color: gainsboro; font-weight: 600; }
-    #footer { font-size: 0.9rem; margin-top: 1.5rem; }
 }
 
 @media only screen and (max-width: 480px) {

@@ -1,91 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wait Wait... Don't Tell Me! Panel Gender Mix Report</title>
-    <!-- Import Pure CSS Base -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-    <!-- Import Custom CSS -->
-    <link rel="stylesheet" href="/static/css/panelist/gender_mix.css">
-
-    {% if ga_property_code %}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_property_code }}"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', '{{ ga_property_code }}');
-    </script>
-    <!-- End Google Analytics -->
-    {% endif %}
-</head>
-<body>
-    <div class="body">
-        <!-- Start Content -->
-        <div id="content">
-            <!-- Start Header -->
-            <div id="header">
-                <div id="homelink">
-                    &lt; <a href="{{ url_for('index') }}">Home</a>
-                </div>                
-                <h1>Wait Wait... Don't Tell Me! Panel Gender Mix Report</h1>
-                <p>
-                    This report provides a breakdown of the gender mix of panels for
-                    all broadcasted shows by year, excluding Best Of, Repeats and special
-                    shows (including pledge specials and the 25th Anniversary special)
-                </p>
-            </div>
-            <!-- End Header -->
-            
-            <!-- Start Panel Mix Breakdown Section -->
-            <table class="pure-table pure-table-bordered">
-                <colgroup>
-                    <col class="panel-year">
-                    <col class="panel-mix">
-                    <col class="panel-mix">
-                    <col class="panel-mix">
-                    <col class="panel-mix">
-                    <col class="panel-total">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col">Year</th>
-                        <th scope="col">0 F / 3 M</th>
-                        <th scope="col">1 F / 2 M</th>
-                        <th scope="col">2 F / 1 M</th>
-                        <th scope="col">3 F / 0 M</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for year in panel_gender_mix %}
-                    <tr>
-                        <td>{{ year }}</td>
-                        <td>{{ panel_gender_mix[year]["0{}".format(gender)] }}</td>
-                        <td>{{ panel_gender_mix[year]["1{}".format(gender)] }}</td>
-                        <td>{{ panel_gender_mix[year]["2{}".format(gender)] }}</td>
-                        <td>{{ panel_gender_mix[year]["3{}".format(gender)] }}</td>
-                        <td>{{ panel_gender_mix[year]["total"] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!-- End Panel Mix Breakdown Section -->
-
-            <!-- Start Footer -->
-            <div id="footer">
-                    <div id="timestamp">Page last generated on {{ rendered_at }}.</div>
-                    <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
-            </div>
-            <!-- End Footer -->
-        </div>
-        <!-- End Content -->
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block css %}panelist/gender_mix.css{% endblock %}
+{% block title %}Wait Wait... Don't Tell Me! Panel Gender Mix Report{% endblock %}
+{% block header_title %}Wait Wait... Don't Tell Me! Panel Gender Mix Report{% endblock %}
+{% block synopsis %}
+<p>This report provides a breakdown of the gender mix of panels for
+all broadcasted shows by year, excluding Best Of, Repeats, pledge specials,
+and the 25th Anniversary special</p>
+{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Panel Mix Breakdown Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="panel-year">
+        <col class="panel-mix">
+        <col class="panel-mix">
+        <col class="panel-mix">
+        <col class="panel-mix">
+        <col class="panel-total">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Year</th>
+            <th scope="col">0 F / 3 M</th>
+            <th scope="col">1 F / 2 M</th>
+            <th scope="col">2 F / 1 M</th>
+            <th scope="col">3 F / 0 M</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for year in panel_gender_mix %}
+        <tr>
+            <td>{{ year }}</td>
+            <td>{{ panel_gender_mix[year]["0{}".format(gender)] }}</td>
+            <td>{{ panel_gender_mix[year]["1{}".format(gender)] }}</td>
+            <td>{{ panel_gender_mix[year]["2{}".format(gender)] }}</td>
+            <td>{{ panel_gender_mix[year]["3{}".format(gender)] }}</td>
+            <td>{{ panel_gender_mix[year].total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End Panel Mix Breakdown Section -->
+{% endblock %}

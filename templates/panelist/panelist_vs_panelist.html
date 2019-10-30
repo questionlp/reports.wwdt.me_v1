@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <!-- Import Custom CSS -->
-    <link rel="stylesheet" href="/static/css/panelist/panelist_vs_panelist.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/panelist_vs_panelist.css') }}">
 
     {% if ga_property_code %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -19,7 +19,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', '{{ ga_property_code }}');
     </script>
     <!-- End Google Analytics -->
@@ -39,7 +38,7 @@
                 <span class="pure-menu-heading">Panelists</span>
                 <ul class="pure-menu-list">
                 {% for _, panelist in panelists.items() %}
-                    <li class="pure-menu-item"><a href="#{{ panelist['slug'] }}" class="pure-menu-link">{{ panelist["name"] }}</a></li>
+                    <li class="pure-menu-item"><a href="#{{ panelist.slug }}" class="pure-menu-link">{{ panelist.name }}</a></li>
                 {% endfor %}
                 </ul>
             </div>
@@ -68,7 +67,7 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th colspan="4" class="pnlname"><h3>{{ panelists[panelist]["name"] }}</h3></th>
+                                <th colspan="4" class="pnlname"><h3>{{ panelists[panelist].name }}</h3></th>
                             </tr>
                             <tr>
                                 <th class="tc1">Ranked vs</th>
@@ -79,12 +78,12 @@
                         </thead>
                         <tbody>
                         {% for vs_panelist, result in vs_panelists.items() %}
-                            {% if (result["wins"], result["draws"], result["losses"]) != (0, 0, 0) %}
+                            {% if (result.wins, result.draws, result.losses) != (0, 0, 0) %}
                             <tr>
-                                <td>{{ panelists[vs_panelist]["name"] }}</td>
-                                <td>{{ result["wins"] }}</td>
-                                <td>{{ result["draws"] }}</td>
-                                <td>{{ result["losses"] }}</td>
+                                <td>{{ panelists[vs_panelist].name }}</td>
+                                <td>{{ result.wins }}</td>
+                                <td>{{ result.draws }}</td>
+                                <td>{{ result.losses }}</td>
                             </tr>
                             {% endif %}
                         {% endfor %}

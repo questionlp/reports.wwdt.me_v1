@@ -1,162 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wait Wait... Don't Tell Me! Reports</title>
-    <!-- Import Pure CSS Base -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% extends "base.html" %}
+{% block css %}index.css{% endblock %}
+{% block title %}Wait Wait... Don't Tell Me! Reports{% endblock %}
+{% block header_title %}Wait Wait... Don't Tell Me! Reports{% endblock %}
+{% block content %}
+<!-- Start Table of Contents -->
+<div id="toc">
+    <h2>Available Report Categories</h2>
+    <ul>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#panelist">Panelist</a></li>
+        <li><a href="#show">Show</a></li>
+    </ul>
+</div>
+<!-- End Table of Contents -->
 
-    <!-- Import Custom CSS -->
-    <link rel="stylesheet" href="/static/css/index.css">
+<!-- Start Location Reports -->
+<h2 id="location">Location</h2>
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="report-name">
+        <col class="report-description">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Report</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="{{ url_for('location_average_scores') }}">Average Scores by Location</a></td>
+            <td>
+                A report listing out the average panelist score and average total score
+                for each location the show has had a show broadcasted from; excluding the
+                25th Anniversary Special recorded in October 2018 due to the different scoring
+                system used
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- End Location Reports -->
 
-    {% if ga_property_code %}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_property_code }}"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+<!-- Start Panelist Reports -->
+<h2 id="panelist">Panelist</h2>
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="report-name">
+        <col class="report-description">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Report</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="{{ url_for('panelist_aggregate_scores') }}">Aggregate Scores</a></td>
+            <td>
+                Statistics and score spread based on an aggregate of all panelist scores
+            </td>
+        </tr>
+        <tr>
+            <td><a href="{{ url_for('panelist_appearances_by_year') }}">Appearances by Year</a></td>
+            <td>
+                A pivot table containing a list of panelists and the number of appearances each panelist
+                has made each year, excluding Best Of and Repeat shows
+            </td>
+        </tr>
+        <tr>
+            <td><a href="{{ url_for('panelist_panel_gender_mix') }}">Panel Gender Mix</a></td>
+            <td>
+                A report breaking down the panel gender mix for each show by year, excluding Best Of, Repeat
+                and special shows (including pledge specials and the 25th anniversary show)
+            </td>
+        </tr>
+        <tr>
+            <td><a href="{{ url_for('panelist_pvp_report') }}">Panelist vs Panelist</a></td>
+            <td>
+                A report detailing how many times a panelist has ranked versus other panelists
+            </td>
+        </tr>
+        <tr>
+            <td><a href="{{ url_for('panelist_win_streaks') }}">Win Streaks</a></td>
+            <td>
+                A report detailing the longest outright win streak and the longest win streak
+                (including draws) for each panelist
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Start Panelist Reports -->
 
-    gtag('config', '{{ ga_property_code }}');
-    </script>
-    <!-- End Google Analytics -->
-    {% endif %}
-</head>
-<body>
-    <div class="body">
-        <!-- Start Content -->
-        <div id="content">
-            <!-- Start Header -->
-            <div id="header">
-                <h1>Wait Wait... Don't Tell Me! Reports</h1>
-            </div>
-            <!-- End Header -->
-
-            <!-- Start Table of Contents -->
-            <div id="toc">
-                <h2>Available Report Categories</h2>
-                <ul>
-                    <li><a href="#location">Location</a></li>
-                    <li><a href="#panelist">Panelist</a></li>
-                    <li><a href="#show">Show</a></li>
-                </ul>
-            </div>
-            <!-- End Table of Contents -->
-
-            <!-- Start Location Reports -->
-            <h2 id="location">Location</h2>
-            <table class="pure-table pure-table-bordered">
-                <colgroup>
-                    <col class="report-name">
-                    <col class="report-description">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>Report</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a href="{{ url_for('location_average_scores') }}">Average Scores by Location</a></td>
-                        <td>
-                            A report listing out the average panelist score and average total score
-                            for each location the show has had a show broadcasted from; excluding the
-                            25th Anniversary Special recorded in October 2018 due to the different scoring
-                            system used
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End Location Reports -->
-
-            <!-- Start Panelist Reports -->
-            <h2 id="panelist">Panelist</h2>
-            <table class="pure-table pure-table-bordered">
-                <colgroup>
-                    <col class="report-name">
-                    <col class="report-description">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>Report</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a href="{{ url_for('panelist_aggregate_scores') }}">Aggregate Scores</a></td>
-                        <td>
-                            Statistics and score spread based on an aggregate of all panelist scores
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="{{ url_for('panelist_appearances_by_year') }}">Appearances by Year</a></td>
-                        <td>
-                            A pivot table containing a list of panelists and the number of appearances each panelist
-                            has made each year, excluding Best Of and Repeat shows
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="{{ url_for('panelist_panel_gender_mix') }}">Panel Gender Mix</a></td>
-                        <td>
-                            A report breaking down the panel gender mix for each show by year, excluding Best Of, Repeat
-                            and special shows (including pledge specials and the 25th anniversary show)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="{{ url_for('panelist_pvp_report') }}">Panelist vs Panelist</a></td>
-                        <td>
-                            A report detailing how many times a panelist has ranked versus other panelists
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="{{ url_for('panelist_win_streaks') }}">Win Streaks</a></td>
-                        <td>
-                            A report detailing the longest outright win streak and the longest win streak
-                            (including draws) for each panelist
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- Start Panelist Reports -->
-
-            <!-- Start Show Reports -->
-            <h2 id="show">Show</h2>
-            <table class="pure-table pure-table-bordered">
-                <colgroup>
-                    <col class="report-name">
-                    <col class="report-description">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>Report</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a href="{{ url_for('show_original_shows') }}">Original Shows</a></td>
-                        <td>
-                            A report listing each original broadcast show (thus excluding Best Of, Repeat,
-                            pledge specials and other special shows that were not broadcast in their entirety)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End Show Reports -->
-        </div>
-
-        <!-- Start Footer -->
-        <div id="footer">
-                <div id="timestamp">Page last generated on {{ rendered_at }}.</div>
-                <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
-        </div>
-        <!-- End Footer -->
-    </div>
-    <!-- End Content -->
-</body>
-</html>
+<!-- Start Show Reports -->
+<h2 id="show">Show</h2>
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="report-name">
+        <col class="report-description">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Report</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="{{ url_for('show_original_shows') }}">Original Shows</a></td>
+            <td>
+                A report listing each original broadcast show (thus excluding Best Of, Repeat,
+                pledge specials and other special shows that were not broadcast in their entirety)
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- End Show Reports -->
+{% endblock %}

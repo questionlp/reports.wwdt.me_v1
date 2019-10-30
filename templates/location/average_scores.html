@@ -1,89 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wait Wait... Don't Tell Me! Average Score by Location Report</title>
-    <!-- Import Pure CSS Base -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-    <!-- Import Custom CSS -->
-    <link rel="stylesheet" href="/static/css/location/average_scores.css">
-
-    {% if ga_property_code %}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_property_code }}"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', '{{ ga_property_code }}');
-    </script>
-    <!-- End Google Analytics -->
-    {% endif %}
-</head>
-<body>
-    <div class="body">
-        <!-- Start Content -->
-        <div id="content">
-            <!-- Start Header -->
-            <div id="header">
-                <div id="homelink">
-                    &lt; <a href="{{ url_for('index') }}">Home</a>
-                </div>
-                <h1>Wait Wait... Don't Tell Me! Average Score by Location Report</h1>
-            </div>
-            <!-- End Header -->
-            
-            <!-- Start Location Breakdown -->
-            <table class="pure-table pure-table-bordered">
-                <colgroup>
-                    <col class="location-venue">
-                    <col class="location-city">
-                    <col class="location-state">
-                    <col class="location-avg-score">
-                    <col class="location-avg-total">
-                    <col class="location-shows">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th scope="col">Venue</th>
-                        <th scope="col">City</th>
-                        <th scope="col">State</th>
-                        <th scope="col">Average Score</th>
-                        <th scope="col">Average Total</th>
-                        <th scope="col">Shows</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for location in locations %}
-                    <tr>
-                        <td>{{ location["venue"] }}</td>
-                        <td>{{ location["city"] }}</td>
-                        <td>{{ location["state"] }}</td>
-                        {# Using str.format() in order to get clean, floating output
-                           from Decimal numbers
-                        #}
-                        <td>{{ "{:f}".format(location["average_score"]) }}</td>
-                        <td>{{ "{:f}".format(location["average_total"]) }}</td>
-                        <td>{{ "{:f}".format(location["show_count"]) }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!-- End Location Breakdown -->
-
-            <!-- Start Footer -->
-            <div id="footer">
-                    <div id="timestamp">Page last generated on {{ rendered_at }}.</div>
-                    <div id="copyright">Copyright &copy; 2019 <a href="http://linhpham.org/">Linh Pham</a>. All rights reserved.</div>
-            </div>
-            <!-- End Footer -->
-        </div>
-        <!-- End Content -->
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block css %}location/average_scores.css{% endblock %}
+{% block title %}Wait Wait... Don't Tell Me! Average Score by Location Report{% endblock %}
+{% block header_title %}Wait Wait... Don't Tell Me! Average Score by Location Report{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Location Breakdown -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="location-venue">
+        <col class="location-city">
+        <col class="location-state">
+        <col class="location-avg-score">
+        <col class="location-avg-total">
+        <col class="location-shows">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Venue</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Average Score</th>
+            <th scope="col">Average Total</th>
+            <th scope="col">Shows</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        <tr>
+            <td>{{ location.venue }}</td>
+            <td>{{ location.city }}</td>
+            <td>{{ location.state }}</td>
+            {# Using str.format() in order to get clean, floating output
+                from Decimal numbers
+            #}
+            <td>{{ "{:f}".format(location.average_score) }}</td>
+            <td>{{ "{:f}".format(location.average_total) }}</td>
+            <td>{{ "{:f}".format(location.show_count) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End Location Breakdown -->
+{% endblock %}
