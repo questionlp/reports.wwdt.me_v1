@@ -18,3 +18,20 @@ The following instructions target Ubuntu 18.04 LTS
 ```bash
     sudo systemctl status <API Service Name>
 ```
+
+## Setting up NGINX to Serve Static Files
+
+Instead of having uWSGI serve the static content, NGINX can be configured to
+serve the files directly by including the following directives in the site's
+configuration file.
+
+```
+	location /static/ {
+		root <project_path>;
+		autoindex off;
+	}
+
+	location = /favicon.ico {
+		alias <project_path>/static/favicon.ico;
+	}
+```
