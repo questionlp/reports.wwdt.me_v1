@@ -42,7 +42,7 @@ def retrieve_panelist_ranks(panelist_id: int,
 
     cursor = database_connection.cursor()
     query = ("SELECT s.showid, s.showdate, pm.showpnlrank "
-             "FROM ww_showpnlmap PM "
+             "FROM ww_showpnlmap pm "
              "JOIN ww_shows s ON s.showid = pm.showid "
              "WHERE pm.panelistid = %s AND "
              "s.bestof = 0 AND s.repeatshowid IS NULL "
