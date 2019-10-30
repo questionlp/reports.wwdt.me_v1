@@ -20,18 +20,30 @@ from reports.show import original_shows
 
 #region Flask App Initialization
 app = Flask(__name__)
+app.url_map.strict_slashes = False
+
+# Override base Jinja options
 jinja_options = Flask.jinja_options.copy()
 app.jinja_options.update({"trim_blocks": True, "lstrip_blocks": True})
 app.create_jinja_environment()
-app.url_map.strict_slashes = False
+
+#endregion
+
+#region Global Variables
+ga_property_code = None
 #endregion
 
 #region Bootstrap Functions
 def load_config():
     """Load configuration settings from config.json"""
 
+    global ga_property_code
+
     with open("config.json", "r") as config_file:
         config_dict = json.load(config_file)
+
+    # Set the ga_property_code global variable
+    ga_property_code = config_dict["settings"]["ga_property_code"]
 
     return config_dict
 
@@ -57,8 +69,10 @@ def error_500(error):
 @app.route("/panelist")
 @app.route("/show")
 def index():
+    global ga_property_code
+
     return render_template("index.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            rendered_at=generate_date_time_stamp())
 
 #endregion
@@ -73,11 +87,13 @@ def favicon():
 #region Location Reports
 @app.route("/location/average_scores")
 def location_average_scores():
+    global ga_property_code
+
     database_connection.reconnect()
     locations = average_scores.retrieve_average_scores_by_location(database_connection)
 
     return render_template("location/average_scores.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            locations=locations,
                            rendered_at=generate_date_time_stamp())
 
@@ -86,38 +102,44 @@ def location_average_scores():
 #region Panelist Reports
 @app.route("/panelist/aggregate_scores")
 def panelist_aggregate_scores():
+    global ga_property_code
+
     database_connection.reconnect()
     scores = aggregate_scores.retrieve_all_scores(database_connection)
     stats = aggregate_scores.calculate_stats(scores=scores)
     score_spread = aggregate_scores.retrieve_score_spread(database_connection)
 
     return render_template("panelist/aggregate_scores.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            stats=stats,
                            score_spread=score_spread,
                            rendered_at=generate_date_time_stamp())
 
 @app.route("/panelist/appearances_by_year")
 def panelist_appearances_by_year():
+    global ga_property_code
+
     database_connection.reconnect()
     panelists = appearances_by_year.retrieve_all_appearance_counts(database_connection)
     show_years = appearances_by_year.retrieve_all_years(database_connection)
 
     return render_template("panelist/appearances_by_year.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            panelists=panelists,
                            show_years=show_years,
                            rendered_at=generate_date_time_stamp())
 
 @app.route("/panelist/panel_gender_mix")
 def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
+    global ga_property_code
+
     database_connection.reconnect()
     gender_tag = gender[0].upper()
     panel_gender_mix = gender_mix.panel_gender_mix_breakdown(gender=gender,
                                                              database_connection=database_connection)
 
     return render_template("panelist/gender_mix.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            panel_gender_mix=panel_gender_mix,
                            gender=gender_tag,
                            rendered_at=generate_date_time_stamp())
@@ -128,6 +150,8 @@ def panelist_pvp_redirect():
 
 @app.route("/panelist/panelist_vs_panelist")
 def panelist_pvp_report():
+    global ga_property_code
+
     database_connection.reconnect()
     panelists = panelist_vs_panelist.retrieve_panelists(database_connection)
     panelist_appearances = panelist_vs_panelist.retrieve_panelist_appearances(panelists=panelists,
@@ -138,20 +162,22 @@ def panelist_pvp_report():
                                                             show_scores=show_scores)
 
     return render_template("panelist/panelist_vs_panelist.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            panelists=panelists,
                            results=pvp_results,
                            rendered_at=generate_date_time_stamp())
 
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
+    global ga_property_code
+
     database_connection.reconnect()
     panelists = win_streaks.retrieve_panelists(database_connection)
     streak_data = win_streaks.calculate_panelist_win_streaks(panelists=panelists,
                                                              database_connection=database_connection)
 
     return render_template("panelist/win_streaks.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            win_streaks=streak_data,
                            rendered_at=generate_date_time_stamp())
 
@@ -160,13 +186,15 @@ def panelist_win_streaks():
 #region Show Reports
 @app.route("/show/original_shows")
 def show_original_shows(ascending: Optional[bool] = True):
+    global ga_property_code
+
     database_connection.reconnect()
     shows = original_shows.retrieve_all_original_shows(database_connection)
     if not ascending:
         shows.reverse()
 
     return render_template("/show/original_shows.html",
-                           ga_property_code=config_dict["settings"]["ga_property_code"],
+                           ga_property_code=ga_property_code,
                            shows=shows,
                            ascending=ascending,
                            rendered_at=generate_date_time_stamp())
