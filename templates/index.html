@@ -9,10 +9,18 @@
     <ul>
         <li><a href="#location">Location</a></li>
         <li><a href="#panelist">Panelist</a></li>
+        <li><a href="#scorekeeper">Scorekeeper</a></li>
         <li><a href="#show">Show</a></li>
     </ul>
 </div>
 <!-- End Table of Contents -->
+
+<div id="summary">
+    This site provides reports on various aspects of the data recorded in the
+    <a href="//wwdt.me/">Wait Wait... Don't Tell Me! Stats and Show Details</a>
+    database that don't really fit neatly into the main Stats and Show Details
+    site.
+</div>
 
 <!-- Start Location Reports -->
 <h2 id="location">Location</h2>
@@ -91,6 +99,31 @@
     </tbody>
 </table>
 <!-- Start Panelist Reports -->
+
+<!-- Start Scorekeeper Reports -->
+<h2 id="scorekeeper">Scorekeeper</h2>
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="report-name">
+        <col class="report-description">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Report</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="{{ url_for('scorekeeper_introductions') }}">Scorekeeper Introductions</a></td>
+            <td>
+                A report listing of all of the introductions that Bill Kurtis and other
+                scorekeepers have used when introducing themselves at the start of each show
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- End Scorekeeper Reports-->
 
 <!-- Start Show Reports -->
 <h2 id="show">Show</h2>
