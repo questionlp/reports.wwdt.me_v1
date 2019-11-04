@@ -84,6 +84,10 @@ def index():
 def favicon():
     return redirect(url_for("static", filename="favicon.ico"))
 
+@app.route("/robots.txt")
+def robots_txt():
+    return redirect(url_for("static", filename="robots.txt"))
+
 #endregion
 
 #region Location Reports
