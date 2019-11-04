@@ -1,0 +1,5 @@
+@media all {
+    col.show-date, col.starting-score { width: 9rem; }
+    col.show-panelists { width: 15rem; }
+    td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
+}
