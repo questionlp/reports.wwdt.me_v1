@@ -7,6 +7,7 @@
 <div id="toc">
     <h2>Available Report Categories</h2>
     <ul>
+        <li><a href="#guest">Guest</a></li>
         <li><a href="#location">Location</a></li>
         <li><a href="#panelist">Panelist</a></li>
         <li><a href="#scorekeeper">Scorekeeper</a></li>
@@ -21,6 +22,34 @@
     database that don't really fit neatly into the main Stats and Show Details
     site.
 </div>
+
+<!-- Start Guest Reports -->
+<h2 id="guest">Guest</h2>
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="report-name">
+        <col class="report-description">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Report</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="{{ url_for('guest_best_of_only') }}">Best Of Only Guests</a></td>
+            <td>
+                A listing of Not My Job guests that have appeared on Best Of
+                shows but not regular shows; due to, appearing on shows that
+                were part of the show's second taping when traveling away from
+                their home base of Chicago, Illinois.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- End Guest Reports-->
 
 <!-- Start Location Reports -->
 <h2 id="location">Location</h2>
@@ -39,10 +68,10 @@
         <tr>
             <td><a href="{{ url_for('location_average_scores') }}">Average Scores by Location</a></td>
             <td>
-                A report listing out the average panelist score and average total score
-                for each location the show has had a show broadcasted from; excluding the
-                25th Anniversary Special recorded in October 2018 due to the different scoring
-                system used
+                A listing of the average panelist score and average total score
+                for each location the show has broadcasted from. The exception
+                is the 25th Anniversary Special that aired on October 27, 2018
+                due to the unique Lightning Fill-in-the-Blank format used.
             </td>
         </tr>
     </tbody>
@@ -66,34 +95,39 @@
         <tr>
             <td><a href="{{ url_for('panelist_aggregate_scores') }}">Aggregate Scores</a></td>
             <td>
-                Statistics and score spread based on an aggregate of all panelist scores
+                A break down of general statistics of all total scores and a
+                break down of the number of times a total score has been
+                achieved.
             </td>
         </tr>
         <tr>
             <td><a href="{{ url_for('panelist_appearances_by_year') }}">Appearances by Year</a></td>
             <td>
-                A pivot table containing a list of panelists and the number of appearances each panelist
-                has made each year, excluding Best Of and Repeat shows
+                A pivot table containing a list of panelists and the number of
+                appearances each panelist has made, broken out by year
+                (excluding Best Of and Repeat shows).
             </td>
         </tr>
         <tr>
             <td><a href="{{ url_for('panelist_panel_gender_mix') }}">Panel Gender Mix</a></td>
             <td>
-                A report breaking down the panel gender mix for each show by year, excluding Best Of, Repeat
-                and special shows (including pledge specials and the 25th anniversary show)
+                A break down of the panel gender mix for each show by year
+                (excluding Best Of, Repeat and special shows).
             </td>
         </tr>
         <tr>
             <td><a href="{{ url_for('panelist_pvp_report') }}">Panelist vs Panelist</a></td>
             <td>
-                A report detailing how many times a panelist has ranked versus other panelists
+                A break down of how well each panelist has performed against
+                other panelists based on the ranking on each show.
             </td>
         </tr>
         <tr>
             <td><a href="{{ url_for('panelist_win_streaks') }}">Win Streaks</a></td>
             <td>
-                A report detailing the longest outright win streak and the longest win streak
-                (including draws) for each panelist
+                A listing of the longest outright win streak and the longest
+                win streak that includes both outright wins and draws for each
+                panelist.
             </td>
         </tr>
     </tbody>
@@ -117,8 +151,9 @@
         <tr>
             <td><a href="{{ url_for('scorekeeper_introductions') }}">Scorekeeper Introductions</a></td>
             <td>
-                A report listing of all of the introductions that Bill Kurtis and other
-                scorekeepers have used when introducing themselves at the start of each show
+                A listing of all of the introductions that Bill Kurtis and
+                other scorekeepers have used when introducing themselves at the
+                start of each show.
             </td>
         </tr>
     </tbody>
@@ -145,16 +180,17 @@
                 Starting Scores</a>
             </td>
             <td>
-                A report that provides information about the scores at the start of
-                the Lightning Fill-in-the-Blank segment (also known as "the Lightning
-                round")
+                Detials about panelist scores at the start of the Lightning
+                Fill-in-the-Blank segment (also known as "the Lightning
+                round").
             </td>
         </tr>
         <tr>
             <td><a href="{{ url_for('show_original_shows') }}">Original Shows</a></td>
             <td>
-                A report listing each original broadcast show (thus excluding Best Of, Repeat,
-                pledge specials and other special shows that were not broadcast in their entirety)
+                A listing of each original broadcast show, which excludes: Best
+                Of, Repeats, pledge specials and other special shows that were
+                not broadcast in their entirety.
             </td>
         </tr>
     </tbody>

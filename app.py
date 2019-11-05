@@ -13,6 +13,7 @@ import mysql.connector
 from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import (Flask, abort, redirect, render_template,
                    render_template_string, request, url_for)
+from reports.guest import best_of_only
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, panelist_vs_panelist, win_streaks)
 from reports.location import average_scores
@@ -66,6 +67,7 @@ def error_500(error):
 
 #region Default Routes
 @app.route("/")
+@app.route("/guest")
 @app.route("/location")
 @app.route("/panelist")
 @app.route("/scorekeeper")
@@ -87,6 +89,21 @@ def favicon():
 @app.route("/robots.txt")
 def robots_txt():
     return redirect(url_for("static", filename="robots.txt"))
+
+#endregion
+
+#region Guest Reports
+@app.route("/guest/best_of_only")
+def guest_best_of_only():
+    global ga_property_code
+
+    database_connection.reconnect()
+    guests = best_of_only.retrieve_best_of_only_guests(database_connection)
+
+    return render_template("guest/best_of_only.html",
+                           ga_property_code=ga_property_code,
+                           guests=guests,
+                           rendered_at=generate_date_time_stamp())
 
 #endregion
 

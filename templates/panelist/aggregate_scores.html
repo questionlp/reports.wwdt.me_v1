@@ -5,6 +5,13 @@
 {% block breadcrumb %}
 <div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
 {% endblock %}
+{% block synopsis %}
+<p>
+    The first table details the general statistics for entire aggregate of
+    panelist total scores. The second table breaks down the number of instances
+    a total score has been achieved at the end of the show.
+</p>
+{% endblock %}
 {% block content %}
 <!-- Start Aggregate Score Statistics Section -->
 <h2 id="panelist">Aggregate Score Statistics</h2>

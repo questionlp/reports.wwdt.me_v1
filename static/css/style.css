@@ -12,5 +12,5 @@
 }
 
 @media only screen and (max-width: 480px) {
-    html, body { font-size: initial; margin: 0.75rem; }
+    html, body { font-size: initial; margin: 0.75rem; max-width: initial; width: initial; }
 }

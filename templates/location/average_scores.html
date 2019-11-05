@@ -5,6 +5,15 @@
 {% block breadcrumb %}
 <div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
 {% endblock %}
+{% block synopsis %}
+<p>
+    The following table lists the average panelist score and average total
+    score for each location the show has broadcasted from. The exception is
+    the 25th Anniversary Special that aired on October 27, 2018 due to the
+    unique Lightning Fill-in-the-Blank format used.
+</p>
+
+{% endblock %}
 {% block content %}
 <!-- Start Location Breakdown -->
 <table class="pure-table pure-table-bordered">
