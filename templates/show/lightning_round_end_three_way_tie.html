@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block css %}show/lightning_round_end_three_way_tie.css{% endblock %}
+{% block title %}Lightning Round Ending in a Three-Way Tie{% endblock %}
+{% block header_title %}Lightning Round Ending in a Three-Way Tie{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block synopsis %}
+<p>
+    List of shows in which all three panelists finishing the Lightning
+    Fill-in-the Blank round in a three-way tie.
+</p>
+{% endblock %}
+{% block content %}
+<!-- Start Lightning Round Three-Way Tie Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="show-date">
+        <col class="show-panelists">
+        <col class="show-final-score">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Show Date</th>
+            <th scope="col">Panelists</th>
+            <th scope="col">Final Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for show in shows %}
+        <tr>
+            <td>{{ show.date }}</td>
+            
+            <td class="panelist-names">
+                <ul>
+                {% for panelist in show.panelists %}
+                    <li> {{ panelist.name }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td>{{ show.score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">Show Date</th>
+            <th scope="col">Panelists</th>
+            <th scope="col">Final Score</th>
+        </tr>
+    </tfoot>
+</table>
+<!-- End Lightning Round Three-Way Tie Section -->
+{% endblock %}

@@ -250,14 +250,30 @@ def scorekeeper_introductions():
 #endregion
 
 #region Show Reports
+@app.route("/show/lightning_round_end_three_way_tie")
+def show_lightning_round_end_three_way_tie():
+    global ga_property_code
+
+    database_connection.reconnect()
+    shows = lightning_round.shows_ending_with_three_way_tie(database_connection)
+
+    return render_template("/show/lightning_round_end_three_way_tie.html",
+                           ga_property_code=ga_property_code,
+                           shows=shows,
+                           rendered_at=generate_date_time_stamp())
+
 @app.route("/show/lightning_round_score_start")
-def show_lightning_round_score_start():
+def show_lightning_round_score_start_redirect():
+    return redirect(url_for("show_lightning_round_start_three_way_tie"))
+
+@app.route("/show/lightning_round_start_three_way_tie")
+def show_lightning_round_start_three_way_tie():
     global ga_property_code
 
     database_connection.reconnect()
     same_start = lightning_round.shows_with_same_lightning_round_start(database_connection)
 
-    return render_template("/show/lightning_round_score_start.html",
+    return render_template("/show/lightning_round_start_three_way_tie.html",
                            ga_property_code=ga_property_code,
                            same_start=same_start,
                            rendered_at=generate_date_time_stamp())

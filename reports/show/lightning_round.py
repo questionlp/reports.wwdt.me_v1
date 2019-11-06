@@ -95,4 +95,38 @@ def shows_with_same_lightning_round_start(database_connection: mysql.connector.c
 
     return shows
 
+def shows_ending_with_three_way_tie(database_connection: mysql.connector.connect
+                                   ) -> List[Dict]:
+    """Retrieve all shows in which all three panelists ended the show
+    in a three-way tie"""
+
+    shows = []
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showid, s.showdate, pm.panelistscore, "
+             "COUNT(pm.showpnlrank) "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+             "AND pm.showpnlrank = '1t' "
+             "GROUP BY s.showid, pm.panelistscore "
+             "HAVING COUNT(pm.showpnlrank) = 3 "
+             "ORDER BY s.showdate ASC;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+
+    if not result:
+        return None
+
+    for row in result:
+        show = OrderedDict()
+        show["id"] = row["showid"]
+        show["date"] = row["showdate"].isoformat()
+        show["score"] = row["panelistscore"]
+        show["panelists"] = retrieve_panelists_by_show_id(show_id=show["id"],
+                                                          database_connection=database_connection)
+        shows.append(show)
+
+    return shows
+
 #endregion
