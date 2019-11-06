@@ -13,7 +13,7 @@ import mysql.connector
 from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import (Flask, abort, redirect, render_template,
                    render_template_string, request, url_for)
-from reports.guest import best_of_only
+from reports.guest import best_of_only, scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, panelist_vs_panelist, win_streaks)
 from reports.location import average_scores
@@ -104,6 +104,32 @@ def guest_best_of_only():
                            ga_property_code=ga_property_code,
                            guests=guests,
                            rendered_at=generate_date_time_stamp())
+
+@app.route("/guest/scoring_exceptions")
+def guest_scoring_exceptions():
+    global ga_property_code
+
+    database_connection.reconnect()
+    exceptions = scores.retrieve_all_scoring_exceptions(database_connection)
+
+    return render_template("guest/scoring_exceptions.html",
+                           ga_property_code=ga_property_code,
+                           exceptions=exceptions,
+                           rendered_at=generate_date_time_stamp())
+
+@app.route("/guest/three_pointers")
+def guest_three_pointers():
+    global ga_property_code
+
+    database_connection.reconnect()
+    three_pointers = scores.retrieve_all_three_pointers(database_connection)
+
+    return render_template("guest/three_pointers.html",
+                           ga_property_code=ga_property_code,
+                           three_pointers=three_pointers,
+                           rendered_at=generate_date_time_stamp())
+    return
+
 
 #endregion
 

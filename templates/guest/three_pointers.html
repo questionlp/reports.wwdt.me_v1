@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block css %}guest/three_pointers.css{% endblock %}
+{% block title %}Not My Job Three Pointers{% endblock %}
+{% block header_title %}Not My Job Three Pointers{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block synopsis %}
+<p>
+    List of all of the Not My Job guests who answered all three Not My Job
+    questions correctly or were awarded all three points.
+</p>
+{% endblock %}
+{% block content %}
+<!-- Start Not My Job Scoring Exceptions Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="guest-name">
+        <col class="show-date">
+        <col class="guest-score">
+        <col class="score-exception">
+        <col class="show-notes">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Guest</th>
+            <th scope="col">Show Date</th>
+            <th scope="col">Score</th>
+            <th scope="col">Scoring Exception</th>
+            <th scope="col">Show Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for guest in three_pointers %}
+        <tr>
+            <td>{{ guest.name }}</td>
+            <td>{{ guest.show_date }}</td>
+            <td>{{ guest.score }}</td>
+            <td>{{ guest.exception }}</td>
+        {% if guest.exception %}    
+            <td class="show-notes">{{ guest.show_notes }}</td>
+        {% else %}
+            <td class="no-data">&nbsp;</td>
+        {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    <thead>
+        <tr>
+            <th scope="col">Guest</th>
+            <th scope="col">Show Date</th>
+            <th scope="col">Score</th>
+            <th scope="col">Scoring Exception</th>
+            <th scope="col">Show Notes</th>
+        </tr>
+    </thead>
+</table>
+<!-- End Not My Job Scoring Exceptions Section -->
+{% endblock %}

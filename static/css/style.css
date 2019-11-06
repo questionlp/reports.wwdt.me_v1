@@ -5,9 +5,9 @@
     h1 { font-size: 1.5rem; font-weight: 700; }
     h2 { font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 1rem; }
     table.pure-table { max-width: 72rem; }
-    table.pure-table thead, table.pure-table tfoot { background-color: gainsboro; font-weight: 700; text-align: center; }
+    table.pure-table thead, table.pure-table tfoot { background-color: lightgray !important; font-weight: 700; text-align: center; }
     table.pure-table td { vertical-align: top; }
-    td.no-data { background-color: lightslategray; }
+    td.no-data { background-color: rgb(240, 240, 240); }
     footer { font-size: 0.9rem; margin-top: 1.5rem; }
 }
 

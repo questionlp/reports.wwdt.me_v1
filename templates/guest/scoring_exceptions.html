@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block css %}guest/scoring_exceptions.css{% endblock %}
+{% block title %}Not My Job Scoring Exceptions{% endblock %}
+{% block header_title %}Not My Job Scoring Exceptions{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block synopsis %}
+<p>
+    List of Not My Job guests who have had scoring exceptions that allowed them
+    to win the prize for the listener contestant or were awarded the full three
+    points.
+</p>
+{% endblock %}
+{% block content %}
+<!-- Start Not My Job Scoring Exceptions Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="guest-name">
+        <col class="show-date">
+        <col class="guest-score">
+        <col class="show-notes">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Guest</th>
+            <th scope="col">Show Date</th>
+            <th scope="col">Score</th>
+            <th scope="col">Show Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for guest in exceptions %}
+        {% if guest.exceptions|length == 1 %}
+        <tr>
+            <td>{{ guest.name }}</td>
+            <td>{{ guest.exceptions[0].date }}</td>
+            <td>{{ guest.exceptions[0].score }}</td>
+            <td class="show-notes">{{ guest.exceptions[0].notes }}</td>
+        </tr>
+        {% else %}
+            {% for count in range(0, guest.exceptions|length) %}
+        <tr>
+                {% if count == 0 %}
+            <td rowspan="{{ guest.exceptions|length }}">{{ guest.name }}</td>
+                {% endif %}
+            <td>{{ guest.exceptions[count].date }}</td>
+            <td>{{ guest.exceptions[count].score }}</td>
+            <td>{{ guest.exceptions[count].notes }}</td>
+        </tr>
+            {% endfor %}
+            
+        {% endif %}
+    {% endfor %}
+    </tbody>
+    <thead>
+        <tr>
+            <th scope="col">Guest</th>
+            <th scope="col">Show Date</th>
+            <th scope="col">Score</th>
+            <th scope="col">Show Notes</th>
+        </tr>
+    </thead>
+</table>
+<!-- End Not My Job Scoring Exceptions Section -->
+{% endblock %}
