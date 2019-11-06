@@ -86,7 +86,6 @@ def shows_with_same_lightning_round_start(database_connection: mysql.connector.c
         show_date = show_scores[show]["date"]
 
         if len(set(show_scores[show]["scores"])) == 1:
-            print(show_scores[show])
             shows[show_date] = OrderedDict()
             shows[show_date]["id"] = show_id
             shows[show_date]["date"] = show_date
