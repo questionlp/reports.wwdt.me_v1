@@ -98,6 +98,7 @@ def retrieve_all_scoring_exceptions(database_connection: mysql.connector.connect
              "ORDER BY g.guest ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

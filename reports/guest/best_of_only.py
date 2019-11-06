@@ -66,6 +66,7 @@ def retrieve_best_of_only_guests(database_connection: mysql.connector.connect
             )
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

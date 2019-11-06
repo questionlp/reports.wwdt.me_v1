@@ -27,6 +27,7 @@ def retrieve_all_lightning_round_start(database_connection: mysql.connector.conn
              "ORDER BY s.showdate ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -58,6 +59,7 @@ def retrieve_panelists_by_show_id(show_id: int,
              "ORDER BY pm.showpnlmapid ASC;")
     cursor.execute(query, (show_id,))
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

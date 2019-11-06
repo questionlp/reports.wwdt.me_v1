@@ -45,10 +45,9 @@ def retrieve_all_scorekeeper_introductions(database_connection: mysql.connector.
     scorekeepers = retrieve_scorekeepers_with_introductions(database_connection)
     all_introductions = OrderedDict()
 
+    cursor = database_connection.cursor(dictionary=True)
     for scorekeeper in scorekeepers:
         scorekeeper_intros = []
-
-        cursor = database_connection.cursor(dictionary=True)
         query = ("SELECT s.showid, s.showdate, s.bestof, s.repeatshowid, "
                  "skm.description "
                  "FROM ww_showskmap skm "
@@ -72,6 +71,7 @@ def retrieve_all_scorekeeper_introductions(database_connection: mysql.connector.
 
         all_introductions[scorekeeper["id"]] = scorekeeper_intros
 
+    cursor.close()
     return all_introductions
 
 #endregion
