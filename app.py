@@ -9,10 +9,11 @@ import os
 import pytz
 from typing import Optional, Text
 
-import mysql.connector
-from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import (Flask, abort, redirect, render_template,
                    render_template_string, request, url_for)
+import mysql.connector
+from mysql.connector.errors import DatabaseError, ProgrammingError
+
 from reports.guest import best_of_only, scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, panelist_vs_panelist, win_streaks)
@@ -128,8 +129,6 @@ def guest_three_pointers():
                            ga_property_code=ga_property_code,
                            three_pointers=three_pointers,
                            rendered_at=generate_date_time_stamp())
-    return
-
 
 #endregion
 
