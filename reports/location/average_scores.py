@@ -29,9 +29,11 @@ def retrieve_average_scores_by_location(database_connection: mysql.connector.con
              "join ww_showlocationmap lm ON lm.showid = pm.showid "
              "JOIN ww_locations l ON l.locationid = lm.locationid "
              "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+             "AND l.locationid <> 3 " # Ignore any TBD locations 
              "AND s.showdate <> '2018-10-27' "
              "GROUP BY l.locationid "
-             "ORDER BY average_score DESC")
+             "ORDER BY average_score DESC, average_total DESC, "
+             "show_count DESC, l.venue ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
 
