@@ -32,21 +32,12 @@ app.create_jinja_environment()
 
 #endregion
 
-#region Global Variables
-ga_property_code = None
-#endregion
-
 #region Bootstrap Functions
 def load_config():
     """Load configuration settings from config.json"""
 
-    global ga_property_code
-
     with open("config.json", "r") as config_file:
         config_dict = json.load(config_file)
-
-    # Set the ga_property_code global variable
-    ga_property_code = config_dict["settings"]["ga_property_code"]
 
     return config_dict
 
@@ -74,8 +65,6 @@ def error_500(error):
 @app.route("/scorekeeper")
 @app.route("/show")
 def index():
-    global ga_property_code
-
     return render_template("index.html",
                            ga_property_code=ga_property_code,
                            rendered_at=generate_date_time_stamp())
@@ -96,8 +85,6 @@ def robots_txt():
 #region Guest Reports
 @app.route("/guest/best_of_only")
 def guest_best_of_only():
-    global ga_property_code
-
     database_connection.reconnect()
     guests = best_of_only.retrieve_best_of_only_guests(database_connection)
 
@@ -108,8 +95,6 @@ def guest_best_of_only():
 
 @app.route("/guest/scoring_exceptions")
 def guest_scoring_exceptions():
-    global ga_property_code
-
     database_connection.reconnect()
     exceptions = scores.retrieve_all_scoring_exceptions(database_connection)
 
@@ -120,8 +105,6 @@ def guest_scoring_exceptions():
 
 @app.route("/guest/three_pointers")
 def guest_three_pointers():
-    global ga_property_code
-
     database_connection.reconnect()
     three_pointers = scores.retrieve_all_three_pointers(database_connection)
 
@@ -135,8 +118,6 @@ def guest_three_pointers():
 #region Location Reports
 @app.route("/location/average_scores")
 def location_average_scores():
-    global ga_property_code
-
     database_connection.reconnect()
     locations = average_scores.retrieve_average_scores_by_location(database_connection)
 
@@ -150,8 +131,6 @@ def location_average_scores():
 #region Panelist Reports
 @app.route("/panelist/aggregate_scores")
 def panelist_aggregate_scores():
-    global ga_property_code
-
     database_connection.reconnect()
     scores = aggregate_scores.retrieve_all_scores(database_connection)
     stats = aggregate_scores.calculate_stats(scores=scores)
@@ -165,8 +144,6 @@ def panelist_aggregate_scores():
 
 @app.route("/panelist/appearances_by_year")
 def panelist_appearances_by_year():
-    global ga_property_code
-
     database_connection.reconnect()
     panelists = appearances_by_year.retrieve_all_appearance_counts(database_connection)
     show_years = appearances_by_year.retrieve_all_years(database_connection)
@@ -179,8 +156,6 @@ def panelist_appearances_by_year():
 
 @app.route("/panelist/panel_gender_mix")
 def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
-    global ga_property_code
-
     database_connection.reconnect()
     gender_tag = gender[0].upper()
     panel_gender_mix = gender_mix.panel_gender_mix_breakdown(gender=gender,
@@ -198,8 +173,6 @@ def panelist_pvp_redirect():
 
 @app.route("/panelist/panelist_vs_panelist")
 def panelist_pvp_report():
-    global ga_property_code
-
     database_connection.reconnect()
     panelists = panelist_vs_panelist.retrieve_panelists(database_connection)
     panelist_appearances = panelist_vs_panelist.retrieve_panelist_appearances(panelists=panelists,
@@ -217,8 +190,6 @@ def panelist_pvp_report():
 
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
-    global ga_property_code
-
     database_connection.reconnect()
     panelists = win_streaks.retrieve_panelists(database_connection)
     streak_data = win_streaks.calculate_panelist_win_streaks(panelists=panelists,
@@ -234,8 +205,6 @@ def panelist_win_streaks():
 #region Scorekeeper Reports
 @app.route("/scorekeeper/introductions")
 def scorekeeper_introductions():
-    global ga_property_code
-
     database_connection.reconnect()
     scorekeepers = introductions.retrieve_scorekeepers_with_introductions(database_connection)
     all_introductions = introductions.retrieve_all_scorekeeper_introductions(database_connection)
@@ -251,8 +220,6 @@ def scorekeeper_introductions():
 #region Show Reports
 @app.route("/show/lightning_round_end_three_way_tie")
 def show_lightning_round_end_three_way_tie():
-    global ga_property_code
-
     database_connection.reconnect()
     shows = lightning_round.shows_ending_with_three_way_tie(database_connection)
 
@@ -267,8 +234,6 @@ def show_lightning_round_score_start_redirect():
 
 @app.route("/show/lightning_round_start_three_way_tie")
 def show_lightning_round_start_three_way_tie():
-    global ga_property_code
-
     database_connection.reconnect()
     same_start = lightning_round.shows_with_same_lightning_round_start(database_connection)
 
@@ -279,8 +244,6 @@ def show_lightning_round_start_three_way_tie():
 
 @app.route("/show/original_shows")
 def show_original_shows(ascending: Optional[bool] = True):
-    global ga_property_code
-
     database_connection.reconnect()
     shows = original_shows.retrieve_all_original_shows(database_connection)
     if not ascending:
@@ -304,6 +267,7 @@ def show_original_shows_desc():
 
 #region Application Initialization
 config_dict = load_config()
+ga_property_code = config_dict["settings"]["ga_property_code"]
 database_connection = mysql.connector.connect(**config_dict["database"])
 database_connection.autocommit = True
 time_zone = pytz.timezone("America/Los_Angeles")
