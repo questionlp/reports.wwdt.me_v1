@@ -24,7 +24,7 @@ from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.1.1"
 #endregion
 
 #region Flask App Initialization
