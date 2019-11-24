@@ -24,7 +24,7 @@ from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.1.1"
+APP_VERSION = "1.1.1.1"
 #endregion
 
 #region Flask App Initialization
@@ -177,7 +177,7 @@ def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
 @app.route("/panelist/pvp")
 def panelist_pvp_redirect():
     """Panelist vs Panelist Redirect"""
-    return redirect(url_for("panelist_pvp_report"))
+    return redirect(url_for("panelist_pvp_report"), 301)
 
 @app.route("/panelist/panelist_vs_panelist")
 def panelist_pvp_report():
@@ -261,7 +261,7 @@ def show_lightning_round_end_three_way_tie():
 @app.route("/show/lightning_round_score_start")
 def show_lightning_round_score_start_redirect():
     """Lightning Round Score Start Redirect"""
-    return redirect(url_for("show_lightning_round_start_three_way_tie"))
+    return redirect(url_for("show_lightning_round_start_three_way_tie"), 301)
 
 @app.route("/show/lightning_round_start_three_way_tie")
 def show_lightning_round_start_three_way_tie():
@@ -292,12 +292,12 @@ def show_original_shows(ascending: Optional[bool] = True):
 @app.route("/show/original_shows/asc")
 def show_original_shows_asc():
     """All Original Shows Report Ascending Redirect"""
-    return redirect(url_for("show_original_shows", sort="asc"))
+    return redirect(url_for("show_original_shows", sort="asc"), 301)
 
 @app.route("/show/original_shows/desc")
 def show_original_shows_desc():
     """All Original Shows Report Descending Redirect"""
-    return redirect(url_for("show_original_shows", sort="desc"))
+    return redirect(url_for("show_original_shows", sort="desc"), 301)
 
 #endregion
 
