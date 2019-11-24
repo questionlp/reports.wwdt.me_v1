@@ -6,7 +6,6 @@
 from collections import OrderedDict
 from typing import List, Dict
 import mysql.connector
-from mysql.connector import DatabaseError, ProgrammingError
 
 #region Retrieval Functions
 def retrieve_scorekeepers_with_introductions(database_connection: mysql.connector.connect

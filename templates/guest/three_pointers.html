@@ -33,8 +33,12 @@
     <tbody>
     {% for guest in three_pointers %}
         <tr>
-            <td>{{ guest.name }}</td>
-            <td>{{ guest.show_date }}</td>
+            <td>
+                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                    {{ guest.name }}
+                </a>
+            </td>
+            <td><a href="https://stats.wwdt.me/shows/{{ guest.show_date }}">{{ guest.show_date }}</a></td>
             <td>{{ guest.score }}</td>
             <td>{{ guest.exception }}</td>
         {% if guest.exception %}    

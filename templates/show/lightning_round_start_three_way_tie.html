@@ -29,7 +29,11 @@
     <tbody>
         {% for show in same_start %}
         <tr>
-            <td>{{ same_start[show].date }}</td>
+            <td>
+                <a href="https://stats.wwdt.me/shows/{{ same_start[show].date }}">
+                    {{ same_start[show].date }}
+                </a>
+            </td>
             <td class="panelist-names">
                 <ul>
                 {% for panelist in same_start[show].panelists %}

@@ -3,6 +3,7 @@
     table.pure-table { margin-right: 0.25rem; width: initial; }
     table.pure-table thead, table.pure-table tfoot { background-color: skyblue; font-weight: 600; text-align: center; }
     td.panelist-name { background-color: gainsboro; font-weight: 600; }
+    td.panelist-name a { color: black; }
     td.panelist-data { text-align: center; vertical-align: middle !important; }
     td.total { background-color: gainsboro; font-weight: 600; }
 }

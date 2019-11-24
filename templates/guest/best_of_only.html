@@ -41,8 +41,15 @@
     {% for guest in guests %}
         {% if guest.appearances|length == 1 %}
         <tr>
-            <td>{{ guest.name }}</td>
-            <td>{{ guest.appearances[0].date }}</td>
+            <td>
+                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                    {{ guest.name }}
+                </a>
+            <td>
+                <a href="https://stats.wwdt.me/shows/{{ guest.appearances[0].date }}">
+                    {{ guest.appearances[0].date }}
+                </a>
+            </td>
             <td>{{ guest.appearances[0].repeat_show }}</td>
             <td>{{ guest.appearances[0].score }}</td>
             <td>{{ guest.appearances[0].exception }}</td>
@@ -51,9 +58,17 @@
             {% for count in range(0, guest.appearances|length) %}
         <tr>
                 {% if count == 0 %}
-            <td rowspan="{{ guest.appearances|length }}">{{ guest.name }}</td>
+            <td rowspan="{{ guest.appearances|length }}">
+                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                    {{ guest.name }}
+                </a>
+            </td>
                 {% endif %}
-            <td>{{ guest.appearances[count].date }}</td>
+            <td>
+                <a href="https://stats.wwdt.me/shows/{{ guest.appearances[count].date }}">
+                    {{ guest.appearances[count].date }}
+                </a>
+            </td>
             <td>{{ guest.appearances[count].repeat_show }}</td>
             <td>{{ guest.appearances[count].score }}</td>
             <td>{{ guest.appearances[count].exception }}</td>

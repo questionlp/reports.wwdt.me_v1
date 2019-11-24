@@ -33,8 +33,16 @@
     {% for guest in exceptions %}
         {% if guest.exceptions|length == 1 %}
         <tr>
-            <td>{{ guest.name }}</td>
-            <td>{{ guest.exceptions[0].date }}</td>
+            <td>
+                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                    {{ guest.name }}
+                </a>
+            </td>
+            <td>
+                <a href="https://stats.wwdt.me/shows/{{ guest.exceptions[0].date }}">
+                    {{ guest.exceptions[0].date }}
+                </a>
+            </td>
             <td>{{ guest.exceptions[0].score }}</td>
             <td class="show-notes">{{ guest.exceptions[0].notes }}</td>
         </tr>
@@ -42,9 +50,17 @@
             {% for count in range(0, guest.exceptions|length) %}
         <tr>
                 {% if count == 0 %}
-            <td rowspan="{{ guest.exceptions|length }}">{{ guest.name }}</td>
+            <td rowspan="{{ guest.exceptions|length }}">
+                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                    {{ guest.name }}
+                </a>
+            </td>
                 {% endif %}
-            <td>{{ guest.exceptions[count].date }}</td>
+            <td>
+                <a href="https://stats.wwdt.me/shows/{{ guest.exceptions[count].date }}">
+                    {{ guest.exceptions[count].date }}
+                </a>
+            </td>
             <td>{{ guest.exceptions[count].score }}</td>
             <td>{{ guest.exceptions[count].notes }}</td>
         </tr>

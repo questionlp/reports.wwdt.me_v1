@@ -6,12 +6,11 @@
 from collections import OrderedDict
 from typing import List, Dict
 import mysql.connector
-from mysql.connector import DatabaseError, ProgrammingError
 
 #region Retrieval Functions
-def retrieve_guest_scoring_exceptions(guest_id: int,
-                                      database_connection: mysql.connector.connect
-                                     ) -> List[Dict]:
+def retrieve_scoring_exceptions(guest_id: int,
+                                database_connection: mysql.connector.connect
+                               ) -> List[Dict]:
     """Retrieve a list of instances where a requested Not My Job guest
     has had a scoring exception"""
 
@@ -108,8 +107,8 @@ def retrieve_all_scoring_exceptions(database_connection: mysql.connector.connect
         guest["id"] = row["guestid"]
         guest["name"] = row["guest"]
         guest["slug"] = row["guestslug"]
-        guest["exceptions"] = retrieve_guest_scoring_exceptions(guest_id=guest["id"],
-                                                                database_connection=database_connection)
+        guest["exceptions"] = retrieve_scoring_exceptions(guest_id=guest["id"],
+                                                          database_connection=database_connection)
         exceptions.append(guest)
 
     return exceptions

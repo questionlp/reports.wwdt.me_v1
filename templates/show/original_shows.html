@@ -47,7 +47,7 @@
         {% for show in shows %}
         <tr>
             <td>{{ show.count }}</td>
-            <td>{{ show.date }}</td>
+            <td><a href="https://stats.wwdt.me/shows/{{ show.date }}">{{ show.date }}</a></td>
             <td>{{ show.location.venue}} ({{ show.location.city }}, {{ show.location.state }})</td>
             <td>{{ show.host }}</td>
             <td>{{ show.scorekeeper }}</td>

@@ -33,7 +33,11 @@
     <tbody>
         {% for panelist in panelists %}
         <tr>
-            <td class="panelist-name">{{ panelist.name }}</td>
+            <td class="panelist-name">
+                <a href="https://stats.wwdt.me/panelists/{{ panelist.slug }}">
+                    {{ panelist.name }}
+                </a>
+            </td>
             {% for year in show_years %}
                 {% if year in panelist.appearances %}
             <td class="panelist-data">{{ panelist.appearances[year] }}</td>

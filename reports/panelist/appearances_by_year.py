@@ -4,7 +4,7 @@
 """WWDTM Panelist Apperances by Year Report Functions"""
 
 from collections import OrderedDict
-from typing import List, Dict, Text
+from typing import List, Dict
 import mysql.connector
 
 #region Retrieval Functions
@@ -43,8 +43,8 @@ def retrieve_all_appearance_counts(database_connection: mysql.connector.connect
     """Retrieve all appearance counts for all panelists from the
     database"""
 
-    cursor = database_connection.cursor()
-    query = ("SELECT DISTINCT p.panelistid, p.panelist "
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT DISTINCT p.panelistid, p.panelist, p.panelistslug "
              "FROM ww_showpnlmap pm "
              "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
              "JOIN ww_shows s ON s.showid = pm.showid "
@@ -60,8 +60,9 @@ def retrieve_all_appearance_counts(database_connection: mysql.connector.connect
     panelists = []
     for row in result:
         panelist = {}
-        panelist_id = row[0]
-        panelist["name"] = row[1]
+        panelist_id = row["panelistid"]
+        panelist["name"] = row["panelist"]
+        panelist["slug"] = row["panelistslug"]
         appearances = retrieve_panelist_appearance_counts(panelist_id=panelist_id,
                                                           database_connection=database_connection)
         panelist["appearances"] = appearances

@@ -29,8 +29,7 @@
     <tbody>
         {% for show in shows %}
         <tr>
-            <td>{{ show.date }}</td>
-            
+            <td><a href="https://stats.wwdt.me/shows/{{ show.date }}">{{ show.date }}</a></td>
             <td class="panelist-names">
                 <ul>
                 {% for panelist in show.panelists %}

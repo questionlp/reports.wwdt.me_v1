@@ -6,7 +6,6 @@
 from collections import OrderedDict
 from typing import List, Dict
 import mysql.connector
-from mysql.connector import DatabaseError, ProgrammingError
 
 #region Retrieval Functions
 def retrieve_guest_appearances(guest_id: int,
@@ -53,7 +52,7 @@ def retrieve_best_of_only_guests(database_connection: mysql.connector.connect
     # Retrieve a list of guest IDs that only have appearances on shows
     # flagged as Best Of shows
     cursor = database_connection.cursor(dictionary=True)
-    query = ("SELECT DISTINCT g.guestid, g.guest "
+    query = ("SELECT DISTINCT g.guestid, g.guest, g.guestslug "
              "FROM ww_showguestmap gm "
              "JOIN ww_shows s ON s.showid = gm.showid "
              "JOIN ww_guests g ON g.guestid = gm.guestid "
@@ -75,10 +74,11 @@ def retrieve_best_of_only_guests(database_connection: mysql.connector.connect
         guest = OrderedDict()
         guest["id"] = row["guestid"]
         guest["name"] = row["guest"]
+        guest["slug"] = row["guestslug"]
         guest["appearances"] = retrieve_guest_appearances(guest_id=guest["id"],
                                                           database_connection=database_connection)
         guests.append(guest)
-        
+
     return guests
 
 #endregion

@@ -6,7 +6,6 @@
 from collections import OrderedDict
 from typing import Dict, List, Text
 import mysql.connector
-from mysql.connector import DatabaseError, ProgrammingError
 
 #region Retrieval Functions
 def retrieve_show_years(database_connection: mysql.connector.connect
@@ -44,14 +43,14 @@ def retrieve_panel_gender_count_by_year(year: int,
 
     for gender_count in range(0, 4):
         query = ("SELECT s.showdate FROM ww_showpnlmap pm "
-                "JOIN ww_shows s ON s.showid = pm.showid "
-                "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
-                "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
-                "AND p.panelistgender = %s "
-                "AND year(s.showdate) = %s "
-                "AND s.showdate <> '2018-10-27' " # Exclude 25th anniversary special
-                "GROUP BY s.showdate "
-                "HAVING COUNT(p.panelistgender) = %s;")
+                 "JOIN ww_shows s ON s.showid = pm.showid "
+                 "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+                 "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+                 "AND p.panelistgender = %s "
+                 "AND year(s.showdate) = %s "
+                 "AND s.showdate <> '2018-10-27' " # Exclude 25th anniversary special
+                 "GROUP BY s.showdate "
+                 "HAVING COUNT(p.panelistgender) = %s;")
         cursor.execute(query, (gender_tag, year, gender_count, ))
         cursor.fetchall()
         counts["{}{}".format(gender_count, gender_tag)] = cursor.rowcount
@@ -74,9 +73,10 @@ def panel_gender_mix_breakdown(gender: Text,
 
     gender_mix_breakdown = OrderedDict()
     for year in show_years:
-        gender_mix_breakdown[year] = retrieve_panel_gender_count_by_year(year=year,
-                                                                         gender=gender,
-                                                                         database_connection=database_connection)
+        count = retrieve_panel_gender_count_by_year(year=year,
+                                                    gender=gender,
+                                                    database_connection=database_connection)
+        gender_mix_breakdown[year] = count
 
     return gender_mix_breakdown
 

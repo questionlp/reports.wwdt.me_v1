@@ -4,10 +4,8 @@
 """WWDTM Panelist vs Panelist Report Functions"""
 
 from collections import OrderedDict
-import json
-from typing import List, Dict, Text
+from typing import List, Dict
 import mysql.connector
-import slugify
 
 #region Retrieval Functions
 def retrieve_panelists(database_connection: mysql.connector.connect

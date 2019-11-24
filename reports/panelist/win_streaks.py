@@ -6,7 +6,6 @@
 from collections import OrderedDict
 from typing import Dict, List
 import mysql.connector
-from mysql.connector import DatabaseError, ProgrammingError
 
 #region Retrieval Functions
 def retrieve_panelists(database_connection: mysql.connector.connect
@@ -84,7 +83,7 @@ def calculate_panelist_win_streaks(panelists: List[Dict],
 
         shows = retrieve_panelist_ranks(panelist["id"], database_connection)
 
-        # Calculate win streaks 
+        # Calculate win streaks
         current_streak = 0
         current_streak_show_dates = []
         for show in shows:

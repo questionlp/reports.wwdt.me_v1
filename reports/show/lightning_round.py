@@ -6,7 +6,6 @@
 from collections import OrderedDict
 from typing import List, Dict
 import mysql.connector
-from mysql.connector import DatabaseError, ProgrammingError
 
 #region Retrieval Functions
 def retrieve_all_lightning_round_start(database_connection: mysql.connector.connect
@@ -90,8 +89,9 @@ def shows_with_same_lightning_round_start(database_connection: mysql.connector.c
             shows[show_date]["id"] = show_id
             shows[show_date]["date"] = show_date
             shows[show_date]["score"] = show_scores[show]["scores"][0]
-            shows[show_date]["panelists"] = retrieve_panelists_by_show_id(show_id=show_id,
-                                                                          database_connection=database_connection)
+            panelists = retrieve_panelists_by_show_id(show_id=show_id,
+                                                      database_connection=database_connection)
+            shows[show_date]["panelists"] = panelists
 
     return shows
 

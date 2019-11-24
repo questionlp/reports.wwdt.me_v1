@@ -6,7 +6,6 @@
 from collections import OrderedDict
 from typing import List, Dict
 import mysql.connector
-from mysql.connector.errors import DatabaseError, ProgrammingError
 import numpy
 
 #region Retrieval Functions
