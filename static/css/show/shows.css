@@ -2,5 +2,5 @@
     table.pure-table { max-width: initial; }
     col.show-host, col.show-scorekeeper { width: 10rem; }
     col.show-location, col.show-panelists, col.show-guest { width: 15rem; }
-    td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
+    td.guest-names ul, td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
 }

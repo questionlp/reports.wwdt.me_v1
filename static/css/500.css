@@ -1,0 +1,3 @@
+@media all {
+    .traceback { border: 2px solid rgba(0, 0, 0, 0.25); font-size: 90%; overflow: scroll; padding: 1.5rem; width: 90%; }
+}
