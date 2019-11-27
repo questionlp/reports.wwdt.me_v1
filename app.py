@@ -24,7 +24,7 @@ from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.1.5"
+APP_VERSION = "1.1.6"
 #endregion
 
 #region Flask App Initialization
@@ -69,7 +69,8 @@ def handle_exception(error):
     error_traceback = traceback.format_exc()
     app_logger.error(error_traceback)
     return htmlmin.minify(render_template("errors/500.html",
-                                          error_traceback=error_traceback), 500)
+                                          error_traceback=error_traceback),
+                          remove_optional_attribute_quotes=False), 500
 
 #endregion
 
@@ -77,7 +78,8 @@ def handle_exception(error):
 @app.route("/")
 def index():
     """Default landing page"""
-    return htmlmin.minify(render_template("index.html"))
+    return htmlmin.minify(render_template("index.html"),
+                          remove_optional_attribute_quotes=False)
 
 #endregion
 
@@ -104,7 +106,8 @@ def guest_best_of_only():
     guests = best_of_only.retrieve_best_of_only_guests(database_connection)
 
     return htmlmin.minify(render_template("guest/best_of_only.html",
-                                          guests=guests))
+                                          guests=guests),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/guest/scoring_exceptions")
 def guest_scoring_exceptions():
@@ -113,7 +116,8 @@ def guest_scoring_exceptions():
     exceptions = guest_scores.retrieve_all_scoring_exceptions(database_connection)
 
     return htmlmin.minify(render_template("guest/scoring_exceptions.html",
-                                          exceptions=exceptions))
+                                          exceptions=exceptions),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/guest/three_pointers")
 def guest_three_pointers():
@@ -122,7 +126,8 @@ def guest_three_pointers():
     three_pointers = guest_scores.retrieve_all_three_pointers(database_connection)
 
     return htmlmin.minify(render_template("guest/three_pointers.html",
-                                          three_pointers=three_pointers))
+                                          three_pointers=three_pointers),
+                          remove_optional_attribute_quotes=False)
 
 #endregion
 
@@ -139,7 +144,8 @@ def location_average_scores():
     locations = average_scores.retrieve_average_scores_by_location(database_connection)
 
     return htmlmin.minify(render_template("location/average_scores.html",
-                                          locations=locations))
+                                          locations=locations),
+                          remove_optional_attribute_quotes=False)
 
 #endregion
 
@@ -159,7 +165,8 @@ def panelist_aggregate_scores():
 
     return htmlmin.minify(render_template("panelist/aggregate_scores.html",
                                           stats=stats,
-                                          score_spread=score_spread))
+                                          score_spread=score_spread),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/panelist/appearances_by_year")
 def panelist_appearances_by_year():
@@ -170,7 +177,8 @@ def panelist_appearances_by_year():
 
     return htmlmin.minify(render_template("panelist/appearances_by_year.html",
                                           panelists=panelists,
-                                          show_years=show_years,))
+                                          show_years=show_years),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/panelist/panel_gender_mix")
 def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
@@ -182,7 +190,8 @@ def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
 
     return htmlmin.minify(render_template("panelist/gender_mix.html",
                                           panel_gender_mix=mix,
-                                          gender=gender_tag))
+                                          gender=gender_tag),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/panelist/pvp")
 def panelist_pvp_redirect():
@@ -203,7 +212,8 @@ def panelist_pvp_report():
 
     return htmlmin.minify(render_template("panelist/panelist_vs_panelist.html",
                                           panelists=panelists,
-                                          results=pvp_results))
+                                          results=pvp_results),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
@@ -214,7 +224,8 @@ def panelist_win_streaks():
                                                          database_connection=database_connection)
 
     return htmlmin.minify(render_template("panelist/win_streaks.html",
-                                          win_streaks=streaks))
+                                          win_streaks=streaks),
+                          remove_optional_attribute_quotes=False)
 
 #endregion
 
@@ -233,7 +244,8 @@ def scorekeeper_introductions():
 
     return htmlmin.minify(render_template("scorekeeper/introductions.html",
                                           scorekeepers=scorekeepers,
-                                          all_introductions=all_introductions))
+                                          all_introductions=all_introductions),
+                          remove_optional_attribute_quotes=False)
 
 #endregion
 
@@ -257,7 +269,8 @@ def show_all_shows():
 
     return htmlmin.minify(render_template("/show/all_shows.html",
                                           ascending=ascending,
-                                          shows=shows))
+                                          shows=shows),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/show/lightning_round_end_three_way_tie")
 def show_lightning_round_end_three_way_tie():
@@ -266,7 +279,8 @@ def show_lightning_round_end_three_way_tie():
     shows = lightning_round.shows_ending_with_three_way_tie(database_connection)
 
     return htmlmin.minify(render_template("/show/lightning_round_end_three_way_tie.html",
-                                          shows=shows))
+                                          shows=shows),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/show/lightning_round_score_start")
 def show_lightning_round_score_start_redirect():
@@ -280,7 +294,8 @@ def show_lightning_round_start_three_way_tie():
     same_start = lightning_round.shows_with_same_lightning_round_start(database_connection)
 
     return htmlmin.minify(render_template("/show/lightning_round_start_three_way_tie.html",
-                                          same_start=same_start))
+                                          same_start=same_start),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/show/original_shows")
 def show_original_shows(ascending: Optional[bool] = True):
@@ -297,7 +312,8 @@ def show_original_shows(ascending: Optional[bool] = True):
 
     return htmlmin.minify(render_template("/show/original_shows.html",
                                           shows=shows,
-                                          ascending=ascending))
+                                          ascending=ascending),
+                          remove_optional_attribute_quotes=False)
 
 @app.route("/show/original_shows/asc")
 def show_original_shows_asc():
