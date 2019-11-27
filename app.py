@@ -24,7 +24,7 @@ from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.1.1.1"
+APP_VERSION = "1.1.5"
 #endregion
 
 #region Flask App Initialization
@@ -78,6 +78,16 @@ def handle_exception(error):
 def index():
     """Default landing page"""
     return htmlmin.minify(render_template("index.html"))
+
+#endregion
+
+#region Sitemap XML Route
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    """Sitemap XML"""
+    site_url = config["settings"]["site_url"]
+    return render_template("core/sitemap.xml",
+                           site_url=site_url)
 
 #endregion
 
