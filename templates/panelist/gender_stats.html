@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block css %}panelist/gender_stats.css{% endblock %}
+{% block title %}Statistics by Gender{% endblock %}
+{% block header_title %}Statistics by Gender Report{% endblock %}
+{% block synopsis %}
+<p>
+    This report provides a break down of panelist statistics by gender.
+</p>
+{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Gender Statistics Breakdown Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="panel-year">
+        <col class="panel-men-min">
+        <col class="panel-men-max">
+        <col class="panel-men-mean">
+        <col class="panel-men-median">
+        <col class="panel-men-std-dev">
+        <col class="panel-men-count">
+        <col class="panel-men-sum">
+        <col class="panel-women-min">
+        <col class="panel-women-max">
+        <col class="panel-women-mean">
+        <col class="panel-women-median">
+        <col class="panel-women-std-dev">
+        <col class="panel-women-count">
+        <col class="panel-women-sum">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col" rowspan="2">Year</th>
+            <th colspan="7">Men</th>
+            <th colspan="7">Women</th>
+        </tr>
+        <tr>
+            <!-- Men -->
+            <th scope="col">Min</th>
+            <th scope="col">Max</th>
+            <th scope="col">Mean</th>
+            <th scope="col">Median</th>
+            <th scope="col">Std Dev</th>
+            <th scope="col">Count</th>
+            <th scope="col">Sum</th>
+            <!-- Women -->
+            <th scope="col">Min</th>
+            <th scope="col">Max</th>
+            <th scope="col">Mean</th>
+            <th scope="col">Median</th>
+            <th scope="col">Std Dev</th>
+            <th scope="col">Count</th>
+            <th scope="col">Sum</th>            
+        </tr>
+    </thead>
+    <tbody>
+        {% for year in gender_stats %}
+        <tr>
+            <td>{{ year }}</td>
+            {% if gender_stats[year]["M"] %}
+            <td>{{ gender_stats[year]["M"]["minimum"] }}</td>
+            <td>{{ gender_stats[year]["M"]["maximum"] }}</td>
+            <td>{{ gender_stats[year]["M"]["mean"] }}</td>
+            <td>{{ gender_stats[year]["M"]["median"] }}</td>
+            <td>{{ gender_stats[year]["M"]["standard_deviation"] }}</td>
+            <td>{{ gender_stats[year]["M"]["count"] }}</td>
+            <td>{{ gender_stats[year]["M"]["total"] }}</td>
+            {% else %}
+            <td class="no-data" colspan="7">&nbsp;</td>
+            {% endif %}
+
+            {% if gender_stats[year]["F"] %}
+            <td>{{ gender_stats[year]["F"]["minimum"] }}</td>
+            <td>{{ gender_stats[year]["F"]["maximum"] }}</td>
+            <td>{{ gender_stats[year]["F"]["mean"] }}</td>
+            <td>{{ gender_stats[year]["F"]["median"] }}</td>
+            <td>{{ gender_stats[year]["F"]["standard_deviation"] }}</td>
+            <td>{{ gender_stats[year]["F"]["count"] }}</td>
+            <td>{{ gender_stats[year]["F"]["total"] }}</td>
+            {% else %}
+            <td class="no-data" colspan="7">&nbsp;</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End Gender Statistics Breakdown Section -->
+{% endblock %}

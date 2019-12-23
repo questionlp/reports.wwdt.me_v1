@@ -17,14 +17,15 @@ from werkzeug.exceptions import HTTPException
 
 from reports.guest import best_of_only, scores as guest_scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
-                              gender_mix, panelist_vs_panelist as pvp,
+                              gender_mix, gender_stats,
+                              panelist_vs_panelist as pvp,
                               win_streaks)
 from reports.location import average_scores
 from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.1.6"
+APP_VERSION = "1.1.7"
 #endregion
 
 #region Flask App Initialization
@@ -178,6 +179,15 @@ def panelist_appearances_by_year():
     return htmlmin.minify(render_template("panelist/appearances_by_year.html",
                                           panelists=panelists,
                                           show_years=show_years),
+                          remove_optional_attribute_quotes=False)
+
+@app.route("/panelist/gender_stats")
+def panelist_gender_stats():
+    """Panelist Statistics by Gender Report"""
+    database_connection.reconnect()
+    stats = gender_stats.retrieve_stats_by_year_gender(database_connection)
+    return htmlmin.minify(render_template("panelist/gender_stats.html",
+                                          gender_stats=stats),
                           remove_optional_attribute_quotes=False)
 
 @app.route("/panelist/panel_gender_mix")
