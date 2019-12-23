@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block css %}panelist/stats_summary.css{% endblock %}
+{% block title %}Statistics Summary{% endblock %}
+{% block header_title %}Statistics Summary Report{% endblock %}
+{% block synopsis %}
+<p>
+    This report provides a break down of statistics by panelist.
+</p>
+{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Panelist Statistics Breakdown Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="panelist-name">
+        <col class="panelist-min">
+        <col class="panelist-max">
+        <col class="panelist-mean">
+        <col class="panelist-median">
+        <col class="panelist-std-dev">
+        <col class="panelist-count">
+        <col class="panelist-sum">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Panelist</th>
+            <th scope="col">Min</th>
+            <th scope="col">Max</th>
+            <th scope="col">Mean</th>
+            <th scope="col">Median</th>
+            <th scope="col">Std Dev</th>
+            <th scope="col">Count</th>
+            <th scope="col">Sum</th>          
+        </tr>
+    </thead>
+    <tbody>
+        {% for panelist in panelists_stats %}
+        <tr>
+            <td><a href="https://stats.wwdt.me/panelists/{{ panelist }}">
+                {{ panelists[panelist] }}</a></td>
+            {% if panelists_stats[panelist] %}
+            <td>{{ panelists_stats[panelist]["minimum"] }}</td>
+            <td>{{ panelists_stats[panelist]["maximum"] }}</td>
+            <td>{{ panelists_stats[panelist]["mean"] }}</td>
+            <td>{{ panelists_stats[panelist]["median"] }}</td>
+            <td>{{ panelists_stats[panelist]["standard_deviation"] }}</td>
+            <td>{{ panelists_stats[panelist]["count"] }}</td>
+            <td>{{ panelists_stats[panelist]["total"] }}</td>
+            {% else %}
+            <td class="no-data" colspan="7">&nbsp;</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">Panelist</th>
+            <th scope="col">Min</th>
+            <th scope="col">Max</th>
+            <th scope="col">Mean</th>
+            <th scope="col">Median</th>
+            <th scope="col">Std Dev</th>
+            <th scope="col">Count</th>
+            <th scope="col">Sum</th>          
+        </tr>
+    </tfoot>
+</table>
+<!-- End Panelist Statistics Breakdown Section -->
+{% endblock %}

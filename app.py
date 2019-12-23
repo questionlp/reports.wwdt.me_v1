@@ -18,13 +18,13 @@ from reports.guest import best_of_only, scores as guest_scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, gender_stats,
                               panelist_vs_panelist as pvp,
-                              win_streaks)
+                              stats_summary, win_streaks)
 from reports.location import average_scores
 from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.2.0"
+APP_VERSION = "1.2.1"
 #endregion
 
 #region Flask App Initialization
@@ -210,6 +210,16 @@ def panelist_pvp_report():
     return render_template("panelist/panelist_vs_panelist.html",
                            panelists=panelists,
                            results=pvp_results)
+
+@app.route("/panelist/stats_summary")
+def panelist_stats_summary():
+    """Panelist Statistics Summary Report"""
+    database_connection.reconnect()
+    panelists = stats_summary.retrieve_all_panelists(database_connection)
+    stats = stats_summary.retrieve_all_panelists_stats(database_connection)
+    return render_template("panelist/stats_summary.html",
+                           panelists=panelists,
+                           panelists_stats=stats)
 
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
