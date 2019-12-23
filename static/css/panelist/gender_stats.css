@@ -1,0 +1,4 @@
+@media all {
+    table.pure-table { max-width: 80rem; }
+    col.panel-year { width: 5rem; }
+}
