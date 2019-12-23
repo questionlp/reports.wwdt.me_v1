@@ -114,6 +114,7 @@ def shows_ending_with_three_way_tie(database_connection: mysql.connector.connect
              "ORDER BY s.showdate ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

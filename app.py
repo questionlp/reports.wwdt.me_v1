@@ -10,7 +10,6 @@ import traceback
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask.logging import create_logger
-import htmlmin
 import mysql.connector
 import pytz
 from werkzeug.exceptions import HTTPException
@@ -25,7 +24,7 @@ from reports.scorekeeper import introductions
 from reports.show import lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.1.7"
+APP_VERSION = "1.2.0"
 #endregion
 
 #region Flask App Initialization
@@ -69,9 +68,8 @@ def handle_exception(error):
     # Handle everything else with a basic 500 error page
     error_traceback = traceback.format_exc()
     app_logger.error(error_traceback)
-    return htmlmin.minify(render_template("errors/500.html",
-                                          error_traceback=error_traceback),
-                          remove_optional_attribute_quotes=False), 500
+    return render_template("errors/500.html",
+                           error_traceback=error_traceback), 500
 
 #endregion
 
@@ -79,8 +77,7 @@ def handle_exception(error):
 @app.route("/")
 def index():
     """Default landing page"""
-    return htmlmin.minify(render_template("index.html"),
-                          remove_optional_attribute_quotes=False)
+    return render_template("index.html")
 
 #endregion
 
@@ -106,9 +103,7 @@ def guest_best_of_only():
     database_connection.reconnect()
     guests = best_of_only.retrieve_best_of_only_guests(database_connection)
 
-    return htmlmin.minify(render_template("guest/best_of_only.html",
-                                          guests=guests),
-                          remove_optional_attribute_quotes=False)
+    return render_template("guest/best_of_only.html", guests=guests)
 
 @app.route("/guest/scoring_exceptions")
 def guest_scoring_exceptions():
@@ -116,9 +111,8 @@ def guest_scoring_exceptions():
     database_connection.reconnect()
     exceptions = guest_scores.retrieve_all_scoring_exceptions(database_connection)
 
-    return htmlmin.minify(render_template("guest/scoring_exceptions.html",
-                                          exceptions=exceptions),
-                          remove_optional_attribute_quotes=False)
+    return render_template("guest/scoring_exceptions.html",
+                           exceptions=exceptions)
 
 @app.route("/guest/three_pointers")
 def guest_three_pointers():
@@ -126,9 +120,8 @@ def guest_three_pointers():
     database_connection.reconnect()
     three_pointers = guest_scores.retrieve_all_three_pointers(database_connection)
 
-    return htmlmin.minify(render_template("guest/three_pointers.html",
-                                          three_pointers=three_pointers),
-                          remove_optional_attribute_quotes=False)
+    return render_template("guest/three_pointers.html",
+                           three_pointers=three_pointers)
 
 #endregion
 
@@ -144,9 +137,8 @@ def location_average_scores():
     database_connection.reconnect()
     locations = average_scores.retrieve_average_scores_by_location(database_connection)
 
-    return htmlmin.minify(render_template("location/average_scores.html",
-                                          locations=locations),
-                          remove_optional_attribute_quotes=False)
+    return render_template("location/average_scores.html",
+                           locations=locations)
 
 #endregion
 
@@ -164,10 +156,9 @@ def panelist_aggregate_scores():
     stats = aggregate_scores.calculate_stats(scores=scores)
     score_spread = aggregate_scores.retrieve_score_spread(database_connection)
 
-    return htmlmin.minify(render_template("panelist/aggregate_scores.html",
-                                          stats=stats,
-                                          score_spread=score_spread),
-                          remove_optional_attribute_quotes=False)
+    return render_template("panelist/aggregate_scores.html",
+                           stats=stats,
+                           score_spread=score_spread)
 
 @app.route("/panelist/appearances_by_year")
 def panelist_appearances_by_year():
@@ -176,19 +167,16 @@ def panelist_appearances_by_year():
     panelists = appearances_by_year.retrieve_all_appearance_counts(database_connection)
     show_years = appearances_by_year.retrieve_all_years(database_connection)
 
-    return htmlmin.minify(render_template("panelist/appearances_by_year.html",
-                                          panelists=panelists,
-                                          show_years=show_years),
-                          remove_optional_attribute_quotes=False)
+    return render_template("panelist/appearances_by_year.html",
+                           panelists=panelists,
+                           show_years=show_years)
 
 @app.route("/panelist/gender_stats")
 def panelist_gender_stats():
     """Panelist Statistics by Gender Report"""
     database_connection.reconnect()
     stats = gender_stats.retrieve_stats_by_year_gender(database_connection)
-    return htmlmin.minify(render_template("panelist/gender_stats.html",
-                                          gender_stats=stats),
-                          remove_optional_attribute_quotes=False)
+    return render_template("panelist/gender_stats.html", gender_stats=stats)
 
 @app.route("/panelist/panel_gender_mix")
 def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
@@ -198,10 +186,9 @@ def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
     mix = gender_mix.panel_gender_mix_breakdown(gender=gender,
                                                 database_connection=database_connection)
 
-    return htmlmin.minify(render_template("panelist/gender_mix.html",
-                                          panel_gender_mix=mix,
-                                          gender=gender_tag),
-                          remove_optional_attribute_quotes=False)
+    return render_template("panelist/gender_mix.html",
+                           panel_gender_mix=mix,
+                           gender=gender_tag)
 
 @app.route("/panelist/pvp")
 def panelist_pvp_redirect():
@@ -220,10 +207,9 @@ def panelist_pvp_report():
                                                             panelist_appearances=panelist_apps,
                                                             show_scores=show_scores)
 
-    return htmlmin.minify(render_template("panelist/panelist_vs_panelist.html",
-                                          panelists=panelists,
-                                          results=pvp_results),
-                          remove_optional_attribute_quotes=False)
+    return render_template("panelist/panelist_vs_panelist.html",
+                           panelists=panelists,
+                           results=pvp_results)
 
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
@@ -233,9 +219,7 @@ def panelist_win_streaks():
     streaks = win_streaks.calculate_panelist_win_streaks(panelists=panelists,
                                                          database_connection=database_connection)
 
-    return htmlmin.minify(render_template("panelist/win_streaks.html",
-                                          win_streaks=streaks),
-                          remove_optional_attribute_quotes=False)
+    return render_template("panelist/win_streaks.html", win_streaks=streaks)
 
 #endregion
 
@@ -252,10 +236,9 @@ def scorekeeper_introductions():
     scorekeepers = introductions.retrieve_scorekeepers_with_introductions(database_connection)
     all_introductions = introductions.retrieve_all_scorekeeper_introductions(database_connection)
 
-    return htmlmin.minify(render_template("scorekeeper/introductions.html",
-                                          scorekeepers=scorekeepers,
-                                          all_introductions=all_introductions),
-                          remove_optional_attribute_quotes=False)
+    return render_template("scorekeeper/introductions.html",
+                           scorekeepers=scorekeepers,
+                           all_introductions=all_introductions)
 
 #endregion
 
@@ -277,10 +260,9 @@ def show_all_shows():
             shows.reverse()
             ascending = False
 
-    return htmlmin.minify(render_template("/show/all_shows.html",
-                                          ascending=ascending,
-                                          shows=shows),
-                          remove_optional_attribute_quotes=False)
+    return render_template("/show/all_shows.html",
+                           ascending=ascending,
+                           shows=shows)
 
 @app.route("/show/lightning_round_end_three_way_tie")
 def show_lightning_round_end_three_way_tie():
@@ -288,9 +270,8 @@ def show_lightning_round_end_three_way_tie():
     database_connection.reconnect()
     shows = lightning_round.shows_ending_with_three_way_tie(database_connection)
 
-    return htmlmin.minify(render_template("/show/lightning_round_end_three_way_tie.html",
-                                          shows=shows),
-                          remove_optional_attribute_quotes=False)
+    return render_template("/show/lightning_round_end_three_way_tie.html",
+                           shows=shows)
 
 @app.route("/show/lightning_round_score_start")
 def show_lightning_round_score_start_redirect():
@@ -303,9 +284,8 @@ def show_lightning_round_start_three_way_tie():
     database_connection.reconnect()
     same_start = lightning_round.shows_with_same_lightning_round_start(database_connection)
 
-    return htmlmin.minify(render_template("/show/lightning_round_start_three_way_tie.html",
-                                          same_start=same_start),
-                          remove_optional_attribute_quotes=False)
+    return render_template("/show/lightning_round_start_three_way_tie.html",
+                           same_start=same_start)
 
 @app.route("/show/original_shows")
 def show_original_shows(ascending: Optional[bool] = True):
@@ -320,10 +300,9 @@ def show_original_shows(ascending: Optional[bool] = True):
             shows.reverse()
             ascending = False
 
-    return htmlmin.minify(render_template("/show/original_shows.html",
-                                          shows=shows,
-                                          ascending=ascending),
-                          remove_optional_attribute_quotes=False)
+    return render_template("/show/original_shows.html",
+                           shows=shows,
+                           ascending=ascending)
 
 @app.route("/show/original_shows/asc")
 def show_original_shows_asc():
