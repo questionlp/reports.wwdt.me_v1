@@ -51,6 +51,7 @@ def retrieve_scores_by_year_gender(year: int,
              "ORDER BY s.showdate ASC;")
     cursor.execute(query, (panelist_gender, year))
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None

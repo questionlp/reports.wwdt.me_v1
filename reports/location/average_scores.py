@@ -34,6 +34,7 @@ def retrieve_average_scores_by_location(database_connection: mysql.connector.con
              "show_count DESC, l.venue ASC;")
     cursor.execute(query)
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
