@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block css %}panelist/rankings_summary.css{% endblock %}
+{% block title %}Panelist Rankings Summary{% endblock %}
+{% block header_title %}Panelist Rankings Summary Report{% endblock %}
+{% block synopsis %}
+<p>
+    This report provides a break down of each panelist's ranking
+    statistics.
+</p>
+{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Panelist Rankings Breakdown Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="panelist-name">
+        <col class="panelist-rank">
+        <col class="panelist-rank">
+        <col class="panelist-rank">
+        <col class="panelist-rank">
+        <col class="panelist-rank">
+        <col class="panelist-rank">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Panelist</th>
+            <th scope="col">First</th>
+            <th scope="col">First Tied</th>
+            <th scope="col">Second</th>
+            <th scope="col">Second Tied</th>
+            <th scope="col">Third</th>
+            <th scope="col">Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for panelist in panelists_rankings %}
+        <tr>
+            <td><a href="https://stats.wwdt.me/panelists/{{ panelist }}">
+                {{ panelists[panelist].name }}</a></td>
+            {% if panelists_rankings[panelist] %}
+            <td>{{ panelists_rankings[panelist]["first"] }}</td>
+            <td>{{ panelists_rankings[panelist]["first_tied"] }}</td>
+            <td>{{ panelists_rankings[panelist]["second"] }}</td>
+            <td>{{ panelists_rankings[panelist]["second_tied"] }}</td>
+            <td>{{ panelists_rankings[panelist]["third"] }}</td>
+            <td>{{ panelists_rankings[panelist]["count"] }}</td>
+            {% else %}
+            <td class="no-data" colspan="6">&nbsp;</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">Panelist</th>
+            <th scope="col">First</th>
+            <th scope="col">First Tied</th>
+            <th scope="col">Second</th>
+            <th scope="col">Second Tied</th>
+            <th scope="col">Third</th>
+            <th scope="col">Count</th>
+        </tr>
+    </tfoot>
+</table>
+<!-- End Panelist Rankings Breakdown Section -->
+{% endblock %}
