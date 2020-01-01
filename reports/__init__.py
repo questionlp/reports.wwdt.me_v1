@@ -9,7 +9,7 @@ from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, gender_stats, panelist_vs_panelist,
                               rankings_summary, stats_summary, win_streaks)
 from reports.scorekeeper import introductions
-from reports.show import lightning_round, show_details
+from reports.show import all_women_panel, lightning_round, show_details
 
 __all__ = [
     "guest",
