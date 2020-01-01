@@ -8,7 +8,7 @@ import json
 from typing import Optional, Text
 import traceback
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, Response, url_for
 from flask.logging import create_logger
 import mysql.connector
 import pytz
@@ -87,8 +87,9 @@ def index():
 def sitemap_xml():
     """Sitemap XML"""
     site_url = config["settings"]["site_url"]
-    return render_template("core/sitemap.xml",
-                           site_url=site_url)
+    sitemap = render_template("core/sitemap.xml",
+                              site_url=site_url)
+    return Response(sitemap, mimetype="text/xml")
 
 #endregion
 
