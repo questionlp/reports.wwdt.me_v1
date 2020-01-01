@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block css %}show/all_women_panel.css{% endblock %}
+{% block title %}All Women Panel{% endblock %}
+{% block header_title %}All Women Panel{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block synopsis %}
+<p>
+    List of shows that have had an all women panel.
+</p>
+{% endblock %}
+{% block content %}
+<!-- Start All Women Panel Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="show-date">
+        <col class="show-location">
+        <col class="show-host">
+        <col class="show-scorekeeper">
+        <col class="show-panelists">
+        <col class="show-guest">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Show Date</th>
+            <th scope="col">Location</th>
+            <th scope="col">Host</th>
+            <th scope="col">Scorekeeper</th>
+            <th scope="col">Panelists</th>
+            <th scope="col">Guest</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for show in shows %}
+        <tr>
+            <td><a href="https://stats.wwdt.me/shows/{{ show.date }}">{{ show.date }}</a></td>
+            {% if show.location %}
+            <td>
+                {{ show.location.venue }} ({{ show.location.city }}, {{ show.location.state }})
+            </td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+            <td>{{ show.host }}</td>
+            <td>{{ show.scorekeeper }}</td>
+            <td class="panelist-names">
+                <ul>
+                {% for panelist in show.panelists %}
+                    <li>{{ panelist.name }}: {{ panelist.score }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td>
+                {{ show.guest.name }}: {{ show.guest.score }}
+                {% if show.guest.exception %}
+                *
+                {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End All Women Panel Section -->
+{% endblock %}

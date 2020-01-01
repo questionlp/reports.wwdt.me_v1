@@ -3,9 +3,10 @@
 # reports.wwdt.me is relased under the terms of the Apache License 2.0
 """Explicitly listing all show reporting modules"""
 
-from reports.show import lightning_round, show_details
+from reports.show import all_women_panel, lightning_round, show_details
 
 __all__ = [
+    "all_women_panel",
     "lightning_round",
     "show_details"
 ]

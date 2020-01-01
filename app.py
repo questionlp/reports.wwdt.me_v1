@@ -22,10 +22,10 @@ from reports.panelist import (aggregate_scores, appearances_by_year,
                               win_streaks)
 from reports.location import average_scores
 from reports.scorekeeper import introductions
-from reports.show import lightning_round, show_details
+from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.2.2"
+APP_VERSION = "1.2.3"
 #endregion
 
 #region Flask App Initialization
@@ -283,6 +283,15 @@ def show_all_shows():
 
     return render_template("/show/all_shows.html",
                            ascending=ascending,
+                           shows=shows)
+
+@app.route("/show/all_women_panel")
+def show_all_women_panel():
+    """All Women Panel Report"""
+    database_connection.reconnect()
+    shows = all_women_panel.retrieve_shows_all_women_panel(database_connection)
+
+    return render_template("/show/all_women_panel.html",
                            shows=shows)
 
 @app.route("/show/lightning_round_end_three_way_tie")
