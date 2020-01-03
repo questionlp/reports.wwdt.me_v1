@@ -30,7 +30,7 @@
         <tr>
             <th scope="col" rowspan="2">Panelist</th>
             <td colspan="3">Appearances</td>
-            <td colspan="7">Scoring</td>
+            <td colspan="6">Scoring</td>
         </tr>
         <tr>
             <th scope="col">Regular</th>
@@ -41,7 +41,6 @@
             <th scope="col">Mean</th>
             <th scope="col">Median</th>
             <th scope="col">Std Dev</th>
-            <th scope="col">Count</th>
             <th scope="col">Sum</th>
         </tr>
     </thead>
@@ -64,10 +63,9 @@
             <td>{{ panelists_stats[panelist]["stats"]["mean"] }}</td>
             <td>{{ panelists_stats[panelist]["stats"]["median"] }}</td>
             <td>{{ panelists_stats[panelist]["stats"]["standard_deviation"] }}</td>
-            <td>{{ panelists_stats[panelist]["stats"]["count"] }}</td>
             <td>{{ panelists_stats[panelist]["stats"]["total"] }}</td>
             {% else %}
-            <td class="no-data" colspan="7">&nbsp;</td>
+            <td class="no-data" colspan="6">&nbsp;</td>
             {% endif %}
         </tr>
         {% endfor %}
@@ -76,7 +74,7 @@
         <tr>
             <th scope="col" rowspan="2">Panelist</th>
             <td colspan="3">Appearances</td>
-            <td colspan="7">Scoring</td>
+            <td colspan="6">Scoring</td>
         </tr>
         <tr>
             <th scope="col">Regular</th>
@@ -87,7 +85,6 @@
             <th scope="col">Mean</th>
             <th scope="col">Median</th>
             <th scope="col">Std Dev</th>
-            <th scope="col">Count</th>
             <th scope="col">Sum</th>
         </tr>
     </tfoot>

@@ -124,7 +124,6 @@ def retrieve_all_panelists_stats(database_connection: mysql.connector.connect
             stats["mean"] = round(numpy.mean(scores), 4)
             stats["median"] = int(numpy.median(scores))
             stats["standard_deviation"] = round(numpy.std(scores), 4)
-            stats["count"] = len(scores)
             stats["total"] = int(numpy.sum(scores))
             all_stats[panelist_slug]["stats"] = stats
         else:
