@@ -25,7 +25,7 @@ from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.2.3"
+APP_VERSION = "1.2.4"
 #endregion
 
 #region Flask App Initialization
