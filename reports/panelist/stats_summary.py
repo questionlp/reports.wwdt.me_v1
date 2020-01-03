@@ -32,6 +32,44 @@ def retrieve_all_panelists(database_connection: mysql.connector.connect
 
     return panelists
 
+def retrieve_appearances_by_panelist(panelist_slug: Text,
+                                     database_connection: mysql.connector.connect
+                                     ) -> Dict:
+    """Retrieve appearance data for the requested panelist by the
+    panelist's slug string"""
+
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT ( "
+             "SELECT COUNT(pm.showid) FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL AND "
+             "p.panelistslug = %s ) AS regular, ( "
+             "SELECT COUNT(pm.showid) FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE p.panelistslug = %s ) AS allshows, ( "
+             "SELECT COUNT(pm.panelistid) FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON pm.showid = s.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE p.panelistslug = %s AND s.bestof = 0 AND "
+             "s.repeatshowid IS NULL "
+             "AND pm.panelistscore IS NOT NULL ) "
+             "AS withscores;")
+    cursor.execute(query, (panelist_slug, panelist_slug, panelist_slug, ))
+    result = cursor.fetchone()
+    cursor.close()
+
+    if not result:
+        return None
+
+    appearances = OrderedDict()
+    appearances["regular"] = result["regular"]
+    appearances["all"] = result["allshows"]
+    appearances["with_scores"] = result["withscores"]
+
+    return appearances
+
 def retrieve_scores_by_panelist(panelist_slug: Text,
                                 database_connection: mysql.connector.connect
                                ) -> List[int]:
@@ -60,8 +98,8 @@ def retrieve_scores_by_panelist(panelist_slug: Text,
 
 def retrieve_all_panelists_stats(database_connection: mysql.connector.connect
                                 ) -> Dict:
-    """Retrieve all available scores for all available panelists and
-    calculates common statistics for each panelist"""
+    """Retrieve appearance and score statistics for all available
+    panelists and calculates common statistics for each panelist"""
 
     panelists = retrieve_all_panelists(database_connection)
 
@@ -70,8 +108,16 @@ def retrieve_all_panelists_stats(database_connection: mysql.connector.connect
 
     all_stats = OrderedDict()
     for panelist_slug, _ in panelists.items():
+        all_stats[panelist_slug] = OrderedDict()
         stats = OrderedDict()
-        scores = retrieve_scores_by_panelist(panelist_slug, database_connection)
+
+        appearance_data = retrieve_appearances_by_panelist(panelist_slug,
+                                                           database_connection)
+        all_stats[panelist_slug]["appearances"] = appearance_data
+
+        scores = retrieve_scores_by_panelist(panelist_slug,
+                                             database_connection)
+
         if scores:
             stats["minimum"] = int(numpy.amin(scores))
             stats["maximum"] = int(numpy.amax(scores))
@@ -80,8 +126,8 @@ def retrieve_all_panelists_stats(database_connection: mysql.connector.connect
             stats["standard_deviation"] = round(numpy.std(scores), 4)
             stats["count"] = len(scores)
             stats["total"] = int(numpy.sum(scores))
-            all_stats[panelist_slug] = stats
+            all_stats[panelist_slug]["stats"] = stats
         else:
-            all_stats[panelist_slug] = None
+            all_stats[panelist_slug]["stats"] = None
 
     return all_stats

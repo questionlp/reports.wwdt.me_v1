@@ -1,3 +1,5 @@
 @media all {
-    col.panelist-name { width: 15rem; }
+    col.panelist-name { width: 14rem; }
+    col.panelist-shows { width: 4rem; }
+    col.panelist-scores { width: 6rem; }
 }
