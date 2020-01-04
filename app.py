@@ -25,7 +25,7 @@ from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.2.4.1"
+APP_VERSION = "1.3.0"
 #endregion
 
 #region Flask App Initialization
@@ -55,6 +55,11 @@ def generate_date_time_stamp(time_zone: pytz.timezone = pytz.timezone("UTC")):
     """Generate a current date/timestamp string"""
     now = datetime.now(time_zone)
     return now.strftime("%Y-%m-%d %H:%M:%S %Z")
+
+def current_year(time_zone: pytz.timezone = pytz.timezone("UTC")):
+    """Return the current year"""
+    now = datetime.now(time_zone)
+    return now.strftime("%Y")
 
 #endregion
 
@@ -352,6 +357,7 @@ config = load_config()
 app.jinja_env.globals["app_version"] = APP_VERSION
 app.jinja_env.globals["ga_property_code"] = config["settings"]["ga_property_code"]
 app.jinja_env.globals["rendered_at"] = generate_date_time_stamp
+app.jinja_env.globals["current_year"] = current_year
 database_connection = mysql.connector.connect(**config["database"])
 database_connection.autocommit = True
 
