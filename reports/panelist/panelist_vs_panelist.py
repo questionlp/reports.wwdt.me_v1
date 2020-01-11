@@ -139,6 +139,7 @@ def generate_panelist_vs_panelist_results(panelists: Dict,
                 pvp_results[panelist_a][panelist_b]["wins"] = wins
                 pvp_results[panelist_a][panelist_b]["draws"] = draws
                 pvp_results[panelist_a][panelist_b]["losses"] = losses
+                pvp_results[panelist_a][panelist_b]["total"] = wins + draws + losses
 
     return pvp_results
 

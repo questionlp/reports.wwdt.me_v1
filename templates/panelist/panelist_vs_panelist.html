@@ -64,16 +64,18 @@
                             <col class="tc2">
                             <col class="tc3">
                             <col class="tc4">
+                            <col class="tc5">
                         </colgroup>
                         <thead>
                             <tr>
-                                <th colspan="4" class="pnlname"><h3>{{ panelists[panelist].name }}</h3></th>
+                                <th colspan="5" class="pnlname"><h3>{{ panelists[panelist].name }}</h3></th>
                             </tr>
                             <tr>
                                 <th class="tc1">Ranked vs</th>
                                 <th class="tc2">Higher</th>
                                 <th class="tc3">Tied</th>
                                 <th class="tc4">Lower</th>
+                                <th class="tc5">Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,6 +86,7 @@
                                 <td>{{ result.wins }}</td>
                                 <td>{{ result.draws }}</td>
                                 <td>{{ result.losses }}</td>
+                                <td>{{ result.total }}</td>
                             </tr>
                             {% endif %}
                         {% endfor %}
