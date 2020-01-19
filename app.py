@@ -25,7 +25,14 @@ from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.4.0"
+APP_VERSION = "1.4.1"
+RANK_MAP = {
+    "1": "First",
+    "1t": "First Tied",
+    "2": "Second",
+    "2t": "Second Tied",
+    "3": "Third"
+}
 #endregion
 
 #region Flask App Initialization
@@ -183,6 +190,18 @@ def panelist_gender_stats():
     stats = gender_stats.retrieve_stats_by_year_gender(database_connection)
     return render_template("panelist/gender_stats.html", gender_stats=stats)
 
+@app.route("/panelist/losing_streaks")
+def panelist_losing_streaks():
+    """Panelist Losing Streaks Report"""
+    database_connection.reconnect()
+    panelists = streaks.retrieve_panelists(database_connection)
+    losing_streaks = streaks.calculate_panelist_losing_streaks(panelists,
+                                                               database_connection)
+
+    return render_template("panelist/losing_streaks.html",
+                           rank_map=RANK_MAP,
+                           losing_streaks=losing_streaks)
+
 @app.route("/panelist/panel_gender_mix")
 def panelist_panel_gender_mix(gender: Optional[Text] = "female"):
     """Panel Gender Mix Report"""
@@ -236,17 +255,6 @@ def panelist_stats_summary():
                            panelists=panelists,
                            panelists_stats=stats)
 
-@app.route("/panelist/losing_streaks")
-def panelist_losing_streaks():
-    """Panelist Losing Streaks Report"""
-    database_connection.reconnect()
-    panelists = streaks.retrieve_panelists(database_connection)
-    losing_streaks = streaks.calculate_panelist_losing_streaks(panelists,
-                                                               database_connection)
-
-    return render_template("panelist/losing_streaks.html",
-                           losing_streaks=losing_streaks)
-
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
     """Panelist Win Streaks Report"""
@@ -256,6 +264,7 @@ def panelist_win_streaks():
                                                          database_connection=database_connection)
 
     return render_template("panelist/win_streaks.html",
+                           rank_map=RANK_MAP,
                            win_streaks=win_streaks)
 
 #endregion

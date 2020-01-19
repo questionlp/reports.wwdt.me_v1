@@ -77,7 +77,10 @@ def calculate_panelist_losing_streaks(panelists: List[Dict],
     for panelist in panelists:
         longest_losing_streak = 0
         longest_losing_streak_show_dates = []
+        longest_third_streak = 0
+        longest_third_streak_show_dates = []
         total_losses = 0
+        total_third_losses = 0
 
         shows = retrieve_panelist_ranks(panelist["id"], database_connection)
         if shows:
@@ -86,6 +89,7 @@ def calculate_panelist_losing_streaks(panelists: List[Dict],
             current_streak_show_dates = []
             for show in shows:
                 if show["rank"] != "1" and show["rank"] != "1t":
+                    # Placed 2nd, 2nd tied or 3rd
                     total_losses += 1
                     current_streak += 1
 
@@ -102,9 +106,33 @@ def calculate_panelist_losing_streaks(panelists: List[Dict],
                     current_streak = 0
                     current_streak_show_dates = []
 
+            current_third_streak = 0
+            current_third_streak_show_dates = []
+            for show in shows:
+                if show["rank"] == "3":
+                    # Placed 3rd
+                    total_third_losses += 1
+                    current_third_streak += 1
+
+                    show_info = OrderedDict()
+                    show_info["show_id"] = show["show_id"]
+                    show_info["show_date"] = show["show_date"]
+                    show_info["show_rank"] = show["rank"]
+                    current_third_streak_show_dates.append(show_info)
+
+                    if current_third_streak > longest_third_streak:
+                        longest_third_streak = current_third_streak
+                        longest_third_streak_show_dates = current_third_streak_show_dates
+                else:
+                    current_third_streak = 0
+                    current_third_streak_show_dates = []
+
             panelist["total_losses"] = total_losses
-            panelist["longest_losing_streak"] = longest_losing_streak
-            panelist["longest_losing_streak_dates"] = longest_losing_streak_show_dates
+            panelist["total_third_losses"] = total_third_losses
+            panelist["longest_streak"] = longest_losing_streak
+            panelist["longest_streak_dates"] = longest_losing_streak_show_dates
+            panelist["longest_third_streak"] = longest_third_streak
+            panelist["longest_third_streak_dates"] = longest_third_streak_show_dates
             losing_streaks.append(panelist)
 
     return losing_streaks
@@ -116,10 +144,10 @@ def calculate_panelist_win_streaks(panelists: List[Dict],
     win_streaks = []
 
     for panelist in panelists:
-        longest_win_streak = 0
-        longest_win_streak_show_dates = []
-        longest_win_streak_with_draws = 0
-        longest_win_streak_show_dates_with_draws = []
+        longest_streak = 0
+        longest_streak_show_dates = []
+        longest_streak_with_draws = 0
+        longest_streak_show_dates_with_draws = []
         total_wins = 0
         total_wins_with_draws = 0
 
@@ -139,9 +167,9 @@ def calculate_panelist_win_streaks(panelists: List[Dict],
                     show_info["show_rank"] = show["rank"]
                     current_streak_show_dates.append(show_info)
 
-                    if current_streak > longest_win_streak:
-                        longest_win_streak = current_streak
-                        longest_win_streak_show_dates = current_streak_show_dates
+                    if current_streak > longest_streak:
+                        longest_streak = current_streak
+                        longest_streak_show_dates = current_streak_show_dates
                 else:
                     current_streak = 0
                     current_streak_show_dates = []
@@ -160,19 +188,19 @@ def calculate_panelist_win_streaks(panelists: List[Dict],
                     show_info["show_rank"] = show["rank"]
                     current_streak_show_dates_with_draws.append(show_info)
 
-                    if current_streak_with_draws > longest_win_streak_with_draws:
-                        longest_win_streak_with_draws = current_streak_with_draws
-                        longest_win_streak_show_dates_with_draws = current_streak_show_dates_with_draws
+                    if current_streak_with_draws > longest_streak_with_draws:
+                        longest_streak_with_draws = current_streak_with_draws
+                        longest_streak_show_dates_with_draws = current_streak_show_dates_with_draws
                 else:
                     current_streak_with_draws = 0
                     current_streak_show_dates_with_draws = []
 
             panelist["total_wins"] = total_wins
             panelist["total_wins_with_draws"] = total_wins_with_draws
-            panelist["longest_win_streak"] = longest_win_streak
-            panelist["longest_win_streak_dates"] = longest_win_streak_show_dates
-            panelist["longest_win_streak_with_draws"] = longest_win_streak_with_draws
-            panelist["longest_win_streak_with_draws_dates"] = longest_win_streak_show_dates_with_draws
+            panelist["longest_streak"] = longest_streak
+            panelist["longest_streak_dates"] = longest_streak_show_dates
+            panelist["longest_streak_with_draws"] = longest_streak_with_draws
+            panelist["longest_streak_with_draws_dates"] = longest_streak_show_dates_with_draws
             win_streaks.append(panelist)
 
     return win_streaks
