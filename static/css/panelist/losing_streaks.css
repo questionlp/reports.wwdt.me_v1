@@ -1,0 +1,7 @@
+@media all {
+    col.panelist-name { width: 15rem; }
+    col.panelist-streak-total, col.panelist-streak-count { width: 6rem; }
+    col.panelist-streak-dates { width: 9rem; }
+    
+    td.show-dates ul { list-style: none; margin: 0; padding: 0; }
+}

@@ -7,7 +7,7 @@ from reports.guest import best_of_only, scores
 from reports.location import average_scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, gender_stats, panelist_vs_panelist,
-                              rankings_summary, stats_summary, win_streaks)
+                              rankings_summary, stats_summary, streaks)
 from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 

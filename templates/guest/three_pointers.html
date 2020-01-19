@@ -34,11 +34,11 @@
     {% for guest in three_pointers %}
         <tr>
             <td>
-                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                <a href="{{ stats_url }}/guests/{{ guest.slug }}">
                     {{ guest.name }}
                 </a>
             </td>
-            <td><a href="https://stats.wwdt.me/shows/{{ guest.show_date }}">{{ guest.show_date }}</a></td>
+            <td><a href="{{ stats_url }}/shows/{{ guest.show_date|replace('-', '/') }}">{{ guest.show_date }}</a></td>
             <td>{{ guest.score }}</td>
             <td>{{ guest.exception }}</td>
         {% if guest.exception %}    

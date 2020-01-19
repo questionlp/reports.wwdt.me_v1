@@ -3,7 +3,7 @@
 ## Overview
 
 A collection reports that pull data from an instance of the
-[Wait Wait... Don't Tell Me! Stats Page](http://wwdt.me) database and
+[Wait Wait... Don't Tell Me! Stats Page](http://stats.wwdt.me) database and
 returns information about panelists, shows, etc.
 
 ## Requirements

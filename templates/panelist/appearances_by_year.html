@@ -34,7 +34,7 @@
         {% for panelist in panelists %}
         <tr>
             <td class="panelist-name">
-                <a href="https://stats.wwdt.me/panelists/{{ panelist.slug }}">
+                <a href="{{ stats_url }}/panelists/{{ panelist.slug }}">
                     {{ panelist.name }}
                 </a>
             </td>

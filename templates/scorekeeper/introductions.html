@@ -40,7 +40,7 @@
     <tbody>
         {% for show in all_introductions[scorekeeper.id] %}
         <tr>
-            <td><a href="https://stats.wwdt.me/shows/{{ show.date }}">{{ show.date }}</a></td>
+            <td><a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">{{ show.date }}</a></td>
             <td>{{ show.best_of }}</td>
             <td>{{ show.repeat_show }}</td>
             <td>{{ show.introduction }}</td>

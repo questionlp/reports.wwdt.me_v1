@@ -42,11 +42,11 @@
         {% if guest.appearances|length == 1 %}
         <tr>
             <td>
-                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                <a href="{{ stats_url }}/guests/{{ guest.slug }}">
                     {{ guest.name }}
                 </a>
             <td>
-                <a href="https://stats.wwdt.me/shows/{{ guest.appearances[0].date }}">
+                <a href="{{ stats_url }}/shows/{{ guest.appearances[0].date|replace('-', '/') }}">
                     {{ guest.appearances[0].date }}
                 </a>
             </td>
@@ -59,13 +59,13 @@
         <tr>
                 {% if count == 0 %}
             <td rowspan="{{ guest.appearances|length }}">
-                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                <a href="{{ stats_url }}/guests/{{ guest.slug }}">
                     {{ guest.name }}
                 </a>
             </td>
                 {% endif %}
             <td>
-                <a href="https://stats.wwdt.me/shows/{{ guest.appearances[count].date }}">
+                <a href="{{ stats_url }}/shows/{{ guest.appearances[count].date|replace('-', '/') }}">
                     {{ guest.appearances[count].date }}
                 </a>
             </td>

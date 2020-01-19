@@ -34,12 +34,12 @@
         {% if guest.exceptions|length == 1 %}
         <tr>
             <td>
-                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                <a href="{{ stats_url }}/guests/{{ guest.slug }}">
                     {{ guest.name }}
                 </a>
             </td>
             <td>
-                <a href="https://stats.wwdt.me/shows/{{ guest.exceptions[0].date }}">
+                <a href="{{ stats_url }}/shows/{{ guest.exceptions[0].date|replace('-', '/') }}">
                     {{ guest.exceptions[0].date }}
                 </a>
             </td>
@@ -51,13 +51,13 @@
         <tr>
                 {% if count == 0 %}
             <td rowspan="{{ guest.exceptions|length }}">
-                <a href="https://stats.wwdt.me/guests/{{ guest.slug }}">
+                <a href="{{ stats_url }}/guests/{{ guest.slug }}">
                     {{ guest.name }}
                 </a>
             </td>
                 {% endif %}
             <td>
-                <a href="https://stats.wwdt.me/shows/{{ guest.exceptions[count].date }}">
+                <a href="{{ stats_url }}/shows/{{ guest.exceptions[count].date|replace('-', '/') }}">
                     {{ guest.exceptions[count].date }}
                 </a>
             </td>
