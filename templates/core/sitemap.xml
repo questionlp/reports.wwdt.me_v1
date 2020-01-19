@@ -33,6 +33,10 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("panelist_losing_streaks") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("panelist_pvp_report") }}</loc>
     <changefreq>weekly</changefreq>
   </url>

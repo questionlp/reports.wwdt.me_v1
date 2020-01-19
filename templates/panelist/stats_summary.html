@@ -47,7 +47,7 @@
     <tbody>
         {% for panelist in panelists_stats %}
         <tr>
-            <td><a href="https://stats.wwdt.me/panelists/{{ panelist }}">
+            <td><a href="{{ stats_url }}/panelists/{{ panelist }}">
                 {{ panelists[panelist] }}</a></td>
             {% if panelists_stats[panelist]["appearances"] %}
             <td>{{ panelists_stats[panelist]["appearances"]["regular"] }}</td>

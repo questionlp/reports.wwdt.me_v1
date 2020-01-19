@@ -34,7 +34,7 @@
     <tbody>
         {% for show in shows %}
         <tr>
-            <td><a href="https://stats.wwdt.me/shows/{{ show.date }}">{{ show.date }}</a></td>
+            <td><a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">{{ show.date }}</a></td>
             {% if show.location %}
             <td>
                 {{ show.location.venue }} ({{ show.location.city }}, {{ show.location.state }})

@@ -49,7 +49,7 @@
         {% for show in shows %}
         <tr>
             <td>{{ show.count }}</td>
-            <td><a href="https://stats.wwdt.me/shows/{{ show.date }}">{{ show.date }}</a></td>
+            <td><a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">{{ show.date }}</a></td>
             {% if show.best_of and show.repeat %}
             <td>Best Of / Repeat</td>
             {% elif show.best_of and not show.repeat %}

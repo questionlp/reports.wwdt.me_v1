@@ -30,7 +30,7 @@
         {% for show in same_start %}
         <tr>
             <td>
-                <a href="https://stats.wwdt.me/shows/{{ same_start[show].date }}">
+                <a href="{{ stats_url }}/shows/{{ same_start[show].date|replace('-', '/') }}">
                     {{ same_start[show].date }}
                 </a>
             </td>

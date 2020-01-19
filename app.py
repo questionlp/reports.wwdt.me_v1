@@ -19,13 +19,13 @@ from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, gender_stats,
                               panelist_vs_panelist as pvp,
                               rankings_summary, stats_summary,
-                              win_streaks)
+                              streaks)
 from reports.location import average_scores
 from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.3.1"
+APP_VERSION = "1.4.0"
 #endregion
 
 #region Flask App Initialization
@@ -91,9 +91,7 @@ def index():
 @app.route("/sitemap.xml")
 def sitemap_xml():
     """Sitemap XML"""
-    site_url = config["settings"]["site_url"]
-    sitemap = render_template("core/sitemap.xml",
-                              site_url=site_url)
+    sitemap = render_template("core/sitemap.xml")
     return Response(sitemap, mimetype="text/xml")
 
 #endregion
@@ -238,15 +236,27 @@ def panelist_stats_summary():
                            panelists=panelists,
                            panelists_stats=stats)
 
+@app.route("/panelist/losing_streaks")
+def panelist_losing_streaks():
+    """Panelist Losing Streaks Report"""
+    database_connection.reconnect()
+    panelists = streaks.retrieve_panelists(database_connection)
+    losing_streaks = streaks.calculate_panelist_losing_streaks(panelists,
+                                                               database_connection)
+
+    return render_template("panelist/losing_streaks.html",
+                           losing_streaks=losing_streaks)
+
 @app.route("/panelist/win_streaks")
 def panelist_win_streaks():
     """Panelist Win Streaks Report"""
     database_connection.reconnect()
-    panelists = win_streaks.retrieve_panelists(database_connection)
-    streaks = win_streaks.calculate_panelist_win_streaks(panelists=panelists,
+    panelists = streaks.retrieve_panelists(database_connection)
+    win_streaks = streaks.calculate_panelist_win_streaks(panelists=panelists,
                                                          database_connection=database_connection)
 
-    return render_template("panelist/win_streaks.html", win_streaks=streaks)
+    return render_template("panelist/win_streaks.html",
+                           win_streaks=win_streaks)
 
 #endregion
 
@@ -358,6 +368,8 @@ app.jinja_env.globals["app_version"] = APP_VERSION
 app.jinja_env.globals["ga_property_code"] = config["settings"]["ga_property_code"]
 app.jinja_env.globals["rendered_at"] = generate_date_time_stamp
 app.jinja_env.globals["current_year"] = current_year
+app.jinja_env.globals["site_url"] = config["settings"]["site_url"]
+app.jinja_env.globals["stats_url"] = config["settings"]["stats_url"]
 database_connection = mysql.connector.connect(**config["database"])
 database_connection.autocommit = True
 
