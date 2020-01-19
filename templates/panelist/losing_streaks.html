@@ -4,8 +4,8 @@
 {% block header_title %}Panelist Losing Streaks Report{% endblock %}
 {% block synopsis %}
 <p>
-    Listing of the longest losing streak for each panelist. A loss is defined
-    as not coming in either first place or tied for first.
+    Listing of the longest losing streak for each panelist. All losses is
+    defined by not finishing the game in first or tied for first.
 </p>
 {% endblock %}
 {% block breadcrumb %}
@@ -21,14 +21,18 @@
         <col class="panelist-streak-dates">
         <col class="panelist-streak-total">
         <col class="panelist-streak-count">
-        <col class="panelist-streak-dates">
+        <col class="panelist-streak-dates-third">
     </colgroup>
     <thead>
         <tr>
             <th scope="col" rowspan="2">Panelist</th>
-            <th colspan="3">Losses</th>
+            <th colspan="3">All Losses</th>
+            <th colspan="3">Third Place Losses</th>
         </tr>
         <tr>
+            <th scope="col">Total</th>
+            <th scope="col">#</th>
+            <th scope="col">Shows</th>
             <th scope="col">Total</th>
             <th scope="col">#</th>
             <th scope="col">Shows</th>
@@ -43,13 +47,26 @@
                 </a>
             </td>
             <td>{{ panelist.total_losses }}</td>
-            <td>{{ panelist.longest_losing_streak }}</td>
-            {% if not panelist.longest_losing_streak_dates %}
+            <td>{{ panelist.longest_streak }}</td>
+            {% if not panelist.longest_streak_dates %}
             <td class="no-data">&nbsp;</td>
             {% else %}
             <td class="show-dates">
                 <ul>
-                {% for show in panelist.longest_losing_streak_dates %}
+                {% for show in panelist.longest_streak_dates %}
+                <li>{{ show.show_date }} ({{ rank_map[show.show_rank] }})</li>
+                {% endfor %}
+                </ul>
+            </td>
+            {% endif %}
+            <td>{{ panelist.total_third_losses }}</td>
+            <td>{{ panelist.longest_third_streak }}</td>
+            {% if not panelist.longest_third_streak_dates %}
+            <td class="no-data">&nbsp;</td>
+            {% else %}
+            <td class="show-dates">
+                <ul>
+                {% for show in panelist.longest_third_streak_dates %}
                 <li>{{ show.show_date }}</li>
                 {% endfor %}
                 </ul>
@@ -64,9 +81,13 @@
             <th scope="col">Total</th>
             <th scope="col">#</th>
             <th scope="col">Shows</th>
+            <th scope="col">Total</th>
+            <th scope="col">#</th>
+            <th scope="col">Shows</th>
         </tr>
         <tr>
-            <th colspan="3">Loses</th>
+            <th colspan="3">All Loses</th>
+            <th colspan="3">Third Place Losses</th>
         </tr>
     </tfoot>
 </table>

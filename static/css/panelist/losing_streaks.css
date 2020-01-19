@@ -1,7 +1,8 @@
 @media all {
-    col.panelist-name { width: 15rem; }
-    col.panelist-streak-total, col.panelist-streak-count { width: 6rem; }
-    col.panelist-streak-dates { width: 9rem; }
+    col.panelist-name { width: 14rem; }
+    col.panelist-streak-total, col.panelist-streak-count { width: 5rem; }
+    col.panelist-streak-dates { width: 15rem; }
+    col.panelist-streak-dates-third { width: 8rem; }
     
     td.show-dates ul { list-style: none; margin: 0; padding: 0; }
 }
