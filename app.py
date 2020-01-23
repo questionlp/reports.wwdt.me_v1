@@ -25,7 +25,7 @@ from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.4.1"
+APP_VERSION = "1.4.1.1"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",

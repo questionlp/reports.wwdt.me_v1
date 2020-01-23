@@ -149,8 +149,8 @@ def retrieve_all_original_shows(database_connection: mysql.connector.connect
         show["location"]["state"] = row["state"]
         show["host"] = row["host"]
         show["scorekeeper"] = row["scorekeeper"]
-        show["guest"] = retrieve_show_guests(show_id=show["id"],
-                                             database_connection=database_connection)
+        show["guests"] = retrieve_show_guests(show_id=show["id"],
+                                              database_connection=database_connection)
         show["panelists"] = retrieve_show_panelists(show_id=show["id"],
                                                     database_connection=database_connection)
         shows.append(show)
