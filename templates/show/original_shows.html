@@ -58,14 +58,8 @@
                 {% endfor %}
                 </ul>
             </td>
-            {% if show.guests %}
-            <td class="guest-names">
-                <ul>
-                {% for guest in show.guests %}
-                <li>{{ guest.name }}</li>
-                {% endfor %}
-                </ul>
-            </td>
+            {% if show.guest %}
+            <td class="guest-names">{{ show.guest.name }}</td>
             {% else %}
             <td class="no-data">&nbsp;</td>
             {% endif %}

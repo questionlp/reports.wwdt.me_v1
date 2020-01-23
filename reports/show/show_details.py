@@ -149,10 +149,13 @@ def retrieve_all_original_shows(database_connection: mysql.connector.connect
         show["location"]["state"] = row["state"]
         show["host"] = row["host"]
         show["scorekeeper"] = row["scorekeeper"]
-        show["guests"] = retrieve_show_guests(show_id=show["id"],
-                                              database_connection=database_connection)
         show["panelists"] = retrieve_show_panelists(show_id=show["id"],
                                                     database_connection=database_connection)
+        guest = retrieve_show_guests(show_id=show["id"],
+                                     database_connection=database_connection)
+        if guest:
+            show["guest"] = guest[0]
+
         shows.append(show)
         show_count += 1
 
