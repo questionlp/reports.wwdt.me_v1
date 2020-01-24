@@ -18,14 +18,16 @@ from reports.guest import best_of_only, scores as guest_scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, gender_stats,
                               panelist_vs_panelist as pvp,
-                              rankings_summary, stats_summary,
+                              rankings_summary,
+                              single_appearance as single,
+                              stats_summary,
                               streaks)
 from reports.location import average_scores
 from reports.scorekeeper import introductions
 from reports.show import all_women_panel, lightning_round, show_details
 
 #region Global Constants
-APP_VERSION = "1.4.1.2"
+APP_VERSION = "1.4.2"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -244,6 +246,15 @@ def panelist_rankings_summary():
     return render_template("panelist/rankings_summary.html",
                            panelists=panelists,
                            panelists_rankings=rankings)
+
+@app.route("/panelist/single_appearance")
+def panelist_single_appearance():
+    """Panelist Single Appearance Report"""
+    database_connection.reconnect()
+    panelists = single.retrieve_single_appearances(database_connection)
+    return render_template("panelist/single_appearance.html",
+                           rank_map=RANK_MAP,
+                           panelists_appearance=panelists)
 
 @app.route("/panelist/stats_summary")
 def panelist_stats_summary():

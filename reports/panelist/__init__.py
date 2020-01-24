@@ -5,7 +5,8 @@
 
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               gender_mix, gender_stats, panelist_vs_panelist,
-                              rankings_summary, stats_summary, streaks)
+                              rankings_summary, single_appearance,
+                              stats_summary, streaks)
 
 __all__ = [
     "aggregate_scores",
@@ -14,6 +15,7 @@ __all__ = [
     "gender_stats",
     "panelist_vs_panelist",
     "rankings_summary",
+    "single_appearance",
     "stats_summary",
     "streaks"
     ]
