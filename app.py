@@ -24,10 +24,11 @@ from reports.panelist import (aggregate_scores, appearances_by_year,
                               streaks)
 from reports.location import average_scores
 from reports.scorekeeper import introductions
-from reports.show import all_women_panel, lightning_round, show_details
+from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
+                          lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.4.2"
+APP_VERSION = "1.4.5"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -328,6 +329,24 @@ def show_all_women_panel():
     shows = all_women_panel.retrieve_shows_all_women_panel(database_connection)
 
     return render_template("/show/all_women_panel.html",
+                           shows=shows)
+
+@app.route("/show/guest_hosts")
+def show_guest_hosts():
+    """Shows with Guest Hosts Report"""
+    database_connection.reconnect()
+    shows = guest_hosts.retrieve_shows_guest_host(database_connection)
+
+    return render_template("/show/guest_hosts.html",
+                           shows=shows)
+
+@app.route("/show/guest_scorekeepers")
+def show_guest_scorekeepers():
+    """Shows with Guest Scorekeepers Report"""
+    database_connection.reconnect()
+    shows = guest_scorekeeper.retrieve_shows_guest_scorekeeper(database_connection)
+
+    return render_template("/show/guest_scorekeepers.html",
                            shows=shows)
 
 @app.route("/show/lightning_round_end_three_way_tie")
