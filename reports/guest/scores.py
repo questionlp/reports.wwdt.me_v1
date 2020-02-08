@@ -122,21 +122,27 @@ def retrieve_all_three_pointers(database_connection: mysql.connector.connect
 
     cursor = database_connection.cursor(dictionary=True)
     query = ("(SELECT g.guestid, g.guest, g.guestslug, s.showid, s.showdate, "
-             " gm.guestscore, gm.exception, sn.shownotes "
+             " gm.guestscore, gm.exception, sk.scorekeeperid, sk.scorekeeper, "
+             " sk.scorekeeperslug, sn.shownotes "
              " FROM ww_showguestmap gm "
              " JOIN ww_shows s ON s.showid = gm.showid "
              " JOIN ww_guests g ON g.guestid = gm.guestid "
              " JOIN ww_shownotes sn ON sn.showid = gm.showid "
+             " JOIN ww_showskmap skm ON skm.showid = gm.showid "
+             " JOIN ww_scorekeepers sk ON sk.scorekeeperid = skm.scorekeeperid "
              " WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
              " AND gm.guestscore = 3 "
              ") "
              "UNION "
              "(SELECT g.guestid, g.guest, g.guestslug, s.showid, s.showdate, "
-             " gm.guestscore, gm.exception, sn.shownotes "
+             " gm.guestscore, gm.exception, sk.scorekeeperid, sk.scorekeeper, "
+             " sk.scorekeeperslug, sn.shownotes "
              " FROM ww_showguestmap gm "
              " JOIN ww_shows s ON s.showid = gm.showid "
              " JOIN ww_guests g ON g.guestid = gm.guestid "
              " JOIN ww_shownotes sn ON sn.showid = gm.showid "
+             " JOIN ww_showskmap skm ON skm.showid = gm.showid "
+             " JOIN ww_scorekeepers sk ON sk.scorekeeperid = skm.scorekeeperid "
              " WHERE s.bestof = 1 AND s.repeatshowid IS NULL "
              " AND gm.guestscore = 3 "
              " AND g.guestid NOT IN ( "
@@ -160,6 +166,8 @@ def retrieve_all_three_pointers(database_connection: mysql.connector.connect
         guest["name"] = row["guest"]
         guest["slug"] = row["guestslug"]
         guest["show_date"] = row["showdate"].isoformat()
+        guest["show_scorekeeper"] = row["scorekeeper"]
+        guest["show_scorekeeper_slug"] = row["scorekeeperslug"]
         guest["score"] = row["guestscore"]
         guest["exception"] = bool(row["exception"])
         guest["show_notes"] = row["shownotes"]

@@ -17,6 +17,7 @@
     <colgroup>
         <col class="guest-name">
         <col class="show-date">
+        <col class="show-scorekeeper">
         <col class="guest-score">
         <col class="score-exception">
         <col class="show-notes">
@@ -25,6 +26,7 @@
         <tr>
             <th scope="col">Guest</th>
             <th scope="col">Show Date</th>
+            <th scope="col">Scorekeeper</th>
             <th scope="col">Score</th>
             <th scope="col">Scoring Exception</th>
             <th scope="col">Show Notes</th>
@@ -33,12 +35,9 @@
     <tbody>
     {% for guest in three_pointers %}
         <tr>
-            <td>
-                <a href="{{ stats_url }}/guests/{{ guest.slug }}">
-                    {{ guest.name }}
-                </a>
-            </td>
+            <td><a href="{{ stats_url }}/guests/{{ guest.slug }}">{{ guest.name }}</a></td>
             <td><a href="{{ stats_url }}/shows/{{ guest.show_date|replace('-', '/') }}">{{ guest.show_date }}</a></td>
+            <td>{{ guest.show_scorekeeper }}</td>
             <td>{{ guest.score }}</td>
             <td>{{ guest.exception }}</td>
         {% if guest.exception %}    
@@ -53,6 +52,7 @@
         <tr>
             <th scope="col">Guest</th>
             <th scope="col">Show Date</th>
+            <th scope="col">Scorekeeper</th>
             <th scope="col">Score</th>
             <th scope="col">Scoring Exception</th>
             <th scope="col">Show Notes</th>
