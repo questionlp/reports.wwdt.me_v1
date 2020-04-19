@@ -25,10 +25,10 @@ from reports.panelist import (aggregate_scores, appearances_by_year,
 from reports.location import average_scores
 from reports.scorekeeper import introductions
 from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
-                          lightning_round, show_details)
+                          high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.4.6"
+APP_VERSION = "1.4.7"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -347,6 +347,15 @@ def show_guest_scorekeepers():
     shows = guest_scorekeeper.retrieve_shows_guest_scorekeeper(database_connection)
 
     return render_template("/show/guest_scorekeepers.html",
+                           shows=shows)
+
+@app.route("/show/high_scoring")
+def show_high_scoring():
+    """High Scoring Shows Report"""
+    database_connection.reconnect()
+    shows = high_scoring.retrieve_shows_all_high_scoring(database_connection)
+
+    return render_template("/show/high_scoring.html",
                            shows=shows)
 
 @app.route("/show/lightning_round_end_three_way_tie")

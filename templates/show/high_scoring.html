@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block css %}show/high_scoring.css{% endblock %}
+{% block title %}High Scoring Shows{% endblock %}
+{% block header_title %}High Scoring Shows{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block synopsis %}
+<p>
+    List of shows in which the panel total score is greater than or
+    equal to 50.
+</p>
+{% endblock %}
+{% block content %}
+<!-- Start High Scoring Shows Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="show-total-score">
+        <col class="show-date">
+        <col class="show-location">
+        <col class="show-host">
+        <col class="show-scorekeeper">
+        <col class="show-panelists">
+        <col class="show-guest">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Total Score</th>
+            <th scope="col">Show Date</th>
+            <th scope="col">Location</th>
+            <th scope="col">Host</th>
+            <th scope="col">Scorekeeper</th>
+            <th scope="col">Panelists</th>
+            <th scope="col">Guest</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for show in shows %}
+        <tr>
+            <td>{{ show.total_score }}</td>
+            <td><a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">{{ show.date }}</a></td>
+            {% if show.location %}
+            <td>
+                {{ show.location.venue }} ({{ show.location.city }}, {{ show.location.state }})
+            </td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+            <td>{{ show.host }}</td>
+            <td>{{ show.scorekeeper }}</td>
+            <td class="panelist-names">
+                <ul>
+                {% for panelist in show.panelists %}
+                    <li>{{ panelist.name }}: {{ panelist.score }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td>
+                {{ show.guest.name }}: {{ show.guest.score }}
+                {% if show.guest.exception %}
+                *
+                {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End High Scoring Shows Section -->
+{% endblock %}

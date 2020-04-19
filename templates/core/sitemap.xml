@@ -69,6 +69,18 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("show_guest_hosts") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("show_guest_scorekeepers") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("show_high_scoring") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("show_lightning_round_end_three_way_tie") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
