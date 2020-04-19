@@ -1,0 +1,8 @@
+@media all {
+    table.pure-table { max-width: 78rem !important; }
+    col.show-total-score { width: 6rem; }
+    col.show-date, col.show-host { width: 8rem; }
+    col.show-panelists { width: 16rem; }
+    col.show-guest { width: 16rem; }
+    td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
+}
