@@ -1,0 +1,4 @@
+@media all {
+    col.panelist-name { width: 15rem; }
+    col.panelist-bluff-chosen, col.panelist-bluff-correct, col.panelist-bluff-appearances { width: 5rem; }
+}
