@@ -89,6 +89,10 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("show_lightning_round_start_zero") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("show_original_shows") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
