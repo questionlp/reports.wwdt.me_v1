@@ -72,6 +72,84 @@ def retrieve_panelists_by_show_id(show_id: int,
 
     return panelists
 
+def shows_with_lightning_round_start_zero(database_connection: mysql.connector.connect
+                                         ) -> List[Dict]:
+    """Return shows in which panelists start the Lightning
+    Fill-in-the-Blank round with zero points"""
+
+    shows = []
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showid, s.showdate, p.panelistid, p.panelist, "
+             "pm.panelistlrndstart, pm.panelistlrndcorrect, pm.panelistscore, "
+             "pm.showpnlrank "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+             "AND pm.panelistlrndstart = 0 "
+             "ORDER BY s.showdate ASC;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+
+    if not result:
+        return None
+
+    for row in result:
+        show = OrderedDict()
+        show["id"] = row["showid"]
+        show["date"] = row["showdate"].isoformat()
+        panelist = OrderedDict()
+        panelist["id"] = row["panelistid"]
+        panelist["name"] = row["panelist"]
+        panelist["start"] = row["panelistlrndstart"]
+        panelist["correct"] = row["panelistlrndcorrect"]
+        panelist["score"] = row["panelistscore"]
+        panelist["rank"] = row["showpnlrank"]
+        show["panelist"] = panelist
+        shows.append(show)
+
+    return shows
+
+def shows_lightning_round_start_zero(database_connection: mysql.connector.connect
+                                    ) -> List[Dict]:
+    """Return list of shows in which a panelist starts the Lightning
+    Fill-in-the-Blank round with zero points"""
+
+    shows = []
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showid, s.showdate, p.panelistid, p.panelist, "
+             "pm.panelistlrndstart, pm.panelistlrndcorrect, pm.panelistscore, "
+             "pm.showpnlrank "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+             "AND pm.panelistlrndstart = 0 "
+             "ORDER BY s.showdate ASC;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+
+    if not result:
+        return None
+
+    for row in result:
+        show = OrderedDict()
+        show["id"] = row["showid"]
+        show["date"] = row["showdate"].isoformat()
+        panelist = OrderedDict()
+        panelist["id"] = row["panelistid"]
+        panelist["name"] = row["panelist"]
+        panelist["start"] = row["panelistlrndstart"]
+        panelist["correct"] = row["panelistlrndcorrect"]
+        panelist["score"] = row["panelistscore"]
+        panelist["rank"] = row["showpnlrank"]
+        show["panelist"] = panelist
+        shows.append(show)
+
+    return shows
+
 def shows_with_same_lightning_round_start(database_connection: mysql.connector.connect
                                          ) -> Dict:
     """Return shows in which the Lightning Fill-in-the-Blank round

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block css %}show/lightning_round_start_zero.css{% endblock %}
+{% block title %}Lightning Round Starting with Zero Points{% endblock %}
+{% block header_title %}Lightning Round Starting with Zero Points{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block synopsis %}
+<p>
+    List of shows in which panelists start the Lightning Fill-in-the-Blank
+    round with zero points.
+</p>
+{% endblock %}
+{% block content %}
+<!-- Start Lightning Round With Zero Points Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="show-date">
+        <col class="show-panelist">
+        <col class="show-score-start">
+        <col class="show-score-correct">
+        <col class="show-score-score">
+        <col class="show-rank">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Show Date</th>
+            <th scope="col">Panelist</th>
+            <th scope="col">Start</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Score</th>
+            <th scope="col">Rank</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for show in shows %}
+        <tr>
+            <td><a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">{{ show.date }}</a></td>
+            <td>{{ show.panelist.name }}</td>
+            <td>{{ show.panelist.start }}</td>
+            <td>{{ show.panelist.correct }}</td>
+            <td>{{ show.panelist.score }}</td>
+            <td>{{ rank_map[show.panelist.rank] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">Show Date</th>
+            <th scope="col">Panelist</th>
+            <th scope="col">Start</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Score</th>
+            <th scope="col">Rank</th>
+        </tr>
+    </tfoot>
+</table>
+<!-- End Lightning Round With Zero Points Section -->
+{% endblock %}
