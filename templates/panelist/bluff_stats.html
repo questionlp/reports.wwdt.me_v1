@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block css %}panelist/bluff_stats.css{% endblock %}
+{% block title %}Panelist Bluff the Listener Statistics Report{% endblock %}
+{% block header_title %}Panelist Bluff the Listener Statistics Report{% endblock %}
+{% block synopsis %}
+<p>
+    This report provides a breakdown of the number of times each panelist
+    had their Bluff the Listener story chosen, had the correct story, and
+    the number of appearances on shows that had a Bluff the Listener segment.
+    The appearance count includes Best Of shows that have unique Bluff the
+    Listener segments that appeared on taped shows that were never broadcasted.
+</p>
+<p>
+    Please note that the data for Bluff the Listener is not complete as audio
+    from shows aired in 1998 and 1999 are not publicly available. Thus,
+    panelists that do not appear on this list do not have any Bluff the
+    Listener information entered from those shows.
+</p>
+{% endblock %}
+{% block breadcrumb %}
+<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
+{% endblock %}
+{% block content %}
+<!-- Start Panelist Bluff the Listener Stats Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="panelist-name">
+        <col class="panelist-bluff-chosen">
+        <col class="panelist-bluff-correct">
+        <col class="panelist-bluff-appearances">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col">Panelist</th>
+            <th scope="col">Chosen</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Appearances</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for panelist in panelists %}
+        <tr>
+            <td><a href="{{ stats_url }}/panelists/{{ panelist.slug }}">
+                {{ panelist.name }}</a></td>
+            <td>{{ panelist.chosen }}</td>
+            <td>{{ panelist.correct }}</td>
+            <td>{{ panelist.appearances }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">Panelist</th>
+            <th scope="col">Chosen</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Bluff Appearances</th>
+        </tr>
+    </tfoot>
+</table>
+<!-- End Panelist Bluff the Listener Stats Section -->
+{% endblock %}

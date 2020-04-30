@@ -16,7 +16,7 @@ from werkzeug.exceptions import HTTPException
 
 from reports.guest import best_of_only, scores as guest_scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
-                              gender_mix, gender_stats,
+                              bluff_stats, gender_mix, gender_stats,
                               panelist_vs_panelist as pvp,
                               rankings_summary,
                               single_appearance as single,
@@ -28,7 +28,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.4.8"
+APP_VERSION = "1.4.9"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -185,6 +185,15 @@ def panelist_appearances_by_year():
     return render_template("panelist/appearances_by_year.html",
                            panelists=panelists,
                            show_years=show_years)
+
+@app.route("/panelist/bluff_stats")
+def panelist_bluff_stats():
+    """Panelist Bluff the Listener Statistics Report"""
+    database_connection.reconnect()
+    panelists = bluff_stats.retrieve_all_panelist_bluff_stats(database_connection)
+
+    return render_template("panelist/bluff_stats.html",
+                           panelists=panelists)
 
 @app.route("/panelist/gender_stats")
 def panelist_gender_stats():
