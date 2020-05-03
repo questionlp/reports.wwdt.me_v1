@@ -79,6 +79,7 @@ def retrieve_panelist_bluff_counts(panelist_id: int,
              "ORDER BY s.showdate ASC;")
     cursor.execute(query, (panelist_id, ))
     result = cursor.fetchone()
+    cursor.close()
 
     if not result:
         counts["appearances"] = None

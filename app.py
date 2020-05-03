@@ -28,7 +28,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.4.9"
+APP_VERSION = "1.4.9.1"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -397,7 +397,7 @@ def show_lightning_round_start_zero():
     shows = lightning_round.shows_lightning_round_start_zero(database_connection)
 
     return render_template("/show/lightning_round_start_zero.html",
-                           shows = shows,
+                           shows=shows,
                            rank_map=RANK_MAP)
 
 @app.route("/show/original_shows")
