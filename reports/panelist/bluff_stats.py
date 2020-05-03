@@ -49,12 +49,16 @@ def retrieve_panelist_bluff_counts(panelist_id: int,
              "JOIN ww_panelists p ON p.panelistid = blm.chosenbluffpnlid "
              "JOIN ww_shows s ON s.showid = blm.showid "
              "WHERE blm.chosenbluffpnlid = %s "
-             "AND s.repeatshowid IS NULL ) AS chosen, ( "
+             "AND s.repeatshowid IS NULL "
+             "AND (s.bestof = 0 OR (s.bestof = 1 AND s.bestofuniquebluff = 1)) "
+             ") AS chosen, ( "
              "SELECT COUNT(blm.showid) FROM ww_showbluffmap blm "
              "JOIN ww_panelists p ON p.panelistid = blm.correctbluffpnlid "
              "JOIN ww_shows s ON s.showid = blm.showid "
              "WHERE blm.correctbluffpnlid = %s "
-             "AND s.repeatshowid IS NULL ) AS correct;")
+             "AND s.repeatshowid IS NULL "
+             "AND (s.bestof = 0 OR (s.bestof = 1 AND s.bestofuniquebluff = 1)) "
+             ") AS correct;")
     cursor.execute(query, (panelist_id, panelist_id, ))
     result = cursor.fetchone()
 
@@ -73,7 +77,7 @@ def retrieve_panelist_bluff_counts(panelist_id: int,
              "JOIN ww_showbluffmap blm ON blm.showid = pm.showid "
              "WHERE pm.panelistid = %s "
              "AND s.repeatshowid IS NULL "
-             "AND sd.showdescription LIKE '%bluff%' "
+             "AND (s.bestof = 0 OR (s.bestof = 1 AND s.bestofuniquebluff = 1)) "
              "AND (blm.chosenbluffpnlid IS NOT NULL "
              "AND blm.correctbluffpnlid IS NOT NULL) "
              "ORDER BY s.showdate ASC;")
