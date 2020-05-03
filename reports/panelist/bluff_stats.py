@@ -76,8 +76,8 @@ def retrieve_panelist_bluff_counts(panelist_id: int,
              "JOIN ww_showdescriptions sd ON sd.showid = pm.showid "
              "JOIN ww_showbluffmap blm ON blm.showid = pm.showid "
              "WHERE pm.panelistid = %s "
-             "AND s.repeatshowid IS NULL "
-             "AND (s.bestof = 0 OR (s.bestof = 1 AND s.bestofuniquebluff = 1)) "
+             "AND sd.showdescription LIKE '%bluff%' "
+             "AND s.repeatshowid IS NULL AND s.bestof = 0 "
              "AND (blm.chosenbluffpnlid IS NOT NULL "
              "AND blm.correctbluffpnlid IS NOT NULL) "
              "ORDER BY s.showdate ASC;")
@@ -89,6 +89,27 @@ def retrieve_panelist_bluff_counts(panelist_id: int,
         counts["appearances"] = None
     else:
         counts["appearances"] = result["appearances"]
+
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT COUNT(s.showdate) as appearances "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_showdescriptions sd ON sd.showid = pm.showid "
+             "JOIN ww_showbluffmap blm ON blm.showid = pm.showid "
+             "WHERE pm.panelistid = %s "
+             "AND s.repeatshowid IS NULL "
+             "AND s.bestof = 1 AND s.bestofuniquebluff = 1 "
+             "AND (blm.chosenbluffpnlid IS NOT NULL "
+             "AND blm.correctbluffpnlid IS NOT NULL) "
+             "ORDER BY s.showdate ASC;")
+    cursor.execute(query, (panelist_id, ))
+    result = cursor.fetchone()
+    cursor.close()
+
+    if not result:
+        counts["unique_best_of"] = None
+    else:
+        counts["unique_best_of"] = result["appearances"]
 
     return counts
 

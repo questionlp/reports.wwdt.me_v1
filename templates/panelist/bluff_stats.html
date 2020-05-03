@@ -6,9 +6,8 @@
 <p>
     This report provides a breakdown of the number of times each panelist
     had their Bluff the Listener story chosen, had the correct story, and
-    the number of appearances on shows that had a Bluff the Listener segment.
-    The appearance count includes Best Of shows that have unique Bluff the
-    Listener segments that appeared on taped shows that were never broadcasted.
+    the number of appearances on both regular shows that had a Bluff the
+    Listener segment and Best Of shows with unique Bluff the Listener segments.
 </p>
 <p>
     Please note that the data for Bluff the Listener is not complete as audio
@@ -28,13 +27,15 @@
         <col class="panelist-bluff-chosen">
         <col class="panelist-bluff-correct">
         <col class="panelist-bluff-appearances">
+        <col class="panelist-bluff-appearances">
     </colgroup>
     <thead>
         <tr>
             <th scope="col">Panelist</th>
             <th scope="col">Chosen</th>
             <th scope="col">Correct</th>
-            <th scope="col">Appearances</th>
+            <th scope="col">Regular Shows</th>
+            <th scope="col">Unique Best Of</th>
         </tr>
     </thead>
     <tbody>
@@ -45,6 +46,7 @@
             <td>{{ panelist.chosen }}</td>
             <td>{{ panelist.correct }}</td>
             <td>{{ panelist.appearances }}</td>
+            <td>{{ panelist.unique_best_of }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -53,7 +55,8 @@
             <th scope="col">Panelist</th>
             <th scope="col">Chosen</th>
             <th scope="col">Correct</th>
-            <th scope="col">Bluff Appearances</th>
+            <th scope="col">Regular Shows</th>
+            <th scope="col">Unique Best Of</th>
         </tr>
     </tfoot>
 </table>
