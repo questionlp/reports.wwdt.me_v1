@@ -3,7 +3,6 @@
 # reports.wwdt.me is relased under the terms of the Apache License 2.0
 """Flask application startup file"""
 
-from datetime import datetime
 import json
 from typing import Optional, Text
 import traceback
@@ -14,6 +13,7 @@ import mysql.connector
 import pytz
 from werkzeug.exceptions import HTTPException
 
+from reports import utility
 from reports.guest import best_of_only, scores as guest_scores
 from reports.panelist import (aggregate_scores, appearances_by_year,
                               bluff_stats, gender_mix, gender_stats,
@@ -28,7 +28,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.4.9.3"
+APP_VERSION = "1.5.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -56,20 +56,19 @@ def load_config():
     with open("config.json", "r") as config_file:
         config_dict = json.load(config_file)
 
+    if "time_zone" in config_dict["settings"] and config_dict["settings"]["time_zone"]:
+        time_zone = config_dict["settings"]["time_zone"]
+        time_zone_object, time_zone_string = utility.time_zone_parser(time_zone)
+
+        config_dict["settings"]["app_time_zone"] = time_zone_object
+        config_dict["settings"]["time_zone"] = time_zone_string
+        config_dict["database"]["time_zone"] = time_zone_string
+    else:
+        config_dict["settings"]["app_time_zone"] = pytz.timezone("UTC")
+        config_dict["settings"]["time_zone"] = "UTC"
+        config_dict["database"]["time_zone"] = "UTC"
+
     return config_dict
-
-#endregion
-
-#region Common Functions
-def generate_date_time_stamp(time_zone: pytz.timezone = pytz.timezone("UTC")):
-    """Generate a current date/timestamp string"""
-    now = datetime.now(time_zone)
-    return now.strftime("%Y-%m-%d %H:%M:%S %Z")
-
-def current_year(time_zone: pytz.timezone = pytz.timezone("UTC")):
-    """Return the current year"""
-    now = datetime.now(time_zone)
-    return now.strftime("%Y")
 
 #endregion
 
@@ -431,10 +430,14 @@ def show_original_shows_desc():
 
 #region Application Initialization
 config = load_config()
+app_time_zone = config["settings"]["app_time_zone"]
+time_zone_name = config["settings"]["time_zone"]
 app.jinja_env.globals["app_version"] = APP_VERSION
 app.jinja_env.globals["ga_property_code"] = config["settings"]["ga_property_code"]
-app.jinja_env.globals["rendered_at"] = generate_date_time_stamp
-app.jinja_env.globals["current_year"] = current_year
+app.jinja_env.globals["time_zone"] = app_time_zone
+app.jinja_env.globals["rendered_at"] = utility.generate_date_time_stamp
+app.jinja_env.globals["current_year"] = utility.current_year
+
 app.jinja_env.globals["site_url"] = config["settings"]["site_url"]
 app.jinja_env.globals["stats_url"] = config["settings"]["stats_url"]
 database_connection = mysql.connector.connect(**config["database"])
