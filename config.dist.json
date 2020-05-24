@@ -11,6 +11,7 @@
     "settings": {
         "ga_property_code": null,
         "site_url": "",
-        "stats_url": ""
+        "stats_url": "",
+        "time_zone": "UTC"
     }
 }
