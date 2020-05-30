@@ -1,0 +1,5 @@
+@media all {
+    table.pure-table { max-width: 80rem; }
+    col.panelist { width: 15rem; }
+    col.panelist-first, col.panelist-most-recent { width: 8rem; }
+}

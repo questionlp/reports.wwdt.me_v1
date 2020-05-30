@@ -4,6 +4,7 @@
 """Explicitly listing all panelist reporting modules"""
 
 from reports.panelist import (aggregate_scores,
+                              appearances,
                               appearances_by_year,
                               bluff_stats,
                               gender_mix,
@@ -15,6 +16,7 @@ from reports.panelist import (aggregate_scores,
 
 __all__ = [
     "aggregate_scores",
+    "appearances",
     "appearances_by_year",
     "bluff_stats",
     "gender_mix",
