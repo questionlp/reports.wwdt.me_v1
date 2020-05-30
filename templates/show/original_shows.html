@@ -51,6 +51,7 @@
             <td>{{ show.location.venue }} ({{ show.location.city }}, {{ show.location.state }})</td>
             <td>{{ show.host }}</td>
             <td>{{ show.scorekeeper }}</td>
+            {% if show.panelists %}
             <td class="panelist-names">
                 <ul>
                 {% for panelist in show.panelists %}
@@ -58,6 +59,9 @@
                 {% endfor %}
                 </ul>
             </td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
             {% if show.guest %}
             <td class="guest-names">{{ show.guest.name }}</td>
             {% else %}
