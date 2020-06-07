@@ -1,17 +1,29 @@
 {% extends "base.html" %}
-{% block css %}guest/scoring_exceptions.css{% endblock %}
-{% block title %}Not My Job Scoring Exceptions{% endblock %}
-{% block header_title %}Not My Job Scoring Exceptions{% endblock %}
+{% block title %}Not My Job Scoring Exceptions | Guest{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/guest/scoring_exceptions.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_guest') }}">Guest</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Not My Job Scoring Exceptions</h2>
 <p>
     List of Not My Job guests who have had scoring exceptions that allowed them
     to win the prize for the listener contestant or were awarded the full three
     points.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Not My Job Scoring Exceptions Section -->
 <table class="pure-table pure-table-bordered">
@@ -79,4 +91,4 @@
     </tfoot>
 </table>
 <!-- End Not My Job Scoring Exceptions Section -->
-{% endblock %}
+{% endblock content %}

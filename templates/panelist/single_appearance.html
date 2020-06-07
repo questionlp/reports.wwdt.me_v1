@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}panelist/single_appearance.css{% endblock %}
-{% block title %}Panelists with Single Appearance{% endblock %}
-{% block header_title %}Panelists with Single Appearance Report{% endblock %}
+{% block title %}Single Appearance | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/single_appearance.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Single Appearance</h2>
 <p>
     This report lists out the panelists that have made only one appearance
     on the show, excluding any Best Of and Repeat shows.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Panelist Single Appearance Section -->
 <table class="pure-table pure-table-bordered">
@@ -52,4 +64,4 @@
     </tfoot>
 </table>
 <!-- End Panelist Single Appearance Section -->
-{% endblock %}
+{% endblock content %}

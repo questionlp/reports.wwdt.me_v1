@@ -1,15 +1,27 @@
 {% extends "base.html" %}
-{% block css %}show/all_women_panel.css{% endblock %}
-{% block title %}All Women Panel{% endblock %}
-{% block header_title %}All Women Panel{% endblock %}
+{% block title %}All Women Panel | Show{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show/all_women_panel.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_show') }}">Show</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>All Women Panel</h2>
 <p>
     List of shows that have had an all women panel.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start All Women Panel Section -->
 <table class="pure-table pure-table-bordered">
@@ -61,4 +73,4 @@
     </tbody>
 </table>
 <!-- End All Women Panel Section -->
-{% endblock %}
+{% endblock content %}

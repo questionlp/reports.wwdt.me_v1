@@ -1,18 +1,30 @@
 {% extends "base.html" %}
-{% block css %}scorekeeper/introductions.css{% endblock %}
-{% block title %}Scorekeeper Introductions{% endblock %}
-{% block header_title %}Scorekeeper Introductions{% endblock %}
+{% block title %}Introductions | Scorekeeper{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/scorekeeper/introductions.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_scorekeeper') }}">Scorekeeper</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Introductions</h2>
 <p>
     Listing of all of the introductions that Bill Kurtis and other scorekeepers
     have used when introducing themselves at the start of each show.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
-<h2>Scorekeepers</h2>
+<h3>Scorekeepers</h3>
 <ul>
 {% for scorekeeper in scorekeepers %}
     <li><a href="#{{ scorekeeper.slug }}">{{ scorekeeper.name }}</a></li>
@@ -21,7 +33,7 @@
 
 <!-- Start Scorekeeper Introductions Section -->
 {% for scorekeeper in scorekeepers %}
-<h2 id="{{ scorekeeper.slug }}">{{ scorekeeper.name }}</h2>
+<h3 id="{{ scorekeeper.slug }}">{{ scorekeeper.name }}</h3>
 <table class="pure-table pure-table-bordered">
     <colgroup>
         <col class="show-date">
@@ -58,4 +70,4 @@
 </table>
 {% endfor %}
 <!-- End Scorekeeper Introductions Section -->
-{% endblock %}
+{% endblock content %}

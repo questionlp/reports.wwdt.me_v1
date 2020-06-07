@@ -1,11 +1,22 @@
 {% extends "base.html" %}
-{% block css %}guest/best_of_only.css{% endblock %}
-{% block title %}Best Of Only Not My Job Guests{% endblock %}
-{% block header_title %}Best Of Only Not My Job Guests{% endblock %}
+{% block title %}Best Of Only Not My Job Guests | Guest{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/guest/best_of_only.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_guest') }}">Guest</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Best Of Only Not My Job Guests</h2>
 <p>
     With Wait Wait... Don't Tell Me! recording two shows when they travel to
     some cities; in which, the Thursday taping getting aired that weekend and
@@ -17,7 +28,8 @@
     This report lists out all of the Not My Job guests that have only appeared
     on Best Of shows and not regular shows.
 </p>
-{% endblock %}
+{% endblock synopsis%}
+
 {% block content %}
 <!-- Start Best Of Only Guest Section -->
 <table class="pure-table pure-table-bordered">

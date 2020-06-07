@@ -1,3 +1,4 @@
 @media all {
-    col.report-name { width: 16rem; }
+    section { border-bottom: 1px #aaa solid; margin: 0.5rem 0; padding-bottom: 0.5rem; }
+    section#toc, section#summary { border: none; margin: 0; }
 }

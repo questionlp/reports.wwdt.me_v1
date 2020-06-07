@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}panelist/rankings_summary.css{% endblock %}
-{% block title %}Panelist Rankings Summary{% endblock %}
-{% block header_title %}Panelist Rankings Summary Report{% endblock %}
+{% block title %}Rankings Summary | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/rankings_summary.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Rankings Summary</h2>
 <p>
     This report provides a break down of each panelist's ranking
     statistics.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Panelist Rankings Breakdown Section -->
 <table class="pure-table pure-table-bordered">
@@ -65,4 +77,4 @@
     </tfoot>
 </table>
 <!-- End Panelist Rankings Breakdown Section -->
-{% endblock %}
+{% endblock content %}

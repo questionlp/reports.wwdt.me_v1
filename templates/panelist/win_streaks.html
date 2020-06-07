@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}panelist/win_streaks.css{% endblock %}
-{% block title %}Panelist Win Streaks{% endblock %}
-{% block header_title %}Panelist Win Streaks Report{% endblock %}
+{% block title %}Win Streaks | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/win_streaks.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Win Streaks</h2>
 <p>
     Listing of the longest outright win streak and the longest win streak that
     includes both outright wins and draws for each panelist.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Panelist Win Streaks Section -->
 <table class="pure-table pure-table-bordered">
@@ -92,4 +104,4 @@
     </tfoot>
 </table>
 <!-- Start Panelist Win Streaks Section -->
-{% endblock %}
+{% endblock content %}

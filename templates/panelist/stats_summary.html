@@ -1,15 +1,26 @@
 {% extends "base.html" %}
-{% block css %}panelist/stats_summary.css{% endblock %}
-{% block title %}Panelist Statistics Summary{% endblock %}
-{% block header_title %}Panelist Statistics Summary Report{% endblock %}
+{% block title %}Statistics Summary | Panelist{% endblock %}
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/stats_summary.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Statistics Summary</h2>
 <p>
     This report provides a break down of statistics by panelist.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Panelist Statistics Breakdown Section -->
 <table class="pure-table pure-table-bordered">
@@ -90,4 +101,4 @@
     </tfoot>
 </table>
 <!-- End Panelist Statistics Breakdown Section -->
-{% endblock %}
+{% endblock content %}

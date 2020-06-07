@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}show/lightning_round_start_zero.css{% endblock %}
-{% block title %}Lightning Round Starting with Zero Points{% endblock %}
-{% block header_title %}Lightning Round Starting with Zero Points{% endblock %}
+{% block title %}Lightning Round Starting with Zero Points | Show{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show/lightning_round_start_zero.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_show') }}">Show</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Lightning Round Starting with Zero Points</h2>
 <p>
     List of shows in which panelists start the Lightning Fill-in-the-Blank
     round with zero points.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Lightning Round With Zero Points Section -->
 <table class="pure-table pure-table-bordered">
@@ -56,4 +68,4 @@
     </tfoot>
 </table>
 <!-- End Lightning Round With Zero Points Section -->
-{% endblock %}
+{% endblock content %}

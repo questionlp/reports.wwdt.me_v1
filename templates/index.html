@@ -1,312 +1,57 @@
 {% extends "base.html" %}
-{% block css %}index.css{% endblock %}
 {% block title %}Home{% endblock %}
-{% block header_title %}Wait Wait... Don't Tell Me! Reports{% endblock %}
-{% block content %}
-<!-- Start Table of Contents -->
-<div id="toc">
-    <h2>Available Report Categories</h2>
-    <ul>
-        <li><a href="#guest">Guest</a></li>
-        <li><a href="#location">Location</a></li>
-        <li><a href="#panelist">Panelist</a></li>
-        <li><a href="#scorekeeper">Scorekeeper</a></li>
-        <li><a href="#show">Show</a></li>
-    </ul>
-</div>
-<!-- End Table of Contents -->
 
-<div id="summary">
+{% block head %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock head %}
+
+{% block synopsis %}
+<section id="summary">
+<p>
     This site provides reports on various aspects of the data recorded in the
     <a href="{{ stats_url }}">Wait Wait... Don't Tell Me! Stats and Show Details</a>
     database that don't really fit neatly into the main Stats and Show Details
     site.
-</div>
+</p>
+</section>    
+{% endblock synopsis %}
 
-<!-- Start Guest Reports -->
-<h2 id="guest">Guest</h2>
-<table class="pure-table pure-table-bordered">
-    <colgroup>
-        <col class="report-name">
-        <col class="report-description">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Report</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="{{ url_for('guest_best_of_only') }}">Best Of Only Guests</a></td>
-            <td>
-                A listing of Not My Job guests that have appeared on Best Of
-                shows but not regular shows; due to, appearing on shows that
-                were part of the show's second taping when traveling away from
-                their home base of Chicago, Illinois.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('guest_scoring_exceptions') }}">Scoring Exceptions</a></td>
-            <td>
-                A list of Not My Job guests who have had scoring exceptions
-                that allowed them to win the prize for the listener contestant
-                or were awarded the full three points.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('guest_three_pointers') }}">Three Pointers</a></td>
-            <td>
-                A list of all of the Not My Job guests who answered all three
-                Not My Job questions correctly or were awarded all three
-                points.
-            </td>
-        </tr>
-    </tbody>
-</table>
+{% block content %}
+<section id="toc">
+<h2>Available Report Categories</h2>
+<ul>
+    <li><a href="#guest">Guest</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#panelist">Panelist</a></li>
+    <li><a href="#scorekeeper">Scorekeeper</a></li>
+    <li><a href="#show">Show</a></li>
+</ul>
+</section>
 
-<!-- End Guest Reports-->
+<section id="guest">
+<h2>Guest</h2>
+{% include "guest/_reports.html" %}
+</section>
 
-<!-- Start Location Reports -->
-<h2 id="location">Location</h2>
-<table class="pure-table pure-table-bordered">
-    <colgroup>
-        <col class="report-name">
-        <col class="report-description">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Report</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="{{ url_for('location_average_scores') }}">Average Scores by Location</a></td>
-            <td>
-                A listing of the average panelist score and average total score
-                for each location the show has broadcasted from. The exception
-                is the 25th Anniversary Special that aired on October 27, 2018
-                due to the unique Lightning Fill-in-the-Blank format used.
-            </td>
-        </tr>
-    </tbody>
-</table>
-<!-- End Location Reports -->
+<section id="location">
+<h2>Location</h2>
+{% include "location/_reports.html" %}
+</section>
 
-<!-- Start Panelist Reports -->
-<h2 id="panelist">Panelist</h2>
-<table class="pure-table pure-table-bordered">
-    <colgroup>
-        <col class="report-name">
-        <col class="report-description">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Report</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="{{ url_for('panelist_aggregate_scores') }}">Aggregate Scores</a></td>
-            <td>
-                A break down of general statistics of all total scores and a
-                break down of the number of times a total score has been
-                achieved.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_appearances_by_year') }}">Appearances by Year</a></td>
-            <td>
-                A pivot table containing a list of panelists and the number of
-                appearances each panelist has made, broken out by year
-                (excluding Best Of and Repeat shows).
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_bluff_stats') }}">Bluff the Listener Statistics</a></td>
-            <td>
-                A report providing a breakdown of the number of times each panelist
-                had their Bluff the Listener story chosen, had the correct story, and
-                the number of appearances on shows that had a Bluff the Listener segment.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_panel_gender_mix') }}">Panel Gender Mix</a></td>
-            <td>
-                A break down of the panel gender mix for each show by year
-                (excluding Best Of, Repeat and special shows).
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_pvp_report') }}">Panelist vs Panelist</a></td>
-            <td>
-                A break down of how well each panelist has performed against
-                other panelists based on the ranking on each show.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_first_most_recent_appearances') }}">First and Most Recent Appearances</a></td>
-            <td>
-                A report providing a list of the first and most recent
-                appearances, for both regular and all shows, for each panelist.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_gender_stats') }}">Statistics by Gender</a></td>
-            <td>
-                A break down of how well all panelists have done by gender
-                and by year.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_losing_streaks') }}">Losing Streaks</a></td>
-            <td>
-                A listing of the longest losing streak for each panelist.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_rankings_summary') }}">Rankings Summary</a></td>
-            <td>
-                A break down of the ranking statistics for all panelists.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_single_appearance') }}">Single Appearance</a></td>
-            <td>
-                A list of panelists that have made only one appearance on the
-                show, excluding any Best Of and Repeat shows.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_stats_summary') }}">Statistics Summary</a></td>
-            <td>
-                A break down of statistics for all panelists.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('panelist_win_streaks') }}">Win Streaks</a></td>
-            <td>
-                A listing of the longest outright win streak and the longest
-                win streak that includes both outright wins and draws for each
-                panelist.
-            </td>
-        </tr>
-    </tbody>
-</table>
-<!-- Start Panelist Reports -->
+<section id="panelist">
+<h2>Panelist</h2>
+{% include "panelist/_reports.html" %}
+</section>
 
-<!-- Start Scorekeeper Reports -->
-<h2 id="scorekeeper">Scorekeeper</h2>
-<table class="pure-table pure-table-bordered">
-    <colgroup>
-        <col class="report-name">
-        <col class="report-description">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Report</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="{{ url_for('scorekeeper_introductions') }}">Scorekeeper Introductions</a></td>
-            <td>
-                A listing of all of the introductions that Bill Kurtis and
-                other scorekeepers have used when introducing themselves at the
-                start of each show.
-            </td>
-        </tr>
-    </tbody>
-</table>
-<!-- End Scorekeeper Reports-->
+<section id="scorekeeper">
+<h2>Scorekeeper</h2>
+{% include "scorekeeper/_reports.html" %}
+</section>
 
-<!-- Start Show Reports -->
-<h2 id="show">Show</h2>
-<table class="pure-table pure-table-bordered">
-    <colgroup>
-        <col class="report-name">
-        <col class="report-description">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Report</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="{{ url_for('show_all_shows') }}">All Shows</a></td>
-            <td>
-                A listing of all shows that have been broadcasted, including
-                Best Ofs and Repeats. The list does not include pledge specials
-                or special shows that were not aired in their original form.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_all_women_panel') }}">All Women Panel</a></td>
-            <td>
-                A listing of all shows that have had an all women panel.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_guest_hosts') }}">Guest Hosts</a></td>
-            <td>
-                A listing of all shows, including Best Of and repeats, that had
-                a guest host filling in.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_high_scoring') }}">High Scoring Shows</a></td>
-            <td>
-                A listing of shows in which the panel total score is greater
-                than or equal to 50.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_guest_scorekeepers') }}">Guest Scorekeepers</a></td>
-            <td>
-                A listing of all shows, including Best Of and repeats, that had
-                a guest scorekeeper filling in.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_lightning_round_end_three_way_tie') }}">Lightning
-                Round Ending in a Three-Way Tie</a></td>
-            <td>
-                A list of shows in which all three panelists finishing the
-                Lightning Fill-in-the Blank round in a three-way tie.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_lightning_round_start_three_way_tie') }}">Lightning
-                Round Starting in a Three-Way Tie</a>
-            </td>
-            <td>
-                A list of shows in which all three panelists starting the
-                Lightning Fill-in-the Blank round in a three-way tie.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_lightning_round_start_zero') }}">Lightning
-                Round Starting with Zero Points</a>
-            </td>
-            <td>
-                A list of shows in which panelists start the Lightning
-                Fill-in-the-Blank round with zero points.
-            </td>
-        </tr>
-        <tr>
-            <td><a href="{{ url_for('show_original_shows') }}">Original Shows</a></td>
-            <td>
-                A listing of each original broadcast show, which excludes: Best
-                Of, Repeats, pledge specials and other special shows that were
-                not broadcast in their entirety.
-            </td>
-        </tr>
-    </tbody>
-</table>
-<!-- End Show Reports -->
-{% endblock %}
+<section id="show">
+<h2>Show</h2>
+{% include "show/_reports.html" %}
+</section>
+
+{% endblock content %}
