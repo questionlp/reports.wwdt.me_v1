@@ -1,8 +1,22 @@
 {% extends "base.html" %}
-{% block css %}panelist/bluff_stats.css{% endblock %}
-{% block title %}Panelist Bluff the Listener Statistics Report{% endblock %}
-{% block header_title %}Panelist Bluff the Listener Statistics Report{% endblock %}
+{% block title %}Bluff the Listener Statistics | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/bluff_stats.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Bluff the Listener Statistics</h2>
 <p>
     This report provides a breakdown of the number of times each panelist
     had their Bluff the Listener story chosen, had the correct story, and
@@ -15,10 +29,8 @@
     panelists that do not appear on this list do not have any Bluff the
     Listener information entered from those shows.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Panelist Bluff the Listener Stats Section -->
 <table class="pure-table pure-table-bordered">
@@ -61,4 +73,4 @@
     </tfoot>
 </table>
 <!-- End Panelist Bluff the Listener Stats Section -->
-{% endblock %}
+{% endblock content %}

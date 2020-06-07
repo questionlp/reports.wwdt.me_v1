@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}show/shows.css{% endblock %}
-{% block title %}Shows with Guest Host{% endblock %}
-{% block header_title %}Shows with Guest Host Report{% endblock %}
+{% block title %}Shows with Guest Host | Show{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show/shows.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_show') }}">Show</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Shows with Guest Host</h2>
 <p>
     This report lists all shows, including Best Of and repeats, that had
     a guest host filling in.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Guest Host Shows Listing -->
 <table class="pure-table pure-table-bordered">
@@ -88,4 +100,4 @@
     </tfoot>
 </table>
 <!-- End Guest Host Shows Listing -->
-{% endblock %}
+{% endblock content %}

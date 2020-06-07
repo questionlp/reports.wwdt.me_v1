@@ -1,4 +1,5 @@
 @media all {
+    body { max-width: initial !important; }
     #results { max-height: 80vh; overflow: scroll; }
     table.pure-table { margin-right: 0.25rem; width: initial; }
     table.pure-table thead, table.pure-table tfoot { background-color: skyblue; font-weight: 600; text-align: center; }

@@ -5,6 +5,10 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("get_guest") }}</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("guest_best_of_only") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -17,8 +21,16 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("get_location") }}</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("location_average_scores") }}</loc>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("get_panelist") }}</loc>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>{{ site_url }}{{ url_for("panelist_aggregate_scores") }}</loc>
@@ -65,8 +77,16 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("get_scorekeeper") }}</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("scorekeeper_introductions") }}</loc>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("get_show") }}</loc>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>{{ site_url }}{{ url_for("show_all_shows") }}</loc>

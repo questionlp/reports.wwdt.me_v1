@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}guest/three_pointers.css{% endblock %}
-{% block title %}Not My Job Three Pointers{% endblock %}
-{% block header_title %}Not My Job Three Pointers{% endblock %}
+{% block title %}Not My Job Three Pointers | Guest{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/guest/three_pointers.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_guest') }}">Guest</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Not My Job Three Pointers</h2>
 <p>
     List of all of the Not My Job guests who answered all three Not My Job
     questions correctly or were awarded all three points.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Not My Job Scoring Exceptions Section -->
 <table class="pure-table pure-table-bordered">
@@ -60,4 +72,4 @@
     </tfoot>
 </table>
 <!-- End Not My Job Scoring Exceptions Section -->
-{% endblock %}
+{% endblock content %}

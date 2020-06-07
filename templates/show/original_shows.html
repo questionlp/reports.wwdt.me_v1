@@ -1,17 +1,29 @@
 {% extends "base.html" %}
-{% block css %}show/shows.css{% endblock %}
-{% block title %}Original Shows{% endblock %}
-{% block header_title %}Original Shows Report{% endblock %}
+{% block title %}Original Shows | Show{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show/shows.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_show') }}">Show</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Original Shows</h2>
 <p>
     Listing of each original broadcast show, which excludes: Best Of, Repeats,
     pledge specials and other special shows that were not broadcast in their
     entirety.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Original Show Listing -->
 <p>
@@ -83,4 +95,4 @@
     </tfoot>
 </table>
 <!-- End Original Show Listing -->
-{% endblock %}
+{% endblock content %}

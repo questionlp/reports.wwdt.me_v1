@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}panelist/first_most_recent_appearances.css{% endblock %}
-{% block title %}First and Most Recent Appearances | Panelist {% endblock %}
-{% block header_title %}First and Most Recent Appearances Report{% endblock %}
+{% block title %}First and Most Recent Appearances | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/first_most_recent_appearances.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>First and Most Recent Appearances</h2>
 <p>
     This report provides a list of the first and most recent appearances, for
     both regular and all shows, for each panelist.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start First and Most Recent Appearances Section -->
 <table class="pure-table pure-table-bordered">
@@ -67,4 +79,4 @@
     </tbody>
 </table>
 <!-- End First and Most Recent Appearances Section -->
-{% endblock %}
+{% endblock content %}

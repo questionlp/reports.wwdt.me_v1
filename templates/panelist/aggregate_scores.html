@@ -1,20 +1,32 @@
 {% extends "base.html" %}
-{% block css %}panelist/aggregate_scores.css{% endblock %}
-{% block title %}Panelist Aggregate Scores{% endblock %}
-{% block header_title %}Panelist Aggregate Scores Report{% endblock %}
+{% block title %}Aggregate Scores | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/aggregate_scores.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Aggregate Scores</h2>
 <p>
     The first table details the general statistics for entire aggregate of
     panelist total scores. The second table breaks down the number of instances
     a total score has been achieved at the end of the show.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Aggregate Score Statistics Section -->
-<h2 id="panelist">Aggregate Score Statistics</h2>
+<h3 id="panelist">Aggregate Score Statistics</h3>
 <table class="pure-table pure-table-bordered">
     <colgroup>
         <col class="score-stat">
@@ -60,7 +72,7 @@
 <!-- End Aggregate Score Statistics Section -->
 
 <!-- Start Score Spread Section -->
-<h2 id="panelist">Aggregate Score Spread</h2>
+<h3 id="panelist">Aggregate Score Spread</h3>
 <table class="pure-table pure-table-bordered">
     <colgroup>
         <col class="spread-score">
@@ -82,4 +94,4 @@
     </tbody>
 </table>
 <!-- End Score Spread Section -->
-{% endblock %}
+{% endblock content %}

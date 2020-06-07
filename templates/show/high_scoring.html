@@ -1,16 +1,28 @@
 {% extends "base.html" %}
-{% block css %}show/high_scoring.css{% endblock %}
-{% block title %}High Scoring Shows{% endblock %}
-{% block header_title %}High Scoring Shows{% endblock %}
+{% block title %}High Scoring Shows | Show{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show/high_scoring.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_show') }}">Show</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>High Scoring Shows</h2>
 <p>
     List of shows in which the panel total score is greater than or
     equal to 50.
 </p>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start High Scoring Shows Section -->
 <table class="pure-table pure-table-bordered">
@@ -65,4 +77,4 @@
     </tbody>
 </table>
 <!-- End High Scoring Shows Section -->
-{% endblock %}
+{% endblock content %}

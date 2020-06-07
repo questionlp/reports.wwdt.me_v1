@@ -1,19 +1,30 @@
 {% extends "base.html" %}
-{% block css %}location/average_scores.css{% endblock %}
-{% block title %}Average Score by Location{% endblock %}
-{% block header_title %}Average Score by Location Report{% endblock %}
+{% block title %}Average Score by Location | Location{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/location/average_scores.css') }}">
+{% endblock head %}
+
 {% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_location') }}">Location</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Average Score by Location</h2>
 <p>
     The following table lists the average panelist score and average total
     score for each location the show has broadcasted from. The exception is
     the 25th Anniversary Special that aired on October 27, 2018 due to the
     unique Lightning Fill-in-the-Blank format used.
 </p>
+{% endblock synopsis %}
 
-{% endblock %}
 {% block content %}
 <!-- Start Location Breakdown -->
 <table class="pure-table pure-table-bordered">
@@ -52,4 +63,4 @@
     </tbody>
 </table>
 <!-- End Location Breakdown -->
-{% endblock %}
+{% endblock content %}

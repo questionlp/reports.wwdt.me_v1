@@ -1,15 +1,27 @@
 {% extends "base.html" %}
-{% block css %}panelist/gender_stats.css{% endblock %}
-{% block title %}Statistics by Gender{% endblock %}
-{% block header_title %}Statistics by Gender Report{% endblock %}
+{% block title %}Statistics by Gender | Panelist{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panelist/gender_stats.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
 {% block synopsis %}
+<h2>Statistics by Gender</h2>
 <p>
     This report provides a break down of panelist statistics by gender.
 </p>
-{% endblock %}
-{% block breadcrumb %}
-<div id="homelink">&lt; <a href="{{ url_for('index') }}">Home</a></div>
-{% endblock %}
+{% endblock synopsis %}
+
 {% block content %}
 <!-- Start Gender Statistics Breakdown Section -->
 <table class="pure-table pure-table-bordered">
@@ -87,4 +99,4 @@
     </tbody>
 </table>
 <!-- End Gender Statistics Breakdown Section -->
-{% endblock %}
+{% endblock content %}

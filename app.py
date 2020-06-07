@@ -26,7 +26,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.5.1"
+APP_VERSION = "1.6.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -106,8 +106,8 @@ def sitemap_xml():
 #region Guest Reports
 @app.route("/guest")
 def get_guest():
-    """Redirect /guest to /"""
-    return redirect(url_for("index"))
+    """Guest Reports Landing Page"""
+    return render_template("guest/index.html")
 
 @app.route("/guest/best_of_only")
 def guest_best_of_only():
@@ -140,8 +140,8 @@ def guest_three_pointers():
 #region Location Reports
 @app.route("/location")
 def get_location():
-    """Redirect /location to /"""
-    return redirect(url_for("index"))
+    """Location Reports Landing Page"""
+    return render_template("location/index.html")
 
 @app.route("/location/average_scores")
 def location_average_scores():
@@ -157,8 +157,8 @@ def location_average_scores():
 #region Panelist Reports
 @app.route("/panelist")
 def get_panelist():
-    """Redirect /panelist to /"""
-    return redirect(url_for("index"))
+    """Panelist Reports Landing Page"""
+    return render_template("panelist/index.html")
 
 @app.route("/panelist/aggregate_scores")
 def panelist_aggregate_scores():
@@ -299,8 +299,8 @@ def panelist_win_streaks():
 #region Scorekeeper Reports
 @app.route("/scorekeeper")
 def get_scorekeeper():
-    """Redirect /scorekeeper to /"""
-    return redirect(url_for("index"))
+    """Scorekeeper Reports Landing Page"""
+    return render_template("scorekeeper/index.html")
 
 @app.route("/scorekeeper/introductions")
 def scorekeeper_introductions():
@@ -318,8 +318,8 @@ def scorekeeper_introductions():
 #region Show Reports
 @app.route("/show")
 def get_show():
-    """Redirect /show to /"""
-    return redirect(url_for("index"))
+    """Show Reports Landing Page"""
+    return render_template("show/index.html")
 
 @app.route("/show/all_shows")
 def show_all_shows():
