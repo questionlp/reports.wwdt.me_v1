@@ -1,6 +1,10 @@
 {% extends "errors/base.html" %}
-{% block css %}500.css{% endblock %}
-{% block title %}Error 500{% endblock %}
+{% block title %}500 | Error{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/500.css') }}">
+{% endblock head %}
 
 {% block content %}
 <h1>Oops...</h1>
@@ -8,4 +12,4 @@
 
 <h2>Error Details</h2>
 <pre class="traceback">{{ error_traceback }}</pre>
-{% endblock %}
+{% endblock content %}
