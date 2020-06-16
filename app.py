@@ -26,7 +26,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.6.0"
+APP_VERSION = "1.6.1"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
