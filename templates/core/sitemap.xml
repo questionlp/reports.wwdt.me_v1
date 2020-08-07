@@ -81,6 +81,10 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("scorekeeper_appearance_summary") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("scorekeeper_introductions") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
