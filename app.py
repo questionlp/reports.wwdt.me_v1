@@ -15,6 +15,7 @@ from werkzeug.exceptions import HTTPException
 
 from reports import utility
 from reports.guest import best_of_only, scores as guest_scores
+from reports.host import appearances as h_appearances
 from reports.panelist import (aggregate_scores, appearances,
                               appearances_by_year, bluff_stats, gender_mix,
                               gender_stats, panelist_vs_panelist as pvp,
@@ -135,6 +136,22 @@ def guest_three_pointers():
 
     return render_template("guest/three_pointers.html",
                            three_pointers=three_pointers)
+
+#endregion
+
+#region Host Reports
+@app.route("/host")
+def get_host():
+    """Host Reports Landing Page"""
+    return render_template("host/index.html")
+
+@app.route("/host/appearance_summary")
+def host_appearance_summary():
+    """Host Appearances Summary Report"""
+    database_connection.reconnect()
+    summary = h_appearances.retrieve_appearance_summaries(database_connection)
+
+    return render_template("host/appearance_summary.html", summary=summary)
 
 #endregion
 

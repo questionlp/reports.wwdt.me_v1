@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Appearance Summary | Host{% endblock %}
+
+{% block head %}
+{{ super ()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/host/appearance_summary.css') }}">
+{% endblock head %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('get_host') }}">Host</a></li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
+{% block synopsis %}
+<h2>Appearance Summary</h2>
+<p>
+    This report provides a list of appearance counts and the first and most
+    recent appearances, for both regular and all shows, for each host.
+</p>
+{% endblock synopsis %}
+
+{% block content %}
+<!-- Start First and Most Recent Appearances Section -->
+<table class="pure-table pure-table-bordered">
+    <colgroup>
+        <col class="host">
+        <col class="host-regular-shows">
+        <col class="host-all-shows">
+        <col class="host-first">
+        <col class="host-most-recent">
+        <col class="host-first">
+        <col class="host-most-recent">
+    </colgroup>
+    <thead>
+        <tr>
+            <th scope="col" rowspan="2">Host</th>
+            <th colspan="2">Counts</th>
+            <th colspan="2">Regular Shows</th>
+            <th colspan="2">All Shows</th>
+        </tr>
+        <tr>
+            <!-- Counts -->
+            <th scope="col">Regular</th>
+            <th scope="col">All Shows</th>
+
+            <!-- Regular Shows -->
+            <th scope="col">First</th>
+            <th scope="col">Most Recent</th>
+
+            <!-- All Shows -->
+            <th scope="col">First</th>
+            <th scope="col">Most Recent</th>    
+        </tr>
+    </thead>
+    <tbody>
+        {% for host in summary %}
+        {% set info = summary[host] %}
+        <tr>
+            <td><a href="{{ stats_url}}/hosts/{{ info.slug }}">{{ info.name }}</a></td>
+            {% if info.regular_shows %}
+            <td>{{ info.regular_shows }}</td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+            {% if info.all_shows %}
+            <td>{{ info.all_shows }}</td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}            
+            {% if info.first %}
+            <td><a href="{{ stats_url }}/shows/{{ info.first|replace('-', '/') }}">{{ info.first }}</a></td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+            {% if info.most_recent %}
+            <td><a href="{{ stats_url }}/shows/{{ info.most_recent|replace('-', '/') }}">{{ info.most_recent }}</a></td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+            {% if info.first_all %}
+            <td><a href="{{ stats_url }}/shows/{{ info.first_all|replace('-', '/') }}">{{ info.first_all }}</a></td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+            {% if info.most_recent_all %}
+            <td><a href="{{ stats_url }}/shows/{{ info.most_recent_all|replace('-', '/') }}">{{ info.most_recent_all }}</a></td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End First and Most Recent Appearances Section -->
+{% endblock content %}
