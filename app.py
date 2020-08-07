@@ -21,12 +21,13 @@ from reports.panelist import (aggregate_scores, appearances,
                               rankings_summary, single_appearance as single,
                               stats_summary, streaks)
 from reports.location import average_scores
+from reports.scorekeeper import appearances as sk_appearances
 from reports.scorekeeper import introductions
 from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.6.1"
+APP_VERSION = "1.7.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -301,6 +302,15 @@ def panelist_win_streaks():
 def get_scorekeeper():
     """Scorekeeper Reports Landing Page"""
     return render_template("scorekeeper/index.html")
+
+@app.route("/scorekeeper/appearance_summary")
+def scorekeeper_appearance_summary():
+    """Scorekeeper Appearances Summary Report"""
+    database_connection.reconnect()
+    summary = sk_appearances.retrieve_appearance_summaries(database_connection)
+
+    return render_template("scorekeeper/appearance_summary.html",
+                           summary=summary)
 
 @app.route("/scorekeeper/introductions")
 def scorekeeper_introductions():

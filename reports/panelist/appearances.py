@@ -39,7 +39,8 @@ def retrieve_all_panelists(database_connection: mysql.connector.connect
 #region Report Functions
 def retrieve_first_most_recent_appearances(database_connection: mysql.connector.connect
                                           ) -> List[Dict]:
-    """."""
+    """Retrieve first and most recent appearances for both regular
+    and all shows for all panelists"""
     panelists = retrieve_all_panelists(database_connection)
 
     if not panelists:
