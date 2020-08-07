@@ -21,6 +21,14 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("get_host") }}</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("host_appearance_summary") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("get_location") }}</loc>
     <changefreq>monthly</changefreq>
   </url>

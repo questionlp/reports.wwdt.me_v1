@@ -1,0 +1,5 @@
+@media all {
+    table.pure-table { max-width: 80rem; }
+    col.host { width: 15rem; }
+    col.host-first, col.host-most-recent { width: 8rem; }
+}
