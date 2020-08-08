@@ -43,6 +43,36 @@ def retrieve_all_lightning_round_start(database_connection: mysql.connector.conn
 
     return show_lightning_round_starts
 
+def retrieve_scoring_info_by_show_id(show_id: int,
+                                     database_connection: mysql.connector.connect
+                                    ) -> Dict:
+    """Return Lightning round starting points, number of correct
+    answers and final score for the requested show ID. Used for
+    getting scoring details where the round starts in a three-way tie."""
+
+    info = OrderedDict()
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showdate, pm.panelistlrndstart, "
+             "pm.panelistlrndcorrect, pm.panelistscore "
+             "FROM ww_shows s "
+             "JOIN ww_showpnlmap pm ON pm.showid = s.showid "
+             "WHERE s.showid = %s "
+             "LIMIT 1;")
+    cursor.execute(query, (show_id, ))
+    result = cursor.fetchone()
+    cursor.close()
+
+    if not result:
+        return None
+
+    info["id"] = show_id
+    info["date"] = result["showdate"].isoformat()
+    info["start"] = result["panelistlrndstart"]
+    info["correct"] = result["panelistlrndcorrect"]
+    info["score"] = result["panelistscore"]
+
+    return info
+
 def retrieve_panelists_by_show_id(show_id: int,
                                   database_connection: mysql.connector.connect
                                   ) -> List[Dict]:
@@ -208,5 +238,48 @@ def shows_ending_with_three_way_tie(database_connection: mysql.connector.connect
         shows.append(show)
 
     return shows
+
+def shows_starting_ending_three_way_tie(database_connection: mysql.connector.connect
+                                       ) -> List[Dict]:
+    """Retrieve all shows in which all three panelists started and
+    ended the Lightning round in a three-way tie"""
+
+    start_tie = shows_starting_with_three_way_tie(database_connection)
+    end_tie = shows_ending_with_three_way_tie(database_connection)
+
+    if not start_tie or not end_tie:
+        return None
+
+    start_tie_ids = []
+    end_tie_ids = []
+
+    for start_tie_show in start_tie:
+        start_tie_ids.append(start_tie_show["id"])
+
+    for end_tie_show in end_tie:
+        end_tie_ids.append(end_tie_show["id"])
+
+    shows_intersect = set(start_tie_ids) & set(end_tie_ids)
+
+    if not shows_intersect:
+        return None
+
+    show_info = []
+    for show_id in shows_intersect:
+        info = OrderedDict()
+        score_info = retrieve_scoring_info_by_show_id(show_id,
+                                                      database_connection)
+
+        if score_info:
+            info["id"] = show_id
+            info["date"] = score_info["date"]
+            info["panelists"] = retrieve_panelists_by_show_id(show_id,
+                                                              database_connection)
+            info["start"] = score_info["start"]
+            info["correct"] = score_info["correct"]
+            info["score"] = score_info["score"]
+            show_info.append(info)
+
+    return show_info
 
 #endregion

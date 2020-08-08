@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Lightning Round Starting in a Three-Way Tie | Show{% endblock %}
+{% block title %}Lightning Round Starting adn Ending in a Three-Way Tie | Show{% endblock %}
 
 {% block head %}
 {{ super ()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/show/lightning_round_start_three_way_tie.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/show/lightning_round_start_end_three_way_tie.css') }}">
 {% endblock head %}
 
 {% block breadcrumb %}
@@ -16,10 +16,10 @@
 {% endblock breadcrumb %}
 
 {% block synopsis %}
-<h2>Lightning Round Starting in a Three-Way Tie</h2>
+<h2>Lightning Round Starting and Ending in a Three-Way Tie</h2>
 <p>
-    A list of shows in which all three panelists starting the Lightning
-    Fill-in-the Blank round in a three-way tie.
+    List of shows in which all three panelists starting and finishing the
+    Lightning Fill-in-the Blank round in a three-way tie.
 </p>
 {% endblock synopsis %}
 
@@ -30,22 +30,22 @@
         <col class="show-date">
         <col class="show-panelists">
         <col class="show-start-score">
+        <col class="show-correct">
+        <col class="show-final-score">
     </colgroup>
     <thead>
         <tr>
             <th scope="col">Show Date</th>
             <th scope="col">Panelists</th>
             <th scope="col">Starting Score</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Final Score</th>
         </tr>
     </thead>
     <tbody>
         {% for show in shows %}
         <tr>
-            <td>
-                <a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">
-                    {{ show.date }}
-                </a>
-            </td>
+            <td><a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">{{ show.date }}</a></td>
             <td class="panelist-names">
                 <ul>
                 {% for panelist in show.panelists %}
@@ -53,6 +53,8 @@
                 {% endfor %}
                 </ul>
             </td>
+            <td>{{ show.start }}</td>
+            <td>{{ show.correct }}</td>
             <td>{{ show.score }}</td>
         </tr>
         {% endfor %}
@@ -63,6 +65,8 @@
             <th scope="col">Show Date</th>
             <th scope="col">Panelists</th>
             <th scope="col">Starting Score</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Final Score</th>
         </tr>
     </tfoot>
     {% endif %}

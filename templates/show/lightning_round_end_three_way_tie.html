@@ -53,6 +53,7 @@
         </tr>
         {% endfor %}
     </tbody>
+    {% if shows|length >= 10 %}
     <tfoot>
         <tr>
             <th scope="col">Show Date</th>
@@ -60,6 +61,7 @@
             <th scope="col">Final Score</th>
         </tr>
     </tfoot>
+    {% endif %}
 </table>
 <!-- End Lightning Round Three-Way Tie Section -->
 {% endblock content %}

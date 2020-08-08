@@ -28,7 +28,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.8.0"
+APP_VERSION = "1.8.1"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -413,6 +413,14 @@ def show_lightning_round_end_three_way_tie():
 def show_lightning_round_score_start_redirect():
     """Lightning Round Score Start Redirect"""
     return redirect(url_for("show_lightning_round_start_three_way_tie"), 301)
+
+@app.route("/show/lightning_round_start_end_three_way_tie")
+def show_lightning_round_start_end_three_way_tie():
+    """Lightning Round Starting and Ending in Three-Way Tie Report"""
+    database_connection.reconnect()
+    shows = lightning_round.shows_starting_ending_three_way_tie(database_connection)
+    return render_template("/show/lightning_round_start_end_three_way_tie.html",
+                           shows=shows)
 
 @app.route("/show/lightning_round_start_three_way_tie")
 def show_lightning_round_start_three_way_tie():
