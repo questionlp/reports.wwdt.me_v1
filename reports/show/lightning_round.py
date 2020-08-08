@@ -152,8 +152,8 @@ def shows_lightning_round_start_zero(database_connection: mysql.connector.connec
 
 def shows_starting_with_three_way_tie(database_connection: mysql.connector.connect
                                      ) -> List[Dict]:
-    """Return shows in which the Lightning Fill-in-the-Blank round
-    started with the same score for all three panelists"""
+    """Retrieve all shows in which all three panelists started the
+    Lightning round in a three-way tie"""
 
     show_scores = retrieve_all_lightning_round_start(database_connection)
     shows = []
@@ -176,8 +176,8 @@ def shows_starting_with_three_way_tie(database_connection: mysql.connector.conne
 
 def shows_ending_with_three_way_tie(database_connection: mysql.connector.connect
                                    ) -> List[Dict]:
-    """Retrieve all shows in which all three panelists ended the show
-    in a three-way tie"""
+    """Retrieve all shows in which all three panelists ended the
+    Lightning round in a three-way tie"""
 
     shows = []
     cursor = database_connection.cursor(dictionary=True)
