@@ -418,10 +418,10 @@ def show_lightning_round_score_start_redirect():
 def show_lightning_round_start_three_way_tie():
     """Lightning Round Starting in Three-Way Tie Report"""
     database_connection.reconnect()
-    same_start = lightning_round.shows_with_same_lightning_round_start(database_connection)
+    shows = lightning_round.shows_starting_with_three_way_tie(database_connection)
 
     return render_template("/show/lightning_round_start_three_way_tie.html",
-                           same_start=same_start)
+                           shows=shows)
 
 @app.route("/show/lightning_round_start_zero")
 def show_lightning_round_start_zero():

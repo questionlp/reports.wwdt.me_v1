@@ -39,21 +39,21 @@
         </tr>
     </thead>
     <tbody>
-        {% for show in same_start %}
+        {% for show in shows %}
         <tr>
             <td>
-                <a href="{{ stats_url }}/shows/{{ same_start[show].date|replace('-', '/') }}">
-                    {{ same_start[show].date }}
+                <a href="{{ stats_url }}/shows/{{ show.date|replace('-', '/') }}">
+                    {{ show.date }}
                 </a>
             </td>
             <td class="panelist-names">
                 <ul>
-                {% for panelist in same_start[show].panelists %}
+                {% for panelist in show.panelists %}
                     <li> {{ panelist.name }}</li>
                 {% endfor %}
                 </ul>
             </td>
-            <td>{{ same_start[show].score }}</td>
+            <td>{{ show.score }}</td>
         </tr>
         {% endfor %}
     </tbody>
