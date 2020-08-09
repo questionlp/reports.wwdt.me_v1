@@ -1,5 +1,5 @@
 @media all {
-    col.show-date { width: 8rem; }
-    col.show-best-of, col.show-repeat { width: 8rem; }
+    col.show-date { width: 9rem; }
+    col.show-best-of, col.show-repeat { width: rem; }
     col.show-introduction { width: 40rem; }
 }
