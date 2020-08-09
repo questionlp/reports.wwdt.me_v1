@@ -1,5 +1,5 @@
 @media all {
     table.pure-table { max-width: 80rem; }
     col.scorekeeper { width: 15rem; }
-    col.scorekeeper-first, col.scorekeeper-most-recent { width: 8rem; }
+    col.scorekeeper-first, col.scorekeeper-most-recent { width: 9rem; }
 }

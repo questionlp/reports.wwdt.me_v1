@@ -1,5 +1,5 @@
 @media all {
-    col.panelist-name { width: 14rem; }
+    col.panelist-name { width: 15rem; }
     col.panelist-streak-total, col.panelist-streak-count { width: 5rem; }
     col.panelist-streak-dates { width: 9rem; }
     col.panelist-streak-dates-draw { width: 15rem; }
