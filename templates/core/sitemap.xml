@@ -125,6 +125,10 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>{{ site_url }}{{ url_for("show_lightning_round_start_end_three_way_tie") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("show_lightning_round_start_three_way_tie") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
