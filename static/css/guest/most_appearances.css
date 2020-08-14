@@ -1,0 +1,5 @@
+@media all {
+    /*table.pure-table { max-width: 80rem; }*/
+    col.guest-name { width: 20rem; }
+    col.guest-shows { width: 9rem; }
+}

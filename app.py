@@ -14,7 +14,9 @@ import pytz
 from werkzeug.exceptions import HTTPException
 
 from reports import utility
-from reports.guest import best_of_only, scores as guest_scores
+from reports.guest import (best_of_only,
+                           most_appearances,
+                           scores as guest_scores)
 from reports.host import appearances as h_appearances
 from reports.panelist import (aggregate_scores, appearances,
                               appearances_by_year, bluff_stats, gender_mix,
@@ -28,7 +30,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           high_scoring, lightning_round, show_details)
 
 #region Global Constants
-APP_VERSION = "1.9.0"
+APP_VERSION = "1.9.1"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -118,6 +120,14 @@ def guest_best_of_only():
     guests = best_of_only.retrieve_best_of_only_guests(database_connection)
 
     return render_template("guest/best_of_only.html", guests=guests)
+
+@app.route("/guest/most_appearances")
+def guest_most_appearances():
+    """Guests Most Appearances Report"""
+    database_connection.reconnect()
+    guests = most_appearances.guest_multiple_appearances(database_connection)
+
+    return render_template("guest/most_appearances.html", guests=guests)
 
 @app.route("/guest/scoring_exceptions")
 def guest_scoring_exceptions():

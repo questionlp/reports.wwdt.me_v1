@@ -1,6 +1,6 @@
 @media all {
-    col.guest-name { width: 15rem; }
+    col.guest-name { width: 20rem; }
     col.show-date, col.show-scorekeeper  { width: 10rem; }
     col.guest-score, col.score-exception { width: 6rem; }
-    td.show-notes { white-space: pre-line; width: 39rem; }
+    td.show-notes { white-space: pre-line; width: 35rem; }
 }
