@@ -1,5 +1,5 @@
 @media all {
-    col.guest-name { width: 15rem; }
+    col.guest-name { width: 20rem; }
     col.show-date, col.show-repeat-show, col.score-exception { width: 9rem; }
     col.guest-score { width: 6rem; }
 }
