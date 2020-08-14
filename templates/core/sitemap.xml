@@ -12,6 +12,10 @@
     <loc>{{ site_url }}{{ url_for("guest_best_of_only") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
+    <url>
+    <loc>{{ site_url }}{{ url_for("guest_most_appearances") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
   <url>
     <loc>{{ site_url }}{{ url_for("guest_scoring_exceptions") }}</loc>
     <changefreq>weekly</changefreq>
