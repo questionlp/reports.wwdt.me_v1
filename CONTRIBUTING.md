@@ -13,7 +13,7 @@ version 2.0 of the Contributor Covenant.
 Although the default branch for this repository is `main`, all active
 development needs to be branched off of the `develop` branch.
 
-Once you have cloned this repository, you can create a new  branch off of
+Once you have cloned this repository and switched to the `develop` branch, you can create the new branch off of
 `develop` by using the following command:
 
     git checkout -b new-branch develop
