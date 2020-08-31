@@ -27,10 +27,10 @@ from reports.location import average_scores
 from reports.scorekeeper import appearances as sk_appearances
 from reports.scorekeeper import introductions
 from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
-                          high_scoring, lightning_round, show_details)
+                          lightning_round, scoring, show_details)
 
 #region Global Constants
-APP_VERSION = "1.9.1"
+APP_VERSION = "1.9.2"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -405,10 +405,9 @@ def show_guest_scorekeepers():
 def show_high_scoring():
     """High Scoring Shows Report"""
     database_connection.reconnect()
-    shows = high_scoring.retrieve_shows_all_high_scoring(database_connection)
+    shows = scoring.retrieve_shows_all_high_scoring(database_connection)
 
-    return render_template("/show/high_scoring.html",
-                           shows=shows)
+    return render_template("/show/high_scoring.html", shows=shows)
 
 @app.route("/show/lightning_round_end_three_way_tie")
 def show_lightning_round_end_three_way_tie():
@@ -450,6 +449,14 @@ def show_lightning_round_start_zero():
     return render_template("/show/lightning_round_start_zero.html",
                            shows=shows,
                            rank_map=RANK_MAP)
+
+@app.route("/show/low_scoring")
+def show_low_scoring():
+    """Low Scoring Shows Report"""
+    database_connection.reconnect()
+    shows = scoring.retrieve_shows_all_low_scoring(database_connection)
+
+    return render_template("/show/low_scoring.html", shows=shows)
 
 @app.route("/show/original_shows")
 def show_original_shows(ascending: Optional[bool] = True):

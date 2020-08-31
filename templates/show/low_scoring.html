@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}High Scoring Shows | Show{% endblock %}
+{% block title %}Low Scoring Shows | Show{% endblock %}
 
 {% block head %}
 {{ super ()}}
@@ -16,15 +16,16 @@
 {% endblock breadcrumb %}
 
 {% block synopsis %}
-<h2>High Scoring Shows</h2>
+<h2>Low Scoring Shows</h2>
 <p>
-    List of shows in which the panel total score is greater than or
-    equal to 50.
+    List of shows in which the panel total score is less than 30. The list
+    does not include the 20th Anniversary show that had a unique format for the
+    Lightning Fill-in-the-Blank segment.
 </p>
 {% endblock synopsis %}
 
 {% block content %}
-<!-- Start High Scoring Shows Section -->
+<!-- Start Low Scoring Shows Section -->
 <table class="pure-table pure-table-bordered">
     <colgroup>
         <col class="show-total-score">
@@ -89,5 +90,5 @@
         </tr>
     </tfoot>
 </table>
-<!-- End High Scoring Shows Section -->
+<!-- End Low Scoring Shows Section -->
 {% endblock content %}

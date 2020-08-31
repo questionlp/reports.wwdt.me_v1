@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018-2020 Linh Pham
 # reports.wwdt.me is relased under the terms of the Apache License 2.0
-"""WWDTM Highest Total Score Report Functions"""
+"""WWDTM Show Scoring Reports Functions"""
 
 from collections import OrderedDict
 from typing import List, Dict
 import mysql.connector
 
+#region Retrieval Functions
 def retrieve_show_details(show_id: int,
                           database_connection: mysql.connector.connect
                          ) -> Dict:
@@ -111,3 +112,36 @@ def retrieve_shows_all_high_scoring(database_connection: mysql.connector.connect
             shows.append(show_details)
 
     return shows
+
+def retrieve_shows_all_low_scoring(database_connection: mysql.connector.connect
+                                  ) -> List[Dict]:
+    """Retrieves details from shows with a panelist total score less
+    than 30. Excludes the 20th anniversary show due to unique Lightning
+    Fill-in-the-Blank segment."""
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showid, s.showdate, SUM(pm.panelistscore) AS total "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+             "AND s.showdate <> '2018-10-27' "
+             "GROUP BY s.showdate "
+             "HAVING SUM(pm.panelistscore) < 30 "
+             "ORDER BY SUM(pm.panelistscore) ASC, s.showdate DESC;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+
+    if not result:
+        return None
+
+    shows = []
+    for row in result:
+        show_id = row["showid"]
+        show_details = retrieve_show_details(show_id, database_connection)
+        show_details["total_score"] = row["total"]
+        if show_details:
+            shows.append(show_details)
+
+    return shows
+
+#endregion
