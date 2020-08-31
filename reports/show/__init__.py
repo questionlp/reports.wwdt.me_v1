@@ -4,13 +4,13 @@
 """Explicitly listing all show reporting modules"""
 
 from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
-                          high_scoring, lightning_round, show_details)
+                          lightning_round, scoring, show_details)
 
 __all__ = [
     "all_women_panel",
     "guest_hosts",
     "guest_scorekeeper",
-    "high_scoring",
     "lightning_round",
+    "scoring",
     "show_details"
 ]
