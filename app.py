@@ -30,7 +30,7 @@ from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           lightning_round, scoring, show_details)
 
 #region Global Constants
-APP_VERSION = "1.9.2"
+APP_VERSION = "1.9.3"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -447,6 +447,16 @@ def show_lightning_round_start_zero():
     shows = lightning_round.shows_lightning_round_start_zero(database_connection)
 
     return render_template("/show/lightning_round_start_zero.html",
+                           shows=shows,
+                           rank_map=RANK_MAP)
+
+@app.route("/show/lightning_round_zero_correct")
+def show_lightning_round_zero_correct():
+    """Lightning Round Zero Correct Answers Report"""
+    database_connection.reconnect()
+    shows = lightning_round.show_lightning_round_zero_correct(database_connection)
+
+    return render_template("/show/lightning_round_zero_correct.html",
                            shows=shows,
                            rank_map=RANK_MAP)
 
