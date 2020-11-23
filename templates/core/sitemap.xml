@@ -140,7 +140,11 @@
     <loc>{{ site_url }}{{ url_for("show_lightning_round_start_zero") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
-    <url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("show_lightning_round_zero_correct") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>{{ site_url }}{{ url_for("show_low_scoring") }}</loc>
     <changefreq>weekly</changefreq>
   </url>

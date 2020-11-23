@@ -180,6 +180,46 @@ def shows_lightning_round_start_zero(database_connection: mysql.connector.connec
 
     return shows
 
+def show_lightning_round_zero_correct(database_connection: mysql.connector.connect
+                                     ) -> List[Dict]:
+    """Return list of shows in which a panelist answers zero Lightning
+    Fill-in-the-Blank round questions correct"""
+
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showid, s.showdate, p.panelistid, p.panelist, "
+             "pm.panelistlrndstart, pm.panelistlrndcorrect, "
+             "pm.panelistscore, pm.showpnlrank "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS null "
+             "AND pm.panelistlrndcorrect = 0 "
+             "ORDER BY s.showdate ASC;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+
+    if not result:
+        return None
+
+    shows = []
+    for row in result:
+        show = OrderedDict()
+        show["id"] = row["showid"]
+        show["date"] = row["showdate"].isoformat()
+        panelist = OrderedDict()
+        panelist["id"] = row["panelistid"]
+        panelist["name"] = row["panelist"]
+        panelist["start"] = row["panelistlrndstart"]
+        panelist["correct"] = row["panelistlrndcorrect"]
+        panelist["score"] = row["panelistscore"]
+        panelist["rank"] = row["showpnlrank"]
+        show["panelist"] = panelist
+        shows.append(show)
+
+    return shows
+
+
 def shows_starting_with_three_way_tie(database_connection: mysql.connector.connect
                                      ) -> List[Dict]:
     """Retrieve all shows in which all three panelists started the
