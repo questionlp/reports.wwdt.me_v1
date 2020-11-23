@@ -1,0 +1,5 @@
+@media all {
+    col.show-date, col.show-rank { width: 9rem; }
+    col.show-score-start, col.show-score-correct, col.show-score-score { width: 5rem; }
+    col.show-panelist { width: 15rem; }
+}
