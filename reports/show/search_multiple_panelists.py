@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018-2020 Linh Pham
 # reports.wwdt.me is relased under the terms of the Apache License 2.0
-"""WWDTM Show Lookup by Multiple Selected Panelists Report Functions"""
+"""WWDTM Search Shows by Multiple Selected Panelists Report Functions"""
 
 from collections import OrderedDict
 from typing import Dict, List, Optional
