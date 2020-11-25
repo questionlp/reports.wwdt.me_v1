@@ -1,0 +1,19 @@
+@media all {
+    form { border: 1px solid #666; padding: 0.75em; }
+    .pure-form fieldset { margin: 0; padding: 0; }
+    .panelist-fields label { padding-right: 0.5em; }
+    .pure-form .panelist-fields { display: inline-block; margin: 0 0.25em; padding-bottom: 0.5em; }
+    .pure-form .panelist-options { display: inline-block; margin: 0.5em 0 0 0.25em; }
+    .panelist-options label { padding-right: 0.5em; }
+    .panelist-options button { margin: 0 0.5em; }
+    .pure-form .panelist-option { display: inline-block; margin: 0 1.5em 0 0; }
+    .pure-form .panelist-button { display: inline-block; }
+    .pure-form label { font-weight: 600; }
+    .pure-form select { height: 2.5em; }
+    hr { margin: 1.5em 0; }
+    table.pure-table { max-width: initial; }
+    col.show-host, col.show-scorekeeper { width: 10rem; }
+    col.show-location, col.show-panelists, col.show-guest { width: 15rem; }
+    td.guest-names ul, td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
+    p.result-message { font-style: italic; margin: 1em 0; }
+}
