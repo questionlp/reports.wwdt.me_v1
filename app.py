@@ -27,10 +27,12 @@ from reports.location import average_scores
 from reports.scorekeeper import appearances as sk_appearances
 from reports.scorekeeper import introductions
 from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
-                          lightning_round, scoring, show_details)
+                          lightning_round, scoring,
+                          search_multiple_panelists as search_mult,
+                          show_details)
 
 #region Global Constants
-APP_VERSION = "1.9.3"
+APP_VERSION = "1.10.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -494,6 +496,70 @@ def show_original_shows_asc():
 def show_original_shows_desc():
     """All Original Shows Report Descending Redirect"""
     return redirect(url_for("show_original_shows", sort="desc"), 301)
+
+@app.route("/show/search_multiple_panelists", methods=["GET", "POST"])
+def show_search_multiple_panelists():
+    """Search Shows by Multiple Selected Panelists"""
+    database_connection.reconnect()
+    panelists = search_mult.retrieve_panelists(database_connection)
+
+    if request.method == "POST":
+        # Parse panelist dropdown selections and checkboxes
+        panelist_1 = ("panelist_1" in request.form and request.form["panelist_1"])
+        panelist_2 = ("panelist_2" in request.form and request.form["panelist_2"])
+        panelist_3 = ("panelist_3" in request.form and request.form["panelist_3"])
+        best_of = ("best_of" in request.form and request.form["best_of"] == "on")
+        repeats = ("repeats" in request.form and request.form["repeats"] == "on")
+
+        # Create a set of panelist values to de-duplicate values
+        deduped_panelists = set([panelist_1, panelist_2, panelist_3])
+        if "" in deduped_panelists:
+            deduped_panelists.remove("")
+
+        if None in deduped_panelists:
+            deduped_panelists.remove(None)
+
+        if len(deduped_panelists) > 0 and deduped_panelists <= panelists.keys():
+            # Revert set back to list and remove any empty values
+            panelist_values = list(deduped_panelists)
+            if len(panelist_values) == 3:
+                shows = search_mult.retrieve_matching_three(database_connection,
+                                                            panelist_values[0],
+                                                            panelist_values[1],
+                                                            panelist_values[2],
+                                                            best_of,
+                                                            repeats)
+            elif len(panelist_values) == 2:
+                shows = search_mult.retrieve_matching_two(database_connection,
+                                                          panelist_values[0],
+                                                          panelist_values[1],
+                                                          best_of,
+                                                          repeats)
+            elif len(panelist_values) == 1:
+                shows = search_mult.retrieve_matching_one(database_connection,
+                                                          panelist_values[0],
+                                                          best_of,
+                                                          repeats)
+
+            return render_template("/show/search_multiple_panelists.html",
+                                   request_type=request.method,
+                                   form_data=request.form,
+                                   panelists=panelists,
+                                   shows=shows)
+
+        # Fallback for no valid panelist(s) selected
+        return render_template("/show/search_multiple_panelists.html",
+                               request_type=request.method,
+                               form_data=request.form,
+                               panelists=panelists,
+                               shows=None)
+
+    # Fallback for GET request
+    return render_template("/show/search_multiple_panelists.html",
+                           request_type=request.method,
+                           form_data=request.form,
+                           panelists=panelists,
+                           shows=None)
 
 #endregion
 
