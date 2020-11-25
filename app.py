@@ -499,7 +499,7 @@ def show_original_shows_desc():
 
 @app.route("/show/search_multiple_panelists", methods=["GET", "POST"])
 def show_search_multiple_panelists():
-    """Show Search by Multiple Selected Panelists"""
+    """Search Shows by Multiple Selected Panelists"""
     database_connection.reconnect()
     panelists = search_mult.retrieve_panelists(database_connection)
 
