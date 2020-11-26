@@ -95,7 +95,7 @@
 
 {% if request.method == "POST" %}
 <hr>
-{% if not request.form.panelist_1 and not request.panelist_2 and not request.form.panelist_3 %}
+{% if not request.form.panelist_1 and not request.form.panelist_2 and not request.form.panelist_3 %}
 <p class="result-message">No panelists were selected.</p>
 {% elif not shows %}
 <p class="result-message">No results returned.</p>
