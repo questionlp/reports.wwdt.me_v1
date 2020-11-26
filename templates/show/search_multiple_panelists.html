@@ -37,7 +37,7 @@
             <select id="panelist-1" name="panelist_1">
                 <option value="">-- Please chose a panelist --</option>
                 {% for panelist in panelists %}
-                {% if form_data.panelist_1 == panelist %}
+                {% if request.form.panelist_1 == panelist %}
                 <option value="{{ panelist }}" selected>{{ panelists[panelist] }}</option>
                 {% else %}
                 <option value="{{ panelist }}">{{ panelists[panelist] }}</option>
@@ -50,7 +50,7 @@
             <select id="panelist-2" name="panelist_2">
                 <option value="">-- Please chose a panelist --</option>
                 {% for panelist in panelists %}
-                {% if form_data.panelist_2 == panelist %}
+                {% if request.form.panelist_2 == panelist %}
                 <option value="{{ panelist }}" selected>{{ panelists[panelist] }}</option>
                 {% else %}
                 <option value="{{ panelist }}">{{ panelists[panelist] }}</option>
@@ -63,7 +63,7 @@
             <select id="panelist-3" name="panelist_3">
                 <option value="">-- Please chose a panelist --</option>
                 {% for panelist in panelists %}
-                {% if form_data.panelist_3 == panelist %}
+                {% if request.form.panelist_3 == panelist %}
                 <option value="{{ panelist }}" selected>{{ panelists[panelist] }}</option>
                 {% else %}
                 <option value="{{ panelist }}">{{ panelists[panelist] }}</option>
@@ -74,7 +74,7 @@
         <div class="panelist-options">
             <div class="panelist-option">
                 <label for="best-of">Include Best Ofs</label>
-                {% if form_data.best_of %}
+                {% if request.form.best_of %}
                 <input type="checkbox" id="best-of" name="best_of" checked>
                 {% else %}
                 <input type="checkbox" id="best-of" name="best_of">
@@ -82,7 +82,7 @@
             </div>
             <div class="panelist-option">
                 <label for="repeats">Include Repeats</label>
-                {% if form_data.repeats %}
+                {% if request.form.repeats %}
                 <input type="checkbox" id="repeats" name="repeats" checked>
                 {% else %}
                 <input type="checkbox" id="repeats" name="repeats">
@@ -93,9 +93,9 @@
     </fieldset>
 </form>
 
-{% if request_type == "POST" %}
+{% if request.method == "POST" %}
 <hr>
-{% if not form_data.panelist_1 and not form_data.panelist_2 and not form_data.panelist_3 %}
+{% if not request.form.panelist_1 and not request.form.panelist_2 and not request.form.panelist_3 %}
 <p class="result-message">No panelists were selected.</p>
 {% elif not shows %}
 <p class="result-message">No results returned.</p>

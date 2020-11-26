@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,600,700%7CIBM+Plex+Mono:400,500,600,700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
+    {% if site_url and request.path %}
+    <link rel="canonical" href="{{ site_url}}{{ request.path }}">
+    {% endif %}
     <!-- Import Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
