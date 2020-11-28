@@ -19,7 +19,7 @@
     col.rank { width: 10rem; }
     td.score-higher, td.score-lower, td.score-tied { text-align: center; }
     td.score-higher { background-color: rgba(245, 80, 0, 0.85); font-weight: 600; } /* #f5783af0 */
-    td.score-lower { background-color: #eee; }
-    td.score-tied { background-color: inherit; }
+    td.score-lower { background-color: inherit; }
+    td.score-tied { background-color: #eee; }
     p.result-message { font-style: italic; margin: 1em 0; }
 }
