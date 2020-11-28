@@ -14,8 +14,12 @@
     .pure-form .pure-button-primary { background-color: #00e;}
     hr { margin: 1.5em 0; }
     table.pure-table { max-width: initial; }
-    col.show-host, col.show-scorekeeper { width: 10rem; }
-    col.show-location, col.show-panelists, col.show-guest { width: 15rem; }
-    td.guest-names ul, td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
+    col.show-date { width: 9rem; }
+    col.score { width: 6rem; }
+    col.rank { width: 10rem; }
+    td.score-higher, td.score-lower, td.score-tied { text-align: center; }
+    td.score-higher { background-color: rgba(245, 80, 0, 0.85); font-weight: 600; } /* #f5783af0 */
+    td.score-lower { background-color: #eee; }
+    td.score-tied { background-color: inherit; }
     p.result-message { font-style: italic; margin: 1em 0; }
 }
