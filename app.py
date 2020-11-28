@@ -18,21 +18,31 @@ from reports.guest import (best_of_only,
                            most_appearances,
                            scores as guest_scores)
 from reports.host import appearances as h_appearances
-from reports.panelist import (aggregate_scores, appearances,
-                              appearances_by_year, bluff_stats, gender_mix,
-                              gender_stats, panelist_vs_panelist as pvp,
-                              rankings_summary, single_appearance as single,
-                              stats_summary, streaks)
+from reports.panelist import (aggregate_scores,
+                              appearances,
+                              appearances_by_year,
+                              bluff_stats,
+                              gender_mix,
+                              gender_stats,
+                              panelist_vs_panelist as pvp,
+                              panelist_vs_panelist_scoring as pvp_scoring,
+                              rankings_summary,
+                              single_appearance as single,
+                              stats_summary,
+                              streaks)
 from reports.location import average_scores
 from reports.scorekeeper import appearances as sk_appearances
 from reports.scorekeeper import introductions
-from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
-                          lightning_round, scoring,
+from reports.show import (all_women_panel,
+                          guest_hosts,
+                          guest_scorekeeper,
+                          lightning_round,
+                          scoring,
                           search_multiple_panelists as search_mult,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.10.1"
+APP_VERSION = "1.11.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -283,6 +293,53 @@ def panelist_pvp_report():
                            panelists=panelists,
                            results=pvp_results)
 
+@app.route("/panelist/panelist_vs_panelist_scoring", methods=["GET", "POST"])
+def panelist_pvp_scoring():
+    """Panelist vs Panelist Scoring Report"""
+    database_connection.reconnect()
+    panelists = search_mult.retrieve_panelists(database_connection)
+
+    if request.method == "POST":
+        # Parse panelist dropdown selections
+        panelist_1 = ("panelist_1" in request.form and request.form["panelist_1"])
+        panelist_2 = ("panelist_2" in request.form and request.form["panelist_2"])
+
+        # Create a set of panelist values to de-duplicate values
+        deduped_panelists = set([panelist_1, panelist_2])
+        if "" in deduped_panelists:
+            deduped_panelists.remove("")
+
+        if None in deduped_panelists:
+            deduped_panelists.remove(None)
+
+        if len(deduped_panelists) > 0 and deduped_panelists <= panelists.keys():
+            # Revert set back to list
+            panelist_values = list(deduped_panelists)
+            if len(panelist_values) == 2:
+                shows = pvp_scoring.retrieve_common_shows(database_connection,
+                                                          panelist_values[0],
+                                                          panelist_values[1])
+                scores = pvp_scoring.retrieve_panelists_scores(database_connection,
+                                                               shows,
+                                                               panelist_values[0],
+                                                               panelist_values[1])
+                return render_template("panelist/panelist_vs_panelist_scoring.html",
+                                       panelists=panelists,
+                                       valid_selections=True,
+                                       scores=scores,
+                                       rank_map=RANK_MAP)
+
+            # Fallback for invalid panelist selections
+            return render_template("panelist/panelist_vs_panelist_scoring.html",
+                                   panelists=panelists,
+                                   valid_selections=False,
+                                   scores=None)
+
+    # Fallback for GET request
+    return render_template("panelist/panelist_vs_panelist_scoring.html",
+                           panelists=panelists,
+                           scores=None)
+
 @app.route("/panelist/rankings_summary")
 def panelist_rankings_summary():
     """Panelist Rankings Summary Report"""
@@ -513,6 +570,8 @@ def show_search_multiple_panelists():
 
         # Create a set of panelist values to de-duplicate values
         deduped_panelists = set([panelist_1, panelist_2, panelist_3])
+
+        # Remove any empty values
         if "" in deduped_panelists:
             deduped_panelists.remove("")
 
@@ -520,7 +579,7 @@ def show_search_multiple_panelists():
             deduped_panelists.remove(None)
 
         if len(deduped_panelists) > 0 and deduped_panelists <= panelists.keys():
-            # Revert set back to list and remove any empty values
+            # Revert set back to list
             panelist_values = list(deduped_panelists)
             if len(panelist_values) == 3:
                 shows = search_mult.retrieve_matching_three(database_connection,

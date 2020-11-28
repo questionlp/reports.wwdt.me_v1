@@ -92,7 +92,7 @@ def retrieve_details(show_id: int,
     return show
 
 def retrieve_matching_one(database_connection: mysql.connector.connect,
-                          panelist_slug_a: str,
+                          panelist_slug_1: str,
                           include_best_of: Optional[bool] = False,
                           include_repeats: Optional[bool] = False
                          ) -> List[Dict]:
@@ -108,7 +108,7 @@ def retrieve_matching_one(database_connection: mysql.connector.connect,
              "GROUP BY s.showid "
              "HAVING COUNT(s.showid) = 1 "
              "ORDER BY s.showdate ASC;")
-    cursor.execute(query, (panelist_slug_a, ))
+    cursor.execute(query, (panelist_slug_1, ))
     result = cursor.fetchall()
     cursor.close()
 
@@ -131,8 +131,8 @@ def retrieve_matching_one(database_connection: mysql.connector.connect,
     return shows
 
 def retrieve_matching_two(database_connection: mysql.connector.connect,
-                          panelist_slug_a: str,
-                          panelist_slug_b: str,
+                          panelist_slug_1: str,
+                          panelist_slug_2: str,
                           include_best_of: Optional[bool] = False,
                           include_repeats: Optional[bool] = False
                          ) -> List[Dict]:
@@ -148,8 +148,8 @@ def retrieve_matching_two(database_connection: mysql.connector.connect,
              "GROUP BY s.showid "
              "HAVING COUNT(s.showid) = 2 "
              "ORDER BY s.showdate ASC;")
-    cursor.execute(query, (panelist_slug_a,
-                           panelist_slug_b, ))
+    cursor.execute(query, (panelist_slug_1,
+                           panelist_slug_2, ))
     result = cursor.fetchall()
     cursor.close()
 
@@ -172,9 +172,9 @@ def retrieve_matching_two(database_connection: mysql.connector.connect,
     return shows
 
 def retrieve_matching_three(database_connection: mysql.connector.connect,
-                            panelist_slug_a: str,
-                            panelist_slug_b: str,
-                            panelist_slug_c: str,
+                            panelist_slug_1: str,
+                            panelist_slug_2: str,
+                            panelist_slug_3: str,
                             include_best_of: Optional[bool] = False,
                             include_repeats: Optional[bool] = False
                            ) -> List[Dict]:
@@ -190,9 +190,9 @@ def retrieve_matching_three(database_connection: mysql.connector.connect,
              "GROUP BY s.showid "
              "HAVING COUNT(s.showid) = 3 "
              "ORDER BY s.showdate ASC;")
-    cursor.execute(query, (panelist_slug_a,
-                           panelist_slug_b,
-                           panelist_slug_c, ))
+    cursor.execute(query, (panelist_slug_1,
+                           panelist_slug_2,
+                           panelist_slug_3, ))
     result = cursor.fetchall()
     cursor.close()
 
