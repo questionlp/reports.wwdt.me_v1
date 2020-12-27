@@ -57,7 +57,11 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>{{ site_url}}{{ url_for("panelist_first_most_recent_appearances") }}</loc>
+    <loc>{{ site_url }}{{ url_for("panelist_debut_by_year") }}</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>{{ site_url }}{{ url_for("panelist_first_most_recent_appearances") }}</loc>
     <changefreq>weekly</changefreq>
   </url>
   <url>
