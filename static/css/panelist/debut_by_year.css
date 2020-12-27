@@ -1,0 +1,8 @@
+@media all {
+    col.debut-show { width: 9rem; }
+    col.debut-bestof { width: 6rem; }
+    col.debut-panelist { width: 15rem; }
+    col.debut-host, col.debut-scorekeeper { width: 10rem; }
+    col.debut-guest { width: 15rem; }
+    td.guest-names ul { list-style: none; margin: 0; padding: 0; }
+}
