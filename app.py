@@ -22,6 +22,7 @@ from reports.panelist import (aggregate_scores,
                               appearances,
                               appearances_by_year,
                               bluff_stats,
+                              debut_by_year,
                               gender_mix,
                               gender_stats,
                               panelist_vs_panelist as pvp,
@@ -42,7 +43,7 @@ from reports.show import (all_women_panel,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.11.1"
+APP_VERSION = "1.12.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -231,6 +232,17 @@ def panelist_bluff_stats():
 
     return render_template("panelist/bluff_stats.html",
                            panelists=panelists)
+
+@app.route("/panelist/debut_by_year")
+def panelist_debut_by_year():
+    """Panelist Debut by Year Report"""
+    database_connection.reconnect()
+    years = debut_by_year.retrieve_show_years(database_connection)
+    debuts = debut_by_year.panelist_debuts_by_year(database_connection)
+
+    return render_template("panelist/debut_by_year.html",
+                           years=years,
+                           debuts=debuts)
 
 @app.route("/panelist/first_most_recent_appearances")
 def panelist_first_most_recent_appearances():
