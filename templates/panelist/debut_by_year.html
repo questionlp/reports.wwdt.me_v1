@@ -37,6 +37,7 @@
         <col class="debut-show">
         <col class="debut-bestof">
         <col class="debut-panelist">
+        <col class="debut-appearances">
         <col class="debut-host">
         <col class="debut-scorekeeper">
         <col class="debut-guest">
@@ -46,6 +47,7 @@
             <th scope="col">Show</th>
             <th scope="col">Best Of</th>
             <th scope="col">Panelist</th>
+            <th scope="col"># of Regular Appearances</th>
             <th scope="col">Host</th>
             <th scope="col">Scorekeeper</th>
             <th scope="col">Guest</th>
@@ -61,6 +63,7 @@
             <td class="no-data">&nbsp;</td>
             {% endif %}
             <td><a href="{{ stats_url}}/panelists/{{ debut.panelist_slug }}">{{ debut.panelist_name }}</a></td>
+            <td>{{ debut.regular_appearances }}</td>
             <td>{{ debut.host }}</td>
             <td>{{ debut.scorekeeper }}</td>
             {% if debut.guests %}
