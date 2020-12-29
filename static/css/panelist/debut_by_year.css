@@ -1,5 +1,5 @@
 @media all {
-    col.debut-show { width: 9rem; }
+    col.debut-show, col.debut-appearances { width: 9rem; }
     col.debut-bestof { width: 6rem; }
     col.debut-panelist { width: 15rem; }
     col.debut-host, col.debut-scorekeeper { width: 10rem; }
