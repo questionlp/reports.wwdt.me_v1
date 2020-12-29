@@ -7,6 +7,8 @@ from collections import OrderedDict
 from typing import Dict, List
 import mysql.connector
 
+from reports.panelist import stats_summary
+
 #region Retrieval Functions
 def retrieve_show_years(database_connection: mysql.connector.connect
                        ) -> List[int]:
@@ -116,6 +118,9 @@ def retrieve_panelists_first_shows(database_connection: mysql.connector.connect
         info["show_id"] = show_id
         info["year"] = row["year"]
         info["best_of"] = show_info["best_of"]
+        appearance_info = stats_summary.retrieve_appearances_by_panelist(info["panelist_slug"],
+                                                                         database_connection)
+        info["regular_appearances"] = appearance_info["regular"]
         info["host"] = show_info["host"]
         info["scorekeeper"] = show_info["scorekeeper"]
 
