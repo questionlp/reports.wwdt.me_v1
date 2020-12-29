@@ -20,6 +20,7 @@ def retrieve_show_years(database_connection: mysql.connector.connect
              "ORDER BY showdate ASC;")
     cursor.execute(query, )
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -46,6 +47,7 @@ def retrieve_show_info(show_date: str,
              "WHERE s.showdate = %s;")
     cursor.execute(query, (show_date, ))
     result = cursor.fetchone()
+    cursor.close()
 
     if not result:
         return None
@@ -73,6 +75,7 @@ def retrieve_show_guests(show_id: int,
              "ORDER BY gm.showguestmapid ASC;")
     cursor.execute(query, (show_id, ))
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
@@ -99,6 +102,7 @@ def retrieve_panelists_first_shows(database_connection: mysql.connector.connect
              "ORDER BY MIN(s.showdate) ASC;")
     cursor.execute(query, )
     result = cursor.fetchall()
+    cursor.close()
 
     if not result:
         return None
