@@ -33,7 +33,7 @@
         <col class="panelist-rank">
         <col class="panelist-rank">
         <col class="panelist-rank">
-        <col class="panelist-rank">
+        <col class="panelist-count">
     </colgroup>
     <thead>
         <tr>
@@ -52,11 +52,26 @@
             <td><a href="{{ stats_url }}/panelists/{{ panelist }}">
                 {{ panelists[panelist].name }}</a></td>
             {% if panelists_rankings[panelist] %}
-            <td>{{ panelists_rankings[panelist]["first"] }}</td>
-            <td>{{ panelists_rankings[panelist]["first_tied"] }}</td>
-            <td>{{ panelists_rankings[panelist]["second"] }}</td>
-            <td>{{ panelists_rankings[panelist]["second_tied"] }}</td>
-            <td>{{ panelists_rankings[panelist]["third"] }}</td>
+            <td>
+                {{ panelists_rankings[panelist]["first"] }}<br>
+                ({{ panelists_rankings[panelist]["percent_first"]}} %)
+            </td>
+            <td>
+                {{ panelists_rankings[panelist]["first_tied"] }}<br>
+                ({{ panelists_rankings[panelist]["percent_first_tied"]}} %)
+            </td>
+            <td>
+                {{ panelists_rankings[panelist]["second"] }}<br>
+                ({{ panelists_rankings[panelist]["percent_second"]}} %)
+            </td>
+            <td>
+                {{ panelists_rankings[panelist]["second_tied"] }}<br>
+                ({{ panelists_rankings[panelist]["percent_second_tied"]}} %)
+            </td>
+            <td>
+                {{ panelists_rankings[panelist]["third"] }}<br>
+                ({{ panelists_rankings[panelist]["percent_third"]}} %)
+            </td>
             <td>{{ panelists_rankings[panelist]["count"] }}</td>
             {% else %}
             <td class="no-data" colspan="6">&nbsp;</td>
