@@ -1,4 +1,5 @@
 @media all {
     col.panelist-name { width: 15rem; }
-    col.panelist-rank { width: 5rem; }
+    col.panelist-rank { width: 9rem; }
+    col.panelist-count { width: 5rem; }
 }

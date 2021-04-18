@@ -84,6 +84,13 @@ def retrieve_rankings_by_panelist(panelist_id: int,
                         result["2"] + result["2t"] + \
                         result["3"]
 
+    if rankings["count"]:
+        rankings["percent_first"] = round(100 * (rankings["first"] / rankings["count"]), 4)
+        rankings["percent_first_tied"] = round(100 * (rankings["first_tied"] / rankings["count"]), 4)
+        rankings["percent_second"] = round(100 * (rankings["second"] / rankings["count"]), 4)
+        rankings["percent_second_tied"] = round(100 * (rankings["second_tied"] / rankings["count"]), 4)
+        rankings["percent_third"] = round(100 * (rankings["third"] / rankings["count"]), 4)
+
     return rankings
 
 def retrieve_all_panelist_rankings(database_connection: mysql.connector.connect
