@@ -53,24 +53,54 @@
                 {{ panelists[panelist].name }}</a></td>
             {% if panelists_rankings[panelist] %}
             <td>
-                {{ panelists_rankings[panelist]["first"] }}<br>
+                {{ panelists_rankings[panelist]["first"] }}
+                {% if panelists_rankings[panelist]["percent_first"] %}
+                <br>
                 ({{ panelists_rankings[panelist]["percent_first"]}} %)
+                {% else %}
+                <br>
+                (0.0 %)
+                {% endif %}
             </td>
             <td>
-                {{ panelists_rankings[panelist]["first_tied"] }}<br>
+                {{ panelists_rankings[panelist]["first_tied"] }}
+                {% if panelists_rankings[panelist]["percent_first_tied"] %}
+                <br>
                 ({{ panelists_rankings[panelist]["percent_first_tied"]}} %)
+                {% else %}
+                <br>
+                (0.0 %)
+                {% endif %}
             </td>
             <td>
-                {{ panelists_rankings[panelist]["second"] }}<br>
+                {{ panelists_rankings[panelist]["second"] }}
+                {% if panelists_rankings[panelist]["percent_second"] %}
+                <br>
                 ({{ panelists_rankings[panelist]["percent_second"]}} %)
+                {% else %}
+                <br>
+                (0.0 %)
+                {% endif %}
             </td>
             <td>
-                {{ panelists_rankings[panelist]["second_tied"] }}<br>
+                {{ panelists_rankings[panelist]["second_tied"] }}
+                {% if panelists_rankings[panelist]["percent_second_tied"] %}
+                <br>
                 ({{ panelists_rankings[panelist]["percent_second_tied"]}} %)
+                {% else %}
+                <br>
+                (0.0 %)
+                {% endif %}
             </td>
             <td>
-                {{ panelists_rankings[panelist]["third"] }}<br>
+                {{ panelists_rankings[panelist]["third"] }}
+                {% if panelists_rankings[panelist]["percent_third"] %}
+                <br>
                 ({{ panelists_rankings[panelist]["percent_third"]}} %)
+                {% else %}
+                <br>
+                (0.0 %)
+                {% endif %}
             </td>
             <td>{{ panelists_rankings[panelist]["count"] }}</td>
             {% else %}
