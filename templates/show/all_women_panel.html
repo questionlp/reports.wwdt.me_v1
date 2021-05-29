@@ -61,12 +61,22 @@
             <td class="panelist-names">
                 <ul>
                 {% for panelist in show.panelists %}
-                    <li>{{ panelist.name }}: {{ panelist.score }}</li>
+                    <li>
+                    {% if show.guest.score %}
+                    {{ panelist.name }}: {{ panelist.score }}
+                    {% else %}
+                    {{ panelist.name }}
+                    {% endif %}    
+                    </li>
                 {% endfor %}
                 </ul>
             </td>
             <td>
+                {% if show.guest.score %}
                 {{ show.guest.name }}: {{ show.guest.score }}
+                {% else %}
+                {{ show.guest.name }}
+                {% endif %}
                 {% if show.guest.exception %}
                 *
                 {% endif %}
