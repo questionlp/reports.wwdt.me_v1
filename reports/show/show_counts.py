@@ -33,16 +33,16 @@ def retrieve_show_counts_by_year(database_connection: mysql.connector.connect
         cursor = database_connection.cursor(dictionary=True)
         query = ("SELECT "
                  "(SELECT COUNT(showid) FROM ww_shows "
-                 " WHERE YEAR(showdate) = %s "
+                 " WHERE YEAR(showdate) = %s AND showdate <= NOW() "
                  " AND bestof = 0 AND repeatshowid IS NULL) AS 'regular', "
                  "(SELECT COUNT(showid) FROM ww_shows "
-                 " WHERE YEAR(showdate) = %s "
+                 " WHERE YEAR(showdate) = %s AND showdate <= NOW() "
                  " AND bestof = 1 AND repeatshowid IS NULL) AS 'bestof', "
                  "(SELECT COUNT(showid) FROM ww_shows "
-                 " WHERE YEAR(showdate) = %s "
+                 " WHERE YEAR(showdate) = %s AND showdate <= NOW() "
                  " AND bestof = 0 AND repeatshowid IS NOT NULL) AS 'repeat', "
                  "(SELECT COUNT(showid) FROM ww_shows "
-                 " WHERE YEAR(showdate) = %s "
+                 " WHERE YEAR(showdate) = %s AND showdate <= NOW() "
                  " AND bestof = 1 AND repeatshowid IS NOT NULL) AS 'repeat_bestof';")
         cursor.execute(query, (year, year, year, year, ))
         result = cursor.fetchone()
