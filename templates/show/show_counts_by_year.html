@@ -21,6 +21,10 @@
     This report provides a count of the number of regular, Best Of, repeat, and
     repeat Best Of shows on a per-year basis.
 </p>
+<p>
+    Show counts for the current year will only include shows that have aired on
+    or before the current date.
+</p>
 {% endblock synopsis %}
 
 {% block content %}
@@ -56,6 +60,16 @@
         </tr>
         {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">Year</th>
+            <th scope="col">Regular Shows</th>
+            <th scope="col">Best Ofs</th>
+            <th scope="col">Repeats</th>
+            <th scope="col">Best Of Repeats</th>
+            <th scope="col">Total</th>
+        </tr>
+    </tfoot>
 </table>
 <!-- End Show Counts by Year Section -->
 {% endblock content %}
