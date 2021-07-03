@@ -5,7 +5,7 @@
 
 from reports.show import (all_women_panel, guest_hosts, guest_scorekeeper,
                           lightning_round, scoring, search_multiple_panelists,
-                          show_details)
+                          show_counts, show_details)
 
 __all__ = [
     "all_women_panel",
@@ -14,5 +14,6 @@ __all__ = [
     "lightning_round",
     "scoring",
     "search_multiple_panelists",
+    "show_counts", 
     "show_details"
 ]
