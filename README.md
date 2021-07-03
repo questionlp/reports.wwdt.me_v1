@@ -8,7 +8,7 @@ returns information about panelists, shows, etc.
 
 ## Requirements
 
-- Python 3.6 or newer (Python 2.x is not supported)
+- Python 3.6 or newer
 - MySQL or MariaDB database containing data from the Wait Wait... Don't Tell
   Me! Stats Page database
 
