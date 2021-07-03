@@ -27,6 +27,7 @@ from reports.show import (all_women_panel,
                           lightning_round,
                           scoring,
                           search_multiple_panelists,
+                          show_counts,
                           show_details)
 
 __all__ = [

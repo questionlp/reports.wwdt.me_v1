@@ -1,0 +1,4 @@
+@media all {
+    col.show-year { width: 6rem; }
+    col.show-count, col.show-total { width: 8rem; }
+}

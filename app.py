@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018-2020 Linh Pham
+# Copyright (c) 2018-2021 Linh Pham
 # reports.wwdt.me is relased under the terms of the Apache License 2.0
 """Flask application startup file"""
 
@@ -40,10 +40,11 @@ from reports.show import (all_women_panel,
                           lightning_round,
                           scoring,
                           search_multiple_panelists as search_mult,
+                          show_counts,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.14.0"
+APP_VERSION = "1.15.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -625,6 +626,14 @@ def show_search_multiple_panelists():
     return render_template("/show/search_multiple_panelists.html",
                            panelists=panelists,
                            shows=None)
+
+@app.route("/show/show_counts_by_year")
+def show_counts_by_year():
+    """Show Counts by Year Report"""
+    database_connection.reconnect()
+    counts = show_counts.retrieve_show_counts_by_year(database_connection)
+
+    return render_template("/show/show_counts_by_year.html", show_counts=counts)
 
 #endregion
 
