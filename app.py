@@ -44,7 +44,7 @@ from reports.show import (all_women_panel,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.15.0"
+APP_VERSION = "1.16.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
