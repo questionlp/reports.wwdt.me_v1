@@ -183,14 +183,11 @@ def retrieve_shows_panelist_score_sum_match(database_connection: mysql.connector
 
     shows_match = OrderedDict()
     for show in shows:
-        print(shows[show])
         show_info = shows[show]
         score_1 = show_info[0]["score"]
         score_2 = show_info[1]["score"]
         score_3 = show_info[2]["score"]
         if score_1 == score_2 + score_3:
-            #print(f"show: {type(show)} {show}")
-            #print(show_info)
             shows_match[show] = show_info
 
     return shows_match
