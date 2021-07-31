@@ -144,4 +144,55 @@ def retrieve_shows_all_low_scoring(database_connection: mysql.connector.connect
 
     return shows
 
+def retrieve_shows_panelist_score_sum_match(database_connection: mysql.connector.connect
+                                           ) -> List[Dict]:
+    """Retrieves shows in which the score of panelist in first place
+    matches the sum of the scores for the other two panelists. Excludes
+    the 20th anniversary show due to unique Lightning Fill-in-the-Blank
+    segment."""
+    cursor = database_connection.cursor(dictionary=True)
+    query = ("SELECT s.showdate, pm.panelistid, p.panelist, p.panelistslug, "
+             "pm.panelistscore, pm.showpnlrank "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL AND "
+	         "s.showdate <> '2018-10-27' AND "
+	         "pm.panelistscore IS NOT NULL "
+             "ORDER BY s.showdate ASC, pm.panelistscore DESC;")
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+
+    if not result:
+        return None
+
+    shows = OrderedDict()
+    for row in result:
+        show_date = row["showdate"].isoformat()
+        if not show_date in shows:
+            shows[show_date] = []
+
+        score = OrderedDict()
+        score["panelist_id"] = row["panelistid"]
+        score["panelist"] = row["panelist"]
+        score["panelist_slug"] = row["panelistslug"]
+        score["score"] = row["panelistscore"]
+        score["rank"] = row["showpnlrank"]
+        shows[show_date].append(score)
+
+    shows_match = OrderedDict()
+    for show in shows:
+        print(shows[show])
+        show_info = shows[show]
+        score_1 = show_info[0]["score"]
+        score_2 = show_info[1]["score"]
+        score_3 = show_info[2]["score"]
+        if score_1 == score_2 + score_3:
+            #print(f"show: {type(show)} {show}")
+            #print(show_info)
+            shows_match[show] = show_info
+
+    return shows_match
+
 #endregion

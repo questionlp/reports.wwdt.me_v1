@@ -44,7 +44,7 @@ from reports.show import (all_women_panel,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.15.0"
+APP_VERSION = "1.16.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -472,6 +472,15 @@ def show_guest_scorekeepers():
 
     return render_template("/show/guest_scorekeepers.html",
                            shows=shows)
+
+@app.route("/show/high_score_equal_sum_other_scores")
+def show_high_score_equal_sum_other_scores():
+    database_connection.reconnect()
+    shows = scoring.retrieve_shows_panelist_score_sum_match(database_connection)
+
+    return render_template("/show/high_score_equal_sum_other_scores.html",
+                           shows=shows,
+                           rank_map=RANK_MAP)
 
 @app.route("/show/high_scoring")
 def show_high_scoring():
