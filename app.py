@@ -44,7 +44,7 @@ from reports.show import (all_women_panel,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.16.1"
+APP_VERSION = "1.17.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
@@ -102,6 +102,12 @@ def handle_exception(error):
     return render_template("errors/500.html",
                            error_traceback=error_traceback), 500
 
+@app.errorhandler(404)
+def not_found(error):
+    """Handle resource not found conditions"""
+    return render_template("errors/404.html",
+                           error_description=error.description), 404
+
 #endregion
 
 #region Default Routes
@@ -126,6 +132,11 @@ def sitemap_xml():
 def get_guest():
     """Guest Reports Landing Page"""
     return render_template("guest/index.html")
+
+@app.route("/guests")
+def get_guests():
+    """Redirect from Guests to Guest Page"""
+    return redirect(url_for("get_guest"), 301)
 
 @app.route("/guest/best_of_only")
 def guest_best_of_only():
@@ -169,6 +180,11 @@ def get_host():
     """Host Reports Landing Page"""
     return render_template("host/index.html")
 
+@app.route("/hosts")
+def get_hosts():
+    """Redirect from Hosts to Host Page"""
+    return redirect(url_for("get_host"), 301)
+
 @app.route("/host/appearance_summary")
 def host_appearance_summary():
     """Host Appearances Summary Report"""
@@ -184,6 +200,11 @@ def host_appearance_summary():
 def get_location():
     """Location Reports Landing Page"""
     return render_template("location/index.html")
+
+@app.route("/locations")
+def get_locations():
+    """Redirect from Locations to Location Page"""
+    return redirect(url_for("get_location"), 301)
 
 @app.route("/location/average_scores")
 def location_average_scores():
@@ -201,6 +222,11 @@ def location_average_scores():
 def get_panelist():
     """Panelist Reports Landing Page"""
     return render_template("panelist/index.html")
+
+@app.route("/panelists")
+def get_panelists():
+    """Redirect from Panelists to Panelist Page"""
+    return redirect(url_for("get_panelist"), 301)
 
 @app.route("/panelist/aggregate_scores")
 def panelist_aggregate_scores():
@@ -402,6 +428,11 @@ def get_scorekeeper():
     """Scorekeeper Reports Landing Page"""
     return render_template("scorekeeper/index.html")
 
+@app.route("/scorekeepers")
+def get_scorekeepers():
+    """Redirect from Scorekeepers to Scorekeeper Page"""
+    return redirect(url_for("get_scorekeeper"), 301)
+
 @app.route("/scorekeeper/appearance_summary")
 def scorekeeper_appearance_summary():
     """Scorekeeper Appearances Summary Report"""
@@ -429,6 +460,11 @@ def scorekeeper_introductions():
 def get_show():
     """Show Reports Landing Page"""
     return render_template("show/index.html")
+
+@app.route("/shows")
+def get_shows():
+    """Redirect from Shows to Show Page"""
+    return redirect(url_for("get_show"), 301)
 
 @app.route("/show/all_shows")
 def show_all_shows():
