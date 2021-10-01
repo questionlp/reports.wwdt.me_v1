@@ -23,3 +23,9 @@
     td.score-tied { background-color: #eee; }
     p.result-message { font-style: italic; margin: 1em 0; }
 }
+
+@media (prefers-color-scheme: dark) {
+    .pure-form legend { color: white; }
+    .pure-form .pure-button-primary { background-color: #0d47a1 !important; }
+    td.score-tied { background-color: #eee; color: black; }
+}

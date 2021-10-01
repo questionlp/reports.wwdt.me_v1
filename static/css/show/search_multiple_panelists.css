@@ -19,3 +19,9 @@
     td.guest-names ul, td.panelist-names ul { list-style: none; margin: 0; padding: 0; }
     p.result-message { font-style: italic; margin: 1em 0; }
 }
+
+@media (prefers-color-scheme: dark) {
+    .pure-form legend { color: white; }
+    .pure-form .pure-button-primary { background-color: #0d47a1 !important; }
+    td.score-tied { background-color: #eee; color: black; }
+}
