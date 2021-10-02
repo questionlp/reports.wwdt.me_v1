@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Not Found{% endblock %}
+
+{% block breadcrumb %}
+<div id="breadcrumb">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li>Not Found</li>
+    </ul>
+</div>
+{% endblock breadcrumb %}
+
+{% block content %}
+<section id="summary">
+<h2>Not Found</h2>
+<p>
+    We couldn't find the content that you were looking for.
+</p>
+
+<p>
+    Use the following links in the Site Navigation section below to view
+    content available on this site.
+</p>
+</section>
+
+<section id="toc">
+<h2>Site Navigation</h2>
+<ul>
+    <li><a href="{{ url_for('get_guest') }}">Guest</a></li>
+    <li><a href="{{ url_for('get_host') }}">Host</a></li>
+    <li><a href="{{ url_for('get_location') }}">Location</a></li>
+    <li><a href="{{ url_for('get_panelist') }}">Panelist</a></li>
+    <li><a href="{{ url_for('get_scorekeeper') }}">Scorekeeper</a></li>
+    <li><a href="{{ url_for('get_show') }}">Show</a></li>
+</ul>
+</section>
+
+{% endblock content %}
