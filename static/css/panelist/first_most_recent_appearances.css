@@ -2,4 +2,5 @@
     table.pure-table { max-width: 80rem; }
     col.panelist { width: 15rem; }
     col.panelist-first, col.panelist-most-recent { width: 9rem; }
+    col.panelist-count { width: 6rem; }
 }
