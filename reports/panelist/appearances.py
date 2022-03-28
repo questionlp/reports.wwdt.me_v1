@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018-2020 Linh Pham
-# reports.wwdt.me is relased under the terms of the Apache License 2.0
+# Copyright (c) 2018-2022 Linh Pham
+# reports.wwdt.me is released under the terms of the Apache License 2.0
 """WWDTM Panelist Appearances Report Functions"""
 
 from collections import OrderedDict
@@ -53,8 +53,10 @@ def retrieve_first_most_recent_appearances(database_connection: mysql.connector.
         info["slug"] = panelist["slug"]
         info["first"] = None
         info["most_recent"] = None
+        info["count"] = 0
         info["first_all"] = None
         info["most_recent_all"] = None
+        info["count_all"] = 0
         panelist_appearances[panelist["slug"]] = info
 
     cursor = database_connection.cursor(dictionary=True)
@@ -78,6 +80,41 @@ def retrieve_first_most_recent_appearances(database_connection: mysql.connector.
         slug = row["panelistslug"]
         panelist_appearances[slug]["first"] = row["min"].isoformat()
         panelist_appearances[slug]["most_recent"] = row["max"].isoformat()
+
+    query = ("SELECT p.panelist, p.panelistslug, COUNT(pm.panelistid) AS count "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE s.bestof = 0 AND s.repeatshowid IS NULL "
+             "AND p.panelist <> '<Multiple>' "
+             "GROUP BY p.panelistid "
+             "ORDER BY p.panelist ASC")
+    cursor.execute(query)
+    result = cursor.fetchall()
+
+    if not result:
+        return None
+
+    for row in result:
+        slug = row["panelistslug"]
+        panelist_appearances[slug]["count"] = row["count"]
+
+    query = ("SELECT p.panelist, p.panelistslug, COUNT(pm.panelistid) AS count "
+             "FROM ww_showpnlmap pm "
+             "JOIN ww_shows s ON s.showid = pm.showid "
+             "JOIN ww_panelists p ON p.panelistid = pm.panelistid "
+             "WHERE p.panelist <> '<Multiple>' "
+             "GROUP BY p.panelistid "
+             "ORDER BY p.panelist ASC")
+    cursor.execute(query)
+    result = cursor.fetchall()
+
+    if not result:
+        return None
+
+    for row in result:
+        slug = row["panelistslug"]
+        panelist_appearances[slug]["count_all"] = row["count"]
 
     query = ("SELECT p.panelist, p.panelistslug, "
              "MIN(s.showdate) AS min, MAX(s.showdate) AS max "

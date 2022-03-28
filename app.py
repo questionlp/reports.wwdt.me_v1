@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018-2021 Linh Pham
-# reports.wwdt.me is relased under the terms of the Apache License 2.0
+# Copyright (c) 2018-2022 Linh Pham
+# reports.wwdt.me is released under the terms of the Apache License 2.0
 """Flask application startup file"""
 
 import json
@@ -44,7 +44,7 @@ from reports.show import (all_women_panel,
                           show_details)
 
 #region Global Constants
-APP_VERSION = "1.17.0"
+APP_VERSION = "1.18.0"
 RANK_MAP = {
     "1": "First",
     "1t": "First Tied",
