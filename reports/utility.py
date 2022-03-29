@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018-2020 Linh Pham
-# reports.wwdt.me is relased under the terms of the Apache License 2.0
+# Copyright (c) 2018-2022 Linh Pham
+# reports.wwdt.me is released under the terms of the Apache License 2.0
 """Utility functions used by the Reports Site"""
 
 from functools import cmp_to_key

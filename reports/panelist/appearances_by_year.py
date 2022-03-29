@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018-2020 Linh Pham
-# reports.wwdt.me is relased under the terms of the Apache License 2.0
+# Copyright (c) 2018-2022 Linh Pham
+# reports.wwdt.me is released under the terms of the Apache License 2.0
 """WWDTM Panelist Apperances by Year Report Functions"""
 
 from collections import OrderedDict
