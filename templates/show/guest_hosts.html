@@ -74,6 +74,7 @@
             {% else %}
             <td class="no-data">&nbsp;</td>
             {% endif %}
+            {% if show.panelists %}
             <td class="panelist-names">
                 <ul>
                 {% for panelist in show.panelists %}
@@ -81,6 +82,9 @@
                 {% endfor %}
                 </ul>
             </td>
+            {% else %}
+            <td class="no-data">&nbsp;</td>
+            {% endif %}
             {% if show.guests %}
             <td class="guest-names">
                 <ul>
